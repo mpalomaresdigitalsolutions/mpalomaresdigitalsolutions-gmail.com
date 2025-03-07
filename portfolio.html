@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Mpalomares Digital Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --primary-dark: #004c99;
+            --primary-light: #66a3ff;
+            --secondary-color: #333;
+            --accent-color: #ff6b00;
+            --white: #ffffff;
+            --overlay-bg: rgba(255, 255, 255, 0.1);
+            --gradient-start: #0066cc;
+            --gradient-end: #00ccff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--secondary-color);
+            background-color: var(--white);
+        }
+
+        /* Enhanced Hero Section */
+        .portfolio-hero {
+            position: relative;
+            min-height: 90vh;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%), url('your-hero-image.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 4rem 5%;
+            overflow: hidden;
+        }
+
+        .portfolio-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: repeating-radial-gradient(
+                circle at 50% 50%,
+                transparent,
+                var(--overlay-bg) 20px
+            );
+            animation: wave 15s linear infinite;
+            opacity: 0.3;
+        }
+
+        /* Added geometric shapes for visual interest */
+        .hero-shape {
+            position: absolute;
+            background: var(--primary-light);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .hero-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .hero-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            right: 10%;
+            animation: float 20s ease-in-out infinite reverse;
+        }
+
+        .hero-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: -50px;
+            animation: float 18s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 4.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+            background: linear-gradient(135deg, #ffffff 0%, #e6f2ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 2.5s ease-in-out;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-tagline {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transform: translateY(-20px);
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 270px;
+            height: 270px;
+            margin: 0 auto 3rem;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            transition: all 0.4s ease;
+            animation: pulse 5s infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            opacity: 0.5;
+            filter: blur(15px);
+            z-index: 1;
+        }
+
+        .profile-badges {
+            position: absolute;
+            z-index: 3;
+        }
+
+        .profile-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--white);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-badge:hover {
+            transform: scale(1.1);
+        }
+
+        .badge-google {
+            position: absolute;
+            top: 15px;
+            right: -20px;
+            background: #ea4335;
+            color: var(--white);
+        }
+
+        .badge-analytics {
+            position: absolute;
+            bottom: 30px;
+            left: -20px;
+            background: #4285f4;
+            color: var(--white);
+        }
+
+        .badge-cert {
+            position: absolute;
+            bottom: -10px;
+            right: 30px;
+            background: #fbbc05;
+            color: var(--white);
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-cta.primary {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-cta.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .hero-cta.secondary {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-cta.secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2rem 1rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 900px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        /* Enhanced Portfolio Grid */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 8rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            padding: 0 5% 4rem;
+            position: relative;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 102, 0.15);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0) 40%, 
+                rgba(0, 0, 0, 0.7) 70%, 
+                rgba(0, 0, 0, 0.9) 100%);
+            color: var(--white);
+            padding: 2rem;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .portfolio-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-overlay h4 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .portfolio-overlay p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: auto;
+            font-weight: 600;
+        }
+
+        .project-stats div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .view-project {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-item:hover .view-project {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Enhanced CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: var(--white);
+            padding: 6rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.5"/></svg>');
+            background-repeat: repeat;
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-section p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-bullets {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-bullet {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .cta-bullet i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .cta-button {
+            padding: 1.5rem 4rem;
+            background: var(--white);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-guarantee {
+            margin-top: 2rem;
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #f8f9fa;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--accent-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 2rem 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-hero {
+                min-height: 70vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.3rem;
+            }
+            
+            .portfolio-item img {
+                height: 350px;
+            }
+
+            .cta-section h2 {
+                font-size: 2.8rem;
+            }
+
+            .cta-bullet {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .profile-badge {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-cta {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                padding: 1.5rem;
+                justify-content: center;
+            }
+
+            .cta-bullets {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+                text-align: left;
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="portfolio-hero">
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+        <div class="hero-content">
+            <div class="hero-tagline">
+                <i class="fas fa-check-circle"></i> Google Ads Certified Professional
+            </div>
+            <div class="profile-container">
+                <div class="profile-glow"></div>
+                <img src="assets/images/Profile.png" alt="Marlon's Profile Picture" class="profile-image">
+                <div class="profile-badges">
+                    <div class="profile-badge badge-google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="profile-badge badge-analytics">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="profile-badge badge-cert">
+                        <i class="fas fa-award"></i>
+                    </div>
+                </div>
+            </div>
+            <h1>Transform Your Ad Spend Into Unstoppable Revenue</h1>
+            <p>I'm Marlon, a Google Ads Specialist who has helped businesses just like yours achieve 3X ROAS and dominate their markets.</p>
+            <div class="cta-buttons">
+                <a href="portfolio.html" class="hero-cta primary">
+                    <i class="fas fa-trophy"></i> View Success Stories
+                </a>
+                <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="hero-cta secondary">
+                    <i class="fas fa-calendar-check"></i> Book Free Strategy Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">
+                <i class="fas fa-chart-line"></i> 300%
+            </div>
+            <div class="stat-label">Avg. ROI Increase</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">
+                <i class="fas fa-user-friends"></i> 50+
+            </div>
+            <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">
+                <i class="fas fa-dollar-sign"></i> 2M+
+            </div>
+            <div class="stat-label">Ad Spend Managed</div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>Client Success Stories</h2>
+        <p class="section-subtitle">Real results that helped businesses grow their bottom line</p>
+    </div>
+
+    <section class="portfolio-grid">
+        <div class="portfolio-item">
+            <span class="portfolio-category">E-commerce</span>
+            <a href="#" class="view-project">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <img src="project1.jpg" alt="Project 1">
+            <div class="portfolio-overlay">
+                <h4>Zero to $100K in 60 Days</h4>
+                <p>Helped a new skincare brand scale from launch to 6-figures in just two months</p>
+                <div class="project-stats">
+                    <div><i class="fas fa-chart-line"></i> 120% ROI</div>
+                    <div><i class="fas fa-mouse-pointer"></i> 50k+ Clicks</div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <span class="portfolio-category">Local Business</span>
+            <a href="#" class="view-project">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <img src="project2.jpg" alt="Project 2">
+            <div class="portfolio-overlay">
+                <h4>Dental Practice Leads Surge</h4>
+                <p>Revolutionized appointment bookings for a struggling dental practice</p>
+                <div class="project-stats">
+                    <div><i class="fas fa-dollar-sign"></i> $50k Budget</div>
+                    <div><i class="fas fa-percentage"></i> 35% CTR</div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <span class="portfolio-category">SaaS</span>
+            <a href="#" class="view-project">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <img src="project3.jpg" alt="Project 3">
+            <div class="portfolio-overlay">
+                <h4>B2B SaaS Client Acquisition</h4>
+                <p>Slashed CAC by 40% while scaling new user signups for enterprise software</p>
+                <div class="project-stats">
+                    <div><i class="fas fa-chart-pie"></i> 180% ROI</div>
+                    <div><i class="fas fa-eye"></i> 80k+ Impressions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Stop Wasting Money on Underperforming Ads?</h2>
+            <p>Let's create a data-driven Google Ads strategy that actually delivers results.</p>
+            
+            <div class="cta-bullets">
+                <div class="cta-bullet">
+                    <i class="fas fa-rocket"></i>
+                    <span>3X ROAS Guarantee</span>
+                </div>
+                <div class="cta-bullet">
+                    <i class="fas fa-clock"></i>
+                    <span>Results in 30 Days</span>
+                </div>
+                <div class="cta-bullet">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Weekly Performance Reports</span>
+                </div>
+            </div>
+            
+            <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button">
+                <i class="fas fa-calendar-alt"></i> Claim Your Free Strategy Session
+            </a>
+            
+            <div class="cta-guarantee">
+                <i class="fas fa-shield-alt"></i> No contracts. No obligation. Just actionable insights.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mpdigital/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://x.com/marlonpalo64854" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/marlon.palomares.2024/" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/palomares523/" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>© 2024 Mpalomares Digital Solutions | Google Ads & Digital Marketing Specialist</p>
+        </div>
+    </footer>
+</body>
+</html>

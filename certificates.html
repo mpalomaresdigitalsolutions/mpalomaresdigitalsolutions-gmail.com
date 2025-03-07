@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates | Mpalomares Digital Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066cc; /* Blue */
+            --secondary-color: #333; /* Dark Gray */
+            --light-gray: #f4f4f4;
+            --white: #fff;
+            --font-size-base: 1rem; /* Base font size */
+            --border-color: rgba(0, 102, 204, 0.3); /* Semi-transparent blue for borders */
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--secondary-color);
+            background-color: var(--light-gray);
+            overflow-x: hidden;
+            font-size: var(--font-size-base); /* Set base font size */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            height: 90px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            transition: color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 90px;
+            position: relative;
+            background-image: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Certificate containers */
+        .certificates-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .certificates-heading {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .certificates-heading h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .certificates-heading h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .certificates-heading p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .certificate-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .certificate-icon {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .search-icon {
+            background: var(--google-blue);
+            color: var(--white);
+        }
+
+        .display-icon {
+            background: var(--google-red);
+            color: var(--white);
+        }
+
+        .video-icon {
+            background: var(--google-green);
+            color: var(--white);
+        }
+
+        .analytics-icon {
+            background: var(--google-yellow);
+            color: #333;
+        }
+
+        .shopping-icon {
+            background: var(--google-blue);
+            color: var(--white);
+        }
+
+        .partner-icon {
+            background: linear-gradient(135deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+            color: var(--white);
+        }
+
+        .certificate-image {
+            height: 200px;
+            background-color: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .certificate-card:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .certificate-card:hover .certificate-image img {
+            transform: scale(1.05);
+        }
+
+        .certificate-content {
+            padding: 1.8rem;
+        }
+
+        .certificate-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .certificate-content .credential-type {
+            display: inline-block;
+            font-size: 0.8rem;
+            background-color: rgba(0, 102, 204, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .certificate-content p {
+            color: var(--secondary-color);
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .certificate-meta {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .certificate-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-button {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,102,204,0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .view-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,102,204,0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #333;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            color: var(--primary-color);
+        }
+
+        /* Animation for certificates */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .certificate-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .certificate-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .certificate-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .certificate-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        
+        .certificate-card:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+        
+        .certificate-card:nth-child(6) {
+            animation-delay: 1s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .certificates-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .nav-links a span {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+        </div>
+        <div class="nav-links">
+            <a href="Home.html"><i class="fas fa-home"></i> <span>Home</span></a>
+            <a href="services.html"><i class="fas fa-cogs"></i> <span>Services</span></a>
+            <a href="portfolio.html"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a>
+            <a href="blog.html"><i class="fas fa-blog"></i> <span>Blog</span></a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+            <a href="certificates.html"><i class="fas fa-envelope"></i> <span>Certificates</span></a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1><i class="fas fa-award"></i> Our Certifications & Credentials</h1>
+        <p>Proven expertise and recognized qualifications that ensure we deliver the highest quality digital marketing services</p>
+    </header>
+
+    <section class="certificates-container">
+        <div class="certificates-heading">
+            <h2>Google Ads Certified Professional</h2>
+            <p>Our team holds active certifications in all Google Ads specializations, demonstrating our expertise in creating and managing high-performance digital advertising campaigns.</p>
+        </div>
+        
+        <div class="certificates-grid">
+            <!-- Google Ads Search Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/1.png" alt="Google Ads Search Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Google Certification</span>
+                    <h3>Google Ads Search</h3>
+                    <p>Expert-level knowledge in creating and optimizing search campaigns that drive high-quality traffic and conversions through strategic keyword targeting.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Issued: 2023</span>
+                        <span><i class="fas fa-sync-alt"></i> Valid: 1 year</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Google Ads Display Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon display-icon">
+                    <i class="far fa-window-maximize"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/2.png" alt="Google Ads Display Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Google Certification</span>
+                    <h3>Google Ads Display</h3>
+                    <p>Specialized expertise in creating visually engaging display campaigns that build brand awareness and drive remarketing performance.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Issued: 2023</span>
+                        <span><i class="fas fa-sync-alt"></i> Valid: 1 year</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Google Ads Video Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon video-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/3.png" alt="Google Ads Video Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Google Certification</span>
+                    <h3>Google Ads Video</h3>
+                    <p>Certified expertise in YouTube and video advertising strategies that boost engagement and drive measurable campaign results.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Issued: 2023</span>
+                        <span><i class="fas fa-sync-alt"></i> Valid: 1 year</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Google Analytics Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon analytics-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/4.png" alt="Google Analytics Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Google Certification</span>
+                    <h3>Google Analytics</h3>
+                    <p>Advanced proficiency in implementing, analyzing, and deriving actionable insights from website analytics to optimize marketing performance.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Issued: 2023</span>
+                        <span><i class="fas fa-sync-alt"></i> Valid: 1 year</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Google Shopping Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon shopping-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/5.png" alt="Google Shopping Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Google Certification</span>
+                    <h3>Google Ads Shopping</h3>
+                    <p>Specialized knowledge in product feed optimization and shopping campaign management to maximize e-commerce sales and ROAS.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Issued: 2023</span>
+                        <span><i class="fas fa-sync-alt"></i> Valid: 1 year</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Google Partner Certificate -->
+            <div class="certificate-card">
+                <div class="certificate-icon partner-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="certificate-image">
+                    <img src="assets/images/1.png" alt="Google Partner Certification">
+                    <div class="certificate-overlay"></div>
+                </div>
+                <div class="certificate-content">
+                    <span class="credential-type">Agency Credential</span>
+                    <h3>Google Partner Agency</h3>
+                    <p>Official Google Partner status recognizing our agency's expertise, campaign performance, and adherence to Google's best practices in advertising.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-calendar-alt"></i> Active since: 2021</span>
+                        <span><i class="fas fa-medal"></i> Status: Active</span>
+                    </div>
+                    <a href="#" class="view-button">View Credential <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>© 2024 Mpalomares Digital Solutions</p>
+    </footer>
+
+    <script>
+        // JavaScript for additional interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation class when page loads
+            const cards = document.querySelectorAll('.certificate-card');
+            cards.forEach(card => {
+                card.classList.add('animate');
+            });
+        });
+    </script>
+</body>
+</html>
