@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Ads Beginner Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4285F4; /* Google blue */
+      --secondary: #0F9D58; /* Google green */
+      --accent: #EA4335; /* Google red */
+      --yellow: #FBBC05; /* Google yellow */
+      --text: #333;
+      --light-text: #666;
+      --background: #f8f9fa;
+      --border-radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Google Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .profile-container {
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .profile-header {
+      padding: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .profile-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 0h2v20H9V0zm25.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm-20 20l1.732 1-10 17.32-1.732-1 10-17.32zM58.16 4.134l1 1.732-17.32 10-1-1.732 17.32-10zm-40 40l1 1.732-17.32 10-1-1.732 17.32-10zM80 9v2H60V9h20zM20 69v2H0v-2h20zm79.32-55l-1 1.732-17.32-10L82 4l17.32 10zm-80 80l-1 1.732-17.32-10L2 84l17.32 10zm96.546-75.84l-1.732 1-10-17.32 1.732-1 10 17.32zm-100 100l-1.732 1-10-17.32 1.732-1 10 17.32zM38.16 24.134l1 1.732-17.32 10-1-1.732 17.32-10zM60 29v2H40v-2h20zm19.32 5l-1 1.732-17.32-10L62 24l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM111 40h-2V20h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zM40 49v2H20v-2h20zm19.32 5l-1 1.732-17.32-10L42 44l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM91 60h-2V40h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM39.32 74l-1 1.732-17.32-10L22 64l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM71 80h-2V60h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM120 89v2h-20v-2h20zm-84.134 9.16l-1.732 1-10-17.32 1.732-1 10 17.32zM51 100h-2V80h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM100 109v2H80v-2h20zm19.32 5l-1 1.732-17.32-10 1-1.732 17.32 10zM31 120h-2v-20h2v20z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.7;
+    }
+    
+    .profile-content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .profile-image {
+      flex: 1;
+      min-width: 280px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile-image img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .profile-details {
+      flex: 2;
+      min-width: 280px;
+      padding: 40px;
+    }
+    
+    .headline {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .headline::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .subheadline {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      color: var(--light-text);
+    }
+    
+    .description {
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    
+    .portfolio-building {
+      background: rgba(15, 157, 88, 0.1);
+      border-left: 4px solid var(--secondary);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(66, 133, 244, 0.6);
+    }
+    
+    .cta-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .cta-button:hover::after {
+      left: 100%;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      color: var(--primary);
+      font-size: 1.3rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-5px);
+      color: white;
+    }
+    
+    .facebook:hover {
+      background: #3b5998;
+      border-color: #3b5998;
+    }
+    
+    .twitter:hover {
+      background: #1da1f2;
+      border-color: #1da1f2;
+    }
+    
+    .instagram:hover {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-color: #e1306c;
+    }
+    
+    .linkedin:hover {
+      background: #0077b5;
+      border-color: #0077b5;
+    }
+    
+    .skill-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .skill-badge {
+      padding: 8px 15px;
+      background: rgba(66, 133, 244, 0.1);
+      color: var(--primary);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .skill-badge i {
+      font-size: 0.8rem;
+    }
+    
+    .ai-badge {
+      background: rgba(251, 188, 5, 0.1);
+      color: var(--yellow);
+    }
+    
+    .skill-card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .skill-item {
+      flex: 1;
+      min-width: 150px;
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .skill-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    
+    .skill-item:nth-child(2) .skill-icon {
+      color: var(--secondary);
+    }
+    
+    .skill-item:nth-child(3) .skill-icon {
+      color: var(--accent);
+    }
+    
+    .skill-item:nth-child(4) .skill-icon {
+      color: var(--yellow);
+    }
+    
+    .skill-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .skill-desc {
+      font-size: 0.85rem;
+      color: var(--light-text);
+    }
+    
+    @media (max-width: 768px) {
+      .profile-content {
+        flex-direction: column;
+      }
+      
+      .profile-image {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      .skill-card {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Google Ads Enthusiast</h2>
+      <p style="opacity: 0.9; max-width: 600px;">Building my portfolio one campaign at a time</p>
+    </div>
+    
+    <div class="profile-content">
+      <div class="profile-image">
+        <!-- Updated image to display properly -->
+        <img src="https://via.placeholder.com/200x200.png" alt="Profile Image" id="profile-picture">
+        <div class="social-links">
+          <a href="https://www.facebook.com/marlon.palomares.2024/" class="social-icon facebook" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://x.com/marlonpalo64854" class="social-icon twitter" target="_blank" aria-label="X (Twitter)">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/palomares523/" class="social-icon instagram" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/mpdigital/" class="social-icon linkedin" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="profile-details">
+        <h1 class="headline">Growing With Google Ads</h1>
+        <p class="subheadline">Bringing AI-Enhanced Approaches to Digital Marketing</p>
+        
+        <p class="description">
+          I'm an enthusiastic Google Ads learner with a passion for digital marketing and AI integration. 
+          Currently building my portfolio through hands-on experience, I'm eager to help businesses explore 
+          the potential of Google Ads while applying innovative AI-driven strategies to optimize campaigns.
+        </p>
+        
+        <div class="portfolio-building">
+          <h3 style="margin-bottom: 10px; color: var(--secondary);"><i class="fas fa-gift" style="margin-right: 8px;"></i> Free Google Ads Services</h3>
+          <p>I'm offering complimentary Google Ads campaign setup and management to build my portfolio. This is a perfect opportunity for small businesses to try Google Ads with no financial risk while I gain valuable experience.</p>
+        </div>
+        
+        <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button" target="_blank">
+          <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> Schedule Your Free Consultation
+        </a>
+        
+        <div class="skill-card">
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fab fa-google"></i></div>
+            <div class="skill-title">Google Ads Setup</div>
+            <div class="skill-desc">Campaign structure, keyword research, ad group creation</div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-robot"></i></div>
+            <div class="skill-title">AI Integration</div>
+            <div class="skill-desc">Using AI tools for ad copy generation and campaign optimization</div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-edit"></i></div>
+            <div class="skill-title">Creative Copy</div>
+            <div class="skill-desc">Crafting compelling ad headlines and descriptions</div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="skill-title">Basic Analytics</div>
+            <div class="skill-desc">Setting up tracking and reporting on key metrics</div>
+          </div>
+        </div>
+        
+        <div class="skill-badges">
+          <div class="skill-badge"><i class="fas fa-search"></i> Keyword Research</div>
+          <div class="skill-badge"><i class="fas fa-bullseye"></i> Audience Targeting</div>
+          <div class="skill-badge"><i class="fas fa-ad"></i> Ad Creation</div>
+          <div class="skill-badge ai-badge"><i class="fas fa-brain"></i> AI-Assisted Copy</div>
+          <div class="skill-badge ai-badge"><i class="fas fa-cogs"></i> AI Tools</div>
+          <div class="skill-badge"><i class="fas fa-chart-bar"></i> Basic Reporting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Script to update the profile image to the one from the image upload -->
+  <script>
+    // Function to update the profile picture
+    // This assumes you'll upload your image and get a URL for it
+    function updateProfilePicture(imageUrl) {
+      const profilePicture = document.getElementById('profile-picture');
+      if (profilePicture && imageUrl) {
+        profilePicture.src = imageUrl;
+      }
+    }
+    
+    // Example of how you might use this function:
+    // Replace 'YOUR_IMAGE_URL_HERE' with your actual image URL
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   updateProfilePicture('YOUR_IMAGE_URL_HERE');
+    // });
+  </script>
+</body>
+</html>
