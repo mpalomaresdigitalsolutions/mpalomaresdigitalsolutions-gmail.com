@@ -1,818 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Mpalomares Digital Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Global Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background: #f9f9f9;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 5%;
-            background: #fff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 90%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo img {
-            height: 60px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links a:hover {
-            color: #0066cc;
-            background: rgba(0, 102, 204, 0.1);
-        }
-
-        .nav-links a.active {
-            color: #0066cc;
-            background: rgba(0, 102, 204, 0.1);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            height: 40vh;
-            background: linear-gradient(135deg, #0066cc 0%, #004e9c 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-top: 88px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 0 2rem;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>');
-            opacity: 0.1;
-        }
-
-        .hero-section h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 4rem 5%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: -50px auto 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e1e1e1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            color: #0066cc;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.8rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: #0066cc;
-            border-radius: 2px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px dashed #e1e1e1;
-        }
-
-        .contact-method:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 102, 204, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0066cc;
-            font-size: 1.2rem;
-            margin-right: 1rem;
-            flex-shrink: 0;
-            transition: all 0.3s;
-        }
-
-        .contact-method:hover .contact-icon {
-            background: #0066cc;
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .contact-details h3 {
-            font-size: 1.2rem;
-            margin: 0 0 0.5rem 0;
-            color: #333;
-        }
-
-        .contact-details p {
-            margin: 0;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .contact-details a {
-            color: #0066cc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-details a:hover {
-            text-decoration: underline;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: #0066cc;
-            color: white;
-            transform: translateY(-5px);
-        }
-
-        .contact-form-container {
-            flex: 1.5;
-            min-width: 300px;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e1e1e1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-background {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: rgba(0, 102, 204, 0.05);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .form-background::before {
-            content: '';
-            position: absolute;
-            top: 50px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 102, 204, 0.03);
-            border-radius: 50%;
-        }
-
-        .contact-form {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            position: relative;
-        }
-
-        .form-row {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        label {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        label i {
-            color: #0066cc;
-        }
-
-        .input-container {
-            position: relative;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select,
-        textarea {
-            padding: 1rem 1rem 1rem 3rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.3s;
-            background: #f9f9f9;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
-            background: white;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            transition: all 0.3s;
-        }
-
-        input:focus + .input-icon,
-        textarea:focus + .input-icon,
-        select:focus + .input-icon {
-            color: #0066cc;
-        }
-
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-            padding-top: 2.5rem;
-        }
-
-        .textarea-container .input-icon {
-            top: 1.5rem;
-            transform: none;
-        }
-
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.5rem;
-        }
-
-        .privacy-note {
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        .submit-btn {
-            background: #0066cc;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
-        }
-
-        .submit-btn:hover {
-            background: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #0066cc 0%, #004e9c 100%);
-            padding: 4rem 5%;
-            text-align: center;
-            color: white;
-            margin-top: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>');
-            opacity: 0.1;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .cta-btn-primary {
-            background: white;
-            color: #0066cc;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-btn-primary:hover {
-            background: #f0f0f0;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .cta-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* Map Section */
-        .map-section {
-            height: 400px;
-            background: #e9e9e9;
-            position: relative;
-        }
-
-        /* Footer */
-        footer {
-            background: #222;
-            color: #fff;
-            padding: 3rem 5% 2rem;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-about {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .footer-about img {
-            height: 50px;
-            margin-bottom: 1rem;
-        }
-
-        .footer-about p {
-            color: #bbb;
-            line-height: 1.6;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-        }
-
-        .footer-links h3 {
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            position: relative;
-        }
-
-        .footer-links h3::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 3px;
-            background: #0066cc;
-            margin-top: 0.8rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #0066cc;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #333;
-            color: #999;
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Mpalomares Digital Solutions</title>
+  <!-- Google Fonts -->  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/Mylogo.svg" type="image/svg+xml" />
+
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("7cldp91TueGi-giUu");
+    })();
+  </script>
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: #f9f9f9;
+      line-height: 1.6;
+    }
+    /* Navigation */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5%;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 90%;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo img {
+      height: 60px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-links a:hover {
+      color: #0066cc;
+      background: rgba(0, 102, 204, 0.1);
+    }
+    .nav-links a.active {
+      color: #0066cc;
+      background: rgba(0, 102, 204, 0.1);
+    }
+    /* HERO SECTION */
+    .hero-section {
+      height: 40vh;
+      background: linear-gradient(135deg, #0066cc 0%, #004e9c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 88px;
+    }
+    .hero-section::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 2px solid rgba(0, 102, 204, 0.3);
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 10px;
+      animation: pulse 3s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px rgba(0, 102, 204, 0.3); }
+      100% { box-shadow: 0 0 25px rgba(0, 102, 204, 0.6); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      border: 1px solid rgba(0, 102, 204, 0.3);
+      backdrop-filter: blur(5px);
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: #0066cc;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+      color: #333;
+    }
+    .highlight {
+      color: #ff6b00;
+      font-weight: 700;
+    }
+    /* CTA BUTTONS */
+    .cta-container {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .cta-button {
+      padding: 1rem 2.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      border: none;
+    }
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    .cta-button.primary {
+      background: #0066cc;
+      color: #fff;
+    }
+    .cta-button.accent {
+      background: #ff6b00;
+      color: #fff;
+    }
+    .cta-button.primary:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .cta-button.accent:hover {
+      background-color: #e55e00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    /* ROI CALCULATOR */
+    .roi-calculator {
+      text-align: center;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      padding: 3rem;
+      background: #fff;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      position: relative;
+      border: 1px solid rgba(0, 102, 204, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .roi-calculator:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    .roi-calculator::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px dashed rgba(0, 102, 204, 0.3);
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 5px;
+    }
+    .calculator-content {
+      position: relative;
+      z-index: 1;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #0066cc;
+      transition: all 0.3s ease;
+    }
+    .input-group:focus-within i {
+      color: #ff6b00;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .roi-calculator input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+      background: #f9f9f9;
+    }
+    .roi-calculator input:focus {
+      outline: none;
+      border-color: #0066cc;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+      background: #fff;
+    }
+    .roi-calculator h2 {
+      color: #0066cc;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .roi-calculator p {
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    #roi-result {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    /* CONTACT FORM SECTION using EmailJS */
+    .contact-section {
+      padding: 4rem 5%;
+      background: #fff;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 3rem auto;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 102, 204, 0.3);
+    }
+    .contact-section h2 {
+      color: #0066cc;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .contact-form-group {
+      margin-bottom: 1.5rem;
+    }
+    .contact-form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .contact-form-group input,
+    .contact-form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+    .contact-form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .contact-form-group button {
+      display: inline-block;
+      background: #0066cc;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .contact-form-group button:hover {
+      background: #0056b3;
+      transform: translateY(-3px);
+    }
+    .form-message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #ff6b00;
+      display: none;
+    }
+    /* MAP SECTION */
+    .map-section {
+      height: 400px;
+      background: #e9e9e9;
+      position: relative;
+    }
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, #0066cc 0%, #004e9c 100%);
+      padding: 4rem 5%;
+      text-align: center;
+      color: white;
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>');
+      opacity: 0.1;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .cta-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .cta-btn-primary {
+      background: white;
+      color: #0066cc;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .cta-btn-primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .cta-btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    .cta-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+    /* FOOTER */
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 3rem 5% 2rem;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-about {
+      flex: 1;
+      min-width: 250px;
+    }
+    .footer-about img {
+      height: 50px;
+      margin-bottom: 1rem;
+    }
+    .footer-about p {
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    .footer-links h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+    }
+    .footer-links h3::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: #0066cc;
+      margin-top: 0.8rem;
+    }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #0066cc;
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #333;
+      color: #999;
+    }
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">
-          <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active"><i class="fas fa-house-chimney"></i> <span>Home</span></a>
+      <a href="services.html"><i class="fas fa-rocket"></i> <span>Services</span></a>
+      <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+      <a href="blog.html"><i class="fas fa-pen-fancy"></i> <span>Blog</span></a>
+      <a href="contact.html"><i class="fas fa-headset"></i> <span>Contact</span></a>
+      <a href="certificates.html"><i class="fas fa-award"></i> <span>Certificates</span></a>
+      <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
+      <a href="case-studies.html"><i class="fas fa-user"></i> <span>Case Studies</span></a>
+    </div>
+    <div class="mobile-toggle" id="mobile-toggle" style="display: none;">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1><i class="fas fa-paper-plane"></i> Let's Start a Conversation</h1>
+      <p>We're excited to hear about your project and explore how we can help achieve your digital marketing goals</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="contact-info animate">
+      <h2 class="section-title">Get in Touch</h2>
+      
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="contact-details">
+          <h3>Our Location</h3>
+          <p>Sitio Bayan bayanan Brgy.San Vicente<br>San Pedro Laguna</p>
+        </div>
+      </div>
+      
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fas fa-phone-alt"></i>
+        </div>
+        <div class="contact-details">
+          <h3>Call Us</h3>
+          <p><a href="tel:+639913062370">09913062370</a><br>Monday - Friday, 9am - 5pm</p>
+        </div>
+      </div>
+      
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="contact-details">
+          <h3>Email Us</h3>
+          <p><a href="mailto:mpalomaresdigitalsulotions@gmail.com">mpalomaresdigitalsulotions@gmail.com</a><br>We'll respond within 24 hours</p>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://www.facebook.com/marlon.palomares.2024/" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/marlonpalo64854" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/mpdigital/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/palomares523/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    
+    <div class="contact-form-container animate" style="animation-delay: 0.2s;">
+      <div class="form-background"></div>
+      <h2 class="section-title">Send a Message</h2>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+            <div class="input-container">
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+            </div>
+            <span class="error-message">Please enter your name</span>
+          </div>
           
-        </div>
-        <div class="nav-links">
-            <a href="Home.html"><i class="fas fa-home"></i> Home</a>
-            <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-            <a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a>
-            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
-            <a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1><i class="fas fa-paper-plane"></i> Let's Start a Conversation</h1>
-            <p>We're excited to hear about your project and explore how we can help achieve your digital marketing goals</p>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="contact-info animate">
-            <h2 class="section-title">Get in Touch</h2>
-            
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="contact-details">
-                    <h3>Our Location</h3>
-                    <p>Sitio Bayan bayanan Brgy.San Vicente<br>San Pedro Laguna</p>
-                </div>
+          <div class="form-group">
+            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+            <div class="input-container">
+              <input type="email" id="email" name="email" placeholder="Your email" required>
+              <span class="input-icon"><i class="fas fa-envelope"></i></span>
             </div>
-            
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-                <div class="contact-details">
-                    <h3>Call Us</h3>
-                    <p><a href="tel:+639913062370">09913062370</a><br>Monday - Friday, 9am - 5pm</p>
-                </div>
-            </div>
-            
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="contact-details">
-                    <h3>Email Us</h3>
-                    <p><a href="mailto:mpalomaresdigitalsulotions@gmail.com">mpalomaresdigitalsulotions@gmail.com</a><br>We'll respond within 24 hours</p>
-                </div>
-            </div>
-            
-            <div class="social-links">
-                <a href="https://www.facebook.com/marlon.palomares.2024/" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/marlonpalo64854" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/in/mpdigital/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/palomares523/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
+            <span class="error-message">Please enter a valid email</span>
+          </div>
         </div>
         
-        <div class="contact-form-container animate" style="animation-delay: 0.2s;">
-            <div class="form-background"></div>
-            <h2 class="section-title">Send a Message</h2>
-            <form class="contact-form" id="contactForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Full Name</label>
-                        <div class="input-container">
-                            <input type="text" id="name" name="name" placeholder="Your name" required>
-                            <span class="input-icon"><i class="fas fa-user"></i></span>
-                        </div>
-                        <span class="error-message">Please enter your name</span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                        <div class="input-container">
-                            <input type="email" id="email" name="email" placeholder="Your email" required>
-                            <span class="input-icon"><i class="fas fa-envelope"></i></span>
-                        </div>
-                        <span class="error-message">Please enter a valid email</span>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="phone"><i class="fas fa-phone"></i> Phone (Optional)</label>
-                        <div class="input-container">
-                            <input type="tel" id="phone" name="phone" placeholder="Your phone number">
-                            <span class="input-icon"><i class="fas fa-phone"></i></span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject"><i class="fas fa-tag"></i> Subject</label>
-                        <div class="input-container">
-                            <select id="subject" name="subject" required>
-                                <option value="">Select a subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="quote">Request a Quote</option>
-                                <option value="support">Customer Support</option>
-                                <option value="partnership">Partnership Opportunity</option>
-                            </select>
-                            <span class="input-icon"><i class="fas fa-tag"></i></span>
-                        </div>
-                        <span class="error-message">Please select a subject</span>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message"><i class="fas fa-comment-alt"></i> Your Message</label>
-                    <div class="input-container textarea-container">
-                        <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
-                        <span class="input-icon"><i class="fas fa-comment-alt"></i></span>
-                    </div>
-                    <span class="error-message">Please enter your message</span>
-                </div>
-                
-                <div class="form-footer">
-                    <p class="privacy-note">Your information is protected by our <a href="#">Privacy Policy</a></p>
-                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section">
-        <!-- Google Maps iframe -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3866.982539165412!2d121.04901237493018!3d14.256833685615347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d82b1f612fdb%3A0x424edeee92cfacd2!2sBrgy.%20San%20Vicente%2C%20San%20Pedro%2C%20Laguna!5e0!3m2!1sen!2sph!4v1709818493911!5m2!1sen!2sph" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Need Immediate Assistance?</h2>
-            <p>Schedule a free 30-minute consultation call with one of our digital marketing experts</p>
-            <div class="cta-buttons">
-                <a href="#" class="cta-btn cta-btn-primary"><i class="fas fa-calendar-alt"></i> Schedule a Call</a>
-                <a href="#" class="cta-btn cta-btn-secondary"><i class="fas fa-file-pdf"></i> Download Our Brochure</a>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone"><i class="fas fa-phone"></i> Phone (Optional)</label>
+            <div class="input-container">
+              <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+              <span class="input-icon"><i class="fas fa-phone"></i></span>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-about">
-                <img src="Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
-                <p>We help businesses optimize their digital presence with cutting-edge marketing strategies that drive results and maximize ROI.</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject"><i class="fas fa-tag"></i> Subject</label>
+            <div class="input-container">
+              <select id="subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="quote">Request a Quote</option>
+                <option value="support">Customer Support</option>
+                <option value="partnership">Partnership Opportunity</option>
+              </select>
+              <span class="input-icon"><i class="fas fa-tag"></i></span>
             </div>
-            <div class="footer-links">
-                <div>
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Services</h3>
-                    <ul>
-                        <li><a href="#">Digital Marketing</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">SEO Optimization</a></li>
-                        <li><a href="#">Content Creation</a></li>
-                        <li><a href="#">Social Media</a></li>
-                    </ul>
-                </div>
-            </div>
+            <span class="error-message">Please select a subject</span>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2025 Mpalomares Digital Solutions. All Rights Reserved.</p>
+        
+        <div class="form-group">
+          <label for="message"><i class="fas fa-comment-alt"></i> Your Message</label>
+          <div class="input-container textarea-container">
+            <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+            <span class="input-icon"><i class="fas fa-comment-alt"></i></span>
+          </div>
+          <span class="error-message">Please enter your message</span>
         </div>
-    </footer>
+        
+        <div class="form-footer">
+          <p class="privacy-note">Your information is protected by our <a href="#">Privacy Policy</a></p>
+          <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </div>
+      </form>
+      <div class="form-message" id="form-message"></div>
+    </div>
+  </section>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            
-            // Form validation
-            let isValid = true;
-            const errorMessages = document.querySelectorAll('.error-message');
-            
-            // Reset error messages
-            errorMessages.forEach(message => {
-                message.style.display = 'none';
-            });
-            
-            // Validate name
-            const name = document.getElementById('name');
-            if (name.value.trim() === '') {
-                name.nextElementSibling.nextElementSibling.style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate email
-            const email = document.getElementById('email');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value)) {
-                email.nextElementSibling.nextElementSibling.style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate subject
-            const subject = document.getElementById('subject');
-            if (subject.value === '') {
-                subject.nextElementSibling.nextElementSibling.style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate message
-            const message = document.getElementById('message');
-            if (message.value.trim() === '') {
-                message.nextElementSibling.nextElementSibling.style.display = 'block';
-                isValid = false;
-            }
-            
-            if (isValid) {
-                // Success logic - could be AJAX submission here
-                alert('Thank you for your message! We will get back to you soon.');
-                document.getElementById('contactForm').reset();
-            }
+  <!-- MAP SECTION -->
+  <section class="map-section">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3866.982539165412!2d121.04901237493018!3d14.256833685615347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d82b1f612fdb%3A0x424edeee92cfacd2!2sBrgy.%20San%20Vicente%2C%20San%20Pedro%2C%20Laguna!5e0!3m2!1sen!2sph!4v1709818493911!5m2!1sen!2sph" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Need Immediate Assistance?</h2>
+      <p>Schedule a free 30-minute consultation call with one of our digital marketing experts</p>
+      <div class="cta-buttons">
+        <a href="#" class="cta-btn cta-btn-primary"><i class="fas fa-calendar-alt"></i> Schedule a Call</a>
+        <a href="#" class="cta-btn cta-btn-secondary"><i class="fas fa-file-pdf"></i> Download Our Brochure</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <img src="Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+        <p>We help businesses optimize their digital presence with cutting-edge marketing strategies that drive results and maximize ROI.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Digital Marketing</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">SEO Optimization</a></li>
+            <li><a href="#">Content Creation</a></li>
+            <li><a href="#">Social Media</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Mpalomares Digital Solutions. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- EmailJS Script Integration -->
+  <script src="emailjs.js"></script>
+
+  <script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const navLinks = document.getElementById('nav-links');
+
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function () {
+          navLinks.classList.toggle('active');
+
+          // Change icon based on menu state
+          if (navLinks.classList.contains('active')) {
+            mobileToggle.innerHTML = '<i class="fas fa-times"></i>';
+          } else {
+            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
         });
-    </script>
+      }
+
+      // Highlight current page in navigation
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const navItems = document.querySelectorAll('.nav-links a');
+
+      navItems.forEach((item) => {
+        const href = item.getAttribute('href');
+        if (href === currentPage) {
+          item.classList.add('active');
+        } else if (currentPage === '' && href === 'index.html') {
+          // Handle root URL case (no filename in path)
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Check screen size and display mobile toggle if needed
+      function checkScreenSize() {
+        if (window.innerWidth <= 550) {
+          document.getElementById('mobile-toggle').style.display = 'block';
+        } else {
+          document.getElementById('mobile-toggle').style.display = 'none';
+          navLinks.classList.remove('active');
+        }
+      }
+
+      // Initial check
+      checkScreenSize();
+
+      // Listen for resize events
+      window.addEventListener('resize', checkScreenSize);
+    });
+
+    function calculateROI() {
+      const investment = parseFloat(document.getElementById('investment').value);
+      const revenue = parseFloat(document.getElementById('revenue').value);
+      const resultElement = document.getElementById('roi-result');
+      const errorElement = document.getElementById('error-message');
+
+      // Reset messages
+      resultElement.innerHTML = '';
+      errorElement.style.display = 'none';
+
+      // Validation
+      if (isNaN(investment) || investment <= 0) {
+        showError('Please enter a valid investment amount');
+        return;
+      }
+
+      if (isNaN(revenue) || revenue <= 0) {
+        showError('Please enter a valid revenue amount');
+        return;
+      }
+
+      // Calculate ROI
+      const roi = ((revenue - investment) / investment) * 100;
+      const profit = revenue - investment;
+
+      // Format and display result with icon
+      resultElement.innerHTML = `
+        <div
+          style="margin-top: 20px; padding: 1.5rem; border-radius: 8px; background-color: ${
+            roi >= 0 ? 'rgba(40, 167, 69, 0.1)' : 'rgba(220, 53, 69, 0.1)'
+          }; border: 1px solid ${
+        roi >= 0 ? 'rgba(40, 167, 69, 0.3)' : 'rgba(220, 53, 69, 0.3)'
+      };"
+        >
+          <h3><i class="fas fa-chart-pie"></i> Your ROI Analysis</h3>
+          <p><i class="fas fa-coins"></i> Ad Investment: $${investment.toFixed(2)}</p>
+          <p><i class="fas fa-money-bill-wave"></i> Revenue: $${revenue.toFixed(2)}</p>
+          <p><i class="fas fa-sack-dollar"></i> Profit: $${profit.toFixed(2)}</p>
+          <p><i class="fas fa-percentage"></i> ROI: <strong>${roi.toFixed(2)}%</strong></p>
+          <p style="margin-top: 15px; font-size: 0.9rem;">
+            ${
+              roi >= 0
+                ? `<i class="fas fa-thumbs-up"></i> Positive return!
+                <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button primary" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;">
+                  <i class="fas fa-rocket"></i> Boost It Further
+                </a>`
+                : `<i class="fas fa-thumbs-down"></i> We can fix this!
+                <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;">
+                  <i class="fas fa-life-ring"></i> Get Help Now
+                </a>`
+            }
+          </p>
+        </div>
+      `;
+
+      // Animate the result appearance
+      resultElement.style.animation = 'fadeIn 0.5s ease-in-out';
+    }
+
+    function showError(message) {
+      const errorElement = document.getElementById('error-message');
+      errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      errorElement.style.display = 'block';
+    }
+  </script>
+  
+  <!-- EmailJS Script for Contact Form -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contactForm');
+      const formMessage = document.getElementById('form-message');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Send the form using EmailJS with provided IDs
+          emailjs.sendForm('service_menami7', 'template_l1tl3wg', this)
+            .then(function(response) {
+              console.log('SUCCESS!', response.status, response.text);
+              formMessage.style.display = 'block';
+              formMessage.style.color = 'green';
+              formMessage.textContent = 'Message sent successfully!';
+              contactForm.reset();
+            }, function(error) {
+              console.log('FAILED...', error);
+              formMessage.style.display = 'block';
+              formMessage.style.color = 'red';
+              formMessage.textContent = 'Failed to send message. Please try again later.';
+            });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
