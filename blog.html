@@ -4,19 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Ads Mastery - Mpalomares Digital Solutions</title>
+  <meta name="description" content="Unlock advanced Google Ads strategies with Mpalomares Digital Solutions. Read our expert blog for data‑driven tips, PPC insights, and more.">
+  <meta name="keywords" content="Google Ads, PPC, Digital Advertising, ROI, PPC Strategies">
+  
+  <!-- Google Fonts & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/Mylogo.svg" type="image/svg+xml">
+
+  <!-- JSON‑LD Schema for Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Mpalomares Digital Solutions",
+    "url": "https://yourwebsite.com",
+    "logo": "https://yourwebsite.com/assets/images/Mylogo.svg",
+    "sameAs": [
+      "https://www.facebook.com/marlon.palomares.2024/",
+      "https://www.linkedin.com/in/mpdigital/",
+      "https://www.instagram.com/palomares523/",
+      "https://x.com/marlonpalo64854",
+      "https://github.com/mpalomaresdigitalsolutions"
+    ]
+  }
+  </script>
+
   <style>
     /* Global Styles */
-    body {
-      font-family: 'Poppins', sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
       color: #333;
       background: #f9f9f9;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
     }
 
-    /* Navigation */
+    /* HEADER & NAVIGATION */
     .navbar {
       display: flex;
       align-items: center;
@@ -27,40 +65,40 @@
       position: fixed;
       width: 90%;
       top: 0;
+      left: 5%;
+      border-radius: 8px;
       z-index: 1000;
     }
-
     .logo img {
-      height: 120px; /* Increased logo size for better visibility */
-      width: auto;
+      height: 80px;
       transition: transform 0.3s ease;
     }
-    
     .logo img:hover {
-      transform: scale(1.1); /* Enhanced scale effect on hover */
+      transform: scale(1.1);
     }
-
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
+      align-items: center;
     }
-
-    /* Updated links so they all connect to the proper pages */
     .nav-links a {
-      text-decoration: none;
-      color: #333;
       font-weight: 600;
-      transition: color 0.3s;
+      color: #333;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
     }
-
     .nav-links a:hover {
       color: #0066cc;
+      background: rgba(0,102,204,0.1);
+      border-color: #0066cc;
+      transform: translateY(-2px);
     }
-
-    /* Added icon hover scaling */
     .nav-links a i {
       transition: transform 0.3s ease;
     }
@@ -68,7 +106,7 @@
       transform: scale(1.2);
     }
 
-    /* Hero Section */
+    /* HERO SECTION */
     .blog-hero {
       padding: 8rem 5% 6rem;
       text-align: center;
@@ -76,7 +114,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .blog-hero::before {
       content: '';
       position: absolute;
@@ -84,12 +121,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0 50 L100 50" stroke="%230066cc" stroke-width="0.5" stroke-dasharray="5,5"/><path d="M50 0 L50 100" stroke="%230066cc" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0 50 L100 50" stroke="%230066cc" stroke-width="0.5" stroke-dasharray="5,5"/><path d="M50 0 L50 100" stroke="%230066cc" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
       opacity: 0.1;
       z-index: 1;
     }
-
-    /* NEW: Added dark overlay for improved text legibility */
     .blog-hero::after {
       content: '';
       position: absolute;
@@ -97,16 +132,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
-
     .hero-content {
       position: relative;
       z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
     }
-
-    /* Enhanced headline with gradient text effect */
     .blog-hero h1 {
       font-size: 3rem;
       background: linear-gradient(135deg, #0066cc, #004e9c);
@@ -116,35 +150,34 @@
       margin-bottom: 1rem;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
-
     .blog-hero p {
       font-size: 1.3rem;
       color: #555;
       margin-bottom: 2rem;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 2rem auto;
     }
-
     .hero-cta {
       display: inline-block;
       background-color: #0066cc;
-      color: white;
+      color: #fff;
       padding: 1rem 2rem;
       border-radius: 50px;
       font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-      box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,102,204,0.3);
+      text-align: center;
     }
-
+    .hero-cta i {
+      margin-right: 0.5rem;
+    }
     .hero-cta:hover {
       background-color: #004e9c;
       transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
+      box-shadow: 0 6px 15px rgba(0,102,204,0.4);
     }
 
-    /* Blog Posts */
+    /* BLOG POSTS */
     .blog-section-title {
       text-align: center;
       margin: 2rem 0;
@@ -152,7 +185,6 @@
       color: #333;
       position: relative;
     }
-
     .blog-section-title::after {
       content: '';
       display: block;
@@ -162,48 +194,41 @@
       margin: 1rem auto;
       border-radius: 2px;
     }
-
     .blog-posts {
       padding: 2rem 5% 4rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
     }
-
     .blog-post {
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 1px solid #eaeaea;
       display: flex;
       flex-direction: column;
     }
-
     .blog-post:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
       border-color: #d2e0f7;
     }
-
     .post-image {
       height: 200px;
       overflow: hidden;
       position: relative;
     }
-
     .post-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s;
+      transition: transform 0.5s ease;
     }
-
     .blog-post:hover .post-image img {
       transform: scale(1.05);
     }
-
     .post-overlay {
       position: absolute;
       top: 0;
@@ -216,16 +241,14 @@
       padding: 1rem;
       box-sizing: border-box;
       opacity: 0.8;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
     }
-
     .blog-post:hover .post-overlay {
       opacity: 1;
     }
-
     .post-category {
       background: #0066cc;
-      color: white;
+      color: #fff;
       padding: 0.3rem 0.8rem;
       border-radius: 50px;
       font-size: 0.8rem;
@@ -235,14 +258,12 @@
       right: 1rem;
       z-index: 2;
     }
-
     .post-content {
       padding: 1.5rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
-
     .post-meta {
       display: flex;
       align-items: center;
@@ -251,34 +272,29 @@
       color: #777;
       font-size: 0.9rem;
     }
-
     .post-meta div {
       display: flex;
       align-items: center;
       gap: 0.3rem;
     }
-
     .blog-post h2 {
       color: #0066cc;
       margin-bottom: 0.8rem;
       font-size: 1.4rem;
       line-height: 1.4;
     }
-
     .post-excerpt {
       color: #666;
       margin-bottom: 1.2rem;
       line-height: 1.6;
       flex-grow: 1;
     }
-
     .post-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1.2rem;
     }
-
     .post-tag {
       background: #eef1f6;
       color: #555;
@@ -286,36 +302,36 @@
       border-radius: 4px;
       font-size: 0.8rem;
     }
-
     .read-more {
-      color: white;
       background: #0066cc;
+      color: #fff;
       font-weight: 500;
-      text-decoration: none;
       padding: 0.6rem 1.2rem;
       border-radius: 5px;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       align-self: flex-start;
+      text-align: center;
     }
-
+    .read-more i {
+      margin-left: 0.3rem;
+    }
     .read-more:hover {
       background: #004e9c;
       transform: translateY(-2px);
     }
 
-    /* Call to Action */
+    /* CALL TO ACTION SECTION */
     .cta-section {
       background: linear-gradient(135deg, #0066cc 0%, #004e9c 100%);
       padding: 4rem 5%;
       text-align: center;
-      color: white;
+      color: #fff;
       position: relative;
       overflow: hidden;
     }
-
     .cta-section::before {
       content: '';
       position: absolute;
@@ -323,55 +339,54 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>');
       opacity: 0.1;
       z-index: 1;
     }
-
     .cta-content {
       position: relative;
       z-index: 2;
       max-width: 800px;
       margin: 0 auto;
     }
-
     .cta-section h2 {
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
     }
-
     .cta-section p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       opacity: 0.9;
     }
-
     .cta-button {
-      display: inline-block;
-      background-color: white;
+      background-color: #fff;
       color: #0066cc;
       padding: 1rem 2.5rem;
       border-radius: 50px;
       font-weight: 600;
       font-size: 1.1rem;
-      text-decoration: none;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
     }
-
+    .cta-button i {
+      margin-right: 0.3rem;
+    }
     .cta-button:hover {
       background-color: #f0f0f0;
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
-    /* Footer */
+    /* FOOTER */
     footer {
-      padding: 3rem 5% 2rem;
       background-color: #222;
       color: #fff;
+      padding: 3rem 5% 2rem;
     }
-
     .footer-content {
       display: flex;
       flex-wrap: wrap;
@@ -380,40 +395,33 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    .footer-logo img {
-      height: 120px; /* Increased logo size in footer to match navbar */
-      margin-bottom: 1rem;
-      transition: opacity 0.3s;
-    }
-    
-    .footer-logo img:hover {
-      opacity: 0.9;
-    }
-
     .footer-about {
       flex: 1;
       min-width: 250px;
     }
-
+    .footer-logo img {
+      height: 80px;
+      margin-bottom: 1rem;
+      transition: opacity 0.3s;
+    }
+    .footer-logo img:hover {
+      opacity: 0.9;
+    }
     .footer-about p {
       color: #bbb;
       line-height: 1.6;
     }
-
     .footer-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 3rem;
+      gap: 2rem;
     }
-
     .footer-links h3 {
-      color: white;
+      color: #fff;
       margin-bottom: 1.5rem;
       font-size: 1.2rem;
       position: relative;
     }
-
     .footer-links h3::after {
       content: '';
       display: block;
@@ -422,136 +430,90 @@
       background: #0066cc;
       margin-top: 0.8rem;
     }
-
     .footer-links ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-
     .footer-links li {
       margin-bottom: 0.8rem;
     }
-
     .footer-links a {
       color: #bbb;
-      text-decoration: none;
       transition: color 0.3s;
     }
-
     .footer-links a:hover {
       color: #0066cc;
     }
-
     .footer-social {
       display: flex;
       gap: 1rem;
       margin-top: 1.5rem;
     }
-
     .footer-social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 40px;
       height: 40px;
       background: #333;
-      color: white;
+      color: #fff;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.3s;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
+      border: 2px solid transparent;
     }
-    
-    /* Enhanced social media icons with overlay */
-    .footer-social a:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 102, 204, 0.8);
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      z-index: 1;
+    .footer-social a:hover {
+      border-color: #0066cc;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
-    
-    .footer-social a:hover:before {
-      transform: translateY(0);
-    }
-    
     .footer-social a i {
-      position: relative;
-      z-index: 2;
       font-size: 1.2rem;
     }
-
-    .footer-social a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Social link tooltips */
-    .footer-social a span {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #0066cc;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      opacity: 0;
-      transition: opacity 0.3s, bottom 0.3s;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 10;
-    }
-    
-    .footer-social a:hover span {
-      opacity: 1;
-      bottom: -40px;
-    }
-
     .footer-bottom {
       text-align: center;
       padding-top: 2rem;
       margin-top: 2rem;
       border-top: 1px solid #333;
       color: #999;
+      font-size: 0.9rem;
     }
-
-    /* Responsive */
+    
+    /* Responsive Styles */
     @media (max-width: 768px) {
       .blog-hero h1 {
         font-size: 2.2rem;
       }
-      
       .blog-hero p {
         font-size: 1.1rem;
       }
-      
       .cta-section h2 {
         font-size: 2rem;
       }
-      
       .cta-section p {
         font-size: 1rem;
+      }
+      .navbar {
+        flex-direction: column;
+        padding: 1rem 5%;
+      }
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- HEADER / NAVIGATION -->
   <nav class="navbar">
     <div class="logo">
-      <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+      <a href="index.html">
+        <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo" loading="lazy">
+      </a>
     </div>
     <div class="nav-links">
-      <!-- Updated links to interconnect pages -->
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="services.html"><i class="fas fa-ad"></i> Services</a>
       <a href="blog.html"><i class="fas fa-book"></i> Blog</a>
@@ -559,21 +521,27 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- HERO SECTION -->
   <section class="blog-hero">
     <div class="hero-content">
-      <h1>Google Ads Mastery Hub</h1>
-      <p>Unlock advanced strategies, insider tips, and data-driven techniques to maximize your ROI and dominate your competition</p>
-      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="hero-cta"><i class="fas fa-rocket"></i> Boost Your Campaigns</a>
+      <h1>
+        <a href="https://cal.com/marlon-palomares-c4cyjo/secret" style="color: inherit; text-decoration: none;">
+          Google Ads Mastery Hub
+        </a>
+      </h1>
+      <p>Unlock advanced strategies, insider tips, and data‑driven techniques to maximize your ROI and dominate your competition.</p>
+      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="hero-cta">
+        <i class="fas fa-rocket"></i> Boost Your Campaigns
+      </a>
     </div>
   </section>
 
-  <!-- Blog Posts -->
+  <!-- BLOG POSTS -->
   <h2 class="blog-section-title">Latest Google Ads Insights</h2>
   <section class="blog-posts">
     <article class="blog-post">
       <div class="post-image">
-        <img src="/api/placeholder/400/300" alt="Google Ads ROI Strategies">
+        <img src="/api/placeholder/400/300" alt="Google Ads ROI Strategies" loading="lazy">
         <div class="post-overlay"></div>
         <span class="post-category">Strategy</span>
       </div>
@@ -582,8 +550,12 @@
           <div><i class="far fa-calendar"></i> March 5, 2025</div>
           <div><i class="far fa-eye"></i> 4.2K</div>
         </div>
-        <h2>10 Advanced Strategies for Maximizing Google Ads ROI in 2025</h2>
-        <p class="post-excerpt">Discover cutting-edge techniques to optimize your ad spend, improve quality scores, and boost conversion rates with our data-backed strategies...</p>
+        <h2>
+          <a href="https://cal.com/marlon-palomares-c4cyjo/secret" style="color: inherit; text-decoration: none;">
+            10 Advanced Strategies for Maximizing Google Ads ROI in 2025
+          </a>
+        </h2>
+        <p class="post-excerpt">Discover cutting‑edge techniques to optimize your ad spend, improve quality scores, and boost conversion rates with our data‑backed strategies…</p>
         <div class="post-tags">
           <span class="post-tag">PPC</span>
           <span class="post-tag">Conversion</span>
@@ -595,7 +567,7 @@
 
     <article class="blog-post">
       <div class="post-image">
-        <img src="/api/placeholder/400/300" alt="Performance Max Campaigns">
+        <img src="/api/placeholder/400/300" alt="Performance Max Campaigns" loading="lazy">
         <div class="post-overlay"></div>
         <span class="post-category">Tutorial</span>
       </div>
@@ -604,12 +576,16 @@
           <div><i class="far fa-calendar"></i> February 28, 2025</div>
           <div><i class="far fa-eye"></i> 3.8K</div>
         </div>
-        <h2>Mastering Performance Max Campaigns: A Complete Guide</h2>
-        <p class="post-excerpt">Learn how to leverage Google's AI-driven Performance Max campaigns to reach customers across all of Google's channels from one campaign...</p>
+        <h2>
+          <a href="https://cal.com/marlon-palomares-c4cyjo/secret" style="color: inherit; text-decoration: none;">
+            Mastering Performance Max Campaigns: A Complete Guide
+          </a>
+        </h2>
+        <p class="post-excerpt">Learn how to leverage Google's AI‑driven Performance Max campaigns to reach customers across all of Google's channels from one campaign…</p>
         <div class="post-tags">
           <span class="post-tag">Performance Max</span>
           <span class="post-tag">AI</span>
-          <span class="post-tag">Multi-channel</span>
+          <span class="post-tag">Multi‑channel</span>
         </div>
         <a href="post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
       </div>
@@ -617,7 +593,7 @@
 
     <article class="blog-post">
       <div class="post-image">
-        <img src="/api/placeholder/400/300" alt="Google Ads Analytics">
+        <img src="/api/placeholder/400/300" alt="Google Ads Analytics" loading="lazy">
         <div class="post-overlay"></div>
         <span class="post-category">Analytics</span>
       </div>
@@ -626,8 +602,12 @@
           <div><i class="far fa-calendar"></i> February 22, 2025</div>
           <div><i class="far fa-eye"></i> 2.9K</div>
         </div>
-        <h2>Advanced Google Ads Analytics: Hidden Insights That Drive Results</h2>
-        <p class="post-excerpt">Uncover the hidden metrics and reports in Google Ads that most marketers miss but that can reveal powerful insights to transform your campaigns...</p>
+        <h2>
+          <a href="https://cal.com/marlon-palomares-c4cyjo/secret" style="color: inherit; text-decoration: none;">
+            Advanced Google Ads Analytics: Hidden Insights That Drive Results
+          </a>
+        </h2>
+        <p class="post-excerpt">Uncover the hidden metrics and reports in Google Ads that most marketers miss but that can reveal powerful insights to transform your campaigns…</p>
         <div class="post-tags">
           <span class="post-tag">Analytics</span>
           <span class="post-tag">Reporting</span>
@@ -638,40 +618,33 @@
     </article>
   </section>
 
-  <!-- Call to Action -->
+  <!-- CALL TO ACTION SECTION -->
   <section class="cta-section">
     <div class="cta-content">
       <h2>Ready to Transform Your Google Ads Performance?</h2>
       <p>Get a free audit of your current campaigns and discover untapped opportunities to reduce costs and increase conversions.</p>
-      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-search-dollar"></i> Get My Free Audit</a>
+      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button">
+        <i class="fas fa-search-dollar"></i> Get My Free Audit
+      </a>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-content">
       <div class="footer-about">
         <div class="footer-logo">
-          <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo">
+          <a href="index.html">
+            <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo" loading="lazy">
+          </a>
         </div>
-        <p>We're a team of Google Ads specialists dedicated to helping businesses achieve exceptional ROI through data-driven PPC strategies.</p>
+        <p>We're a team of Google Ads specialists dedicated to helping businesses achieve exceptional ROI through data‑driven PPC strategies.</p>
         <div class="footer-social">
-          <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-            <span>Facebook</span>
-          </a>
-          <a href="https://www.linkedin.com/in/mpdigital/" target="_blank">
-            <i class="fab fa-linkedin-in"></i>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://www.instagram.com/palomares523/" target="_blank">
-            <i class="fab fa-instagram"></i>
-            <span>Instagram</span>
-          </a>
-          <a href="https://x.com/marlonpalo64854" target="_blank">
-            <i class="fab fa-x-twitter"></i>
-            <span>X</span>
-          </a>
+          <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/palomares523/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/marlonpalo64854" target="_blank" title="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
       </div>
       <div class="footer-links">
@@ -686,23 +659,11 @@
           </ul>
         </div>
         <div>
-          <h3>Services</h3>
+          <h3>Legal</h3>
           <ul>
-            <li><a href="services.html#google-ads-management">Google Ads Management</a></li>
-            <li><a href="services.html#ppc-audits">PPC Audits</a></li>
-            <li><a href="services.html#landing-page-optimization">Landing Page Optimization</a></li>
-            <li><a href="services.html#conversion-tracking">Conversion Tracking</a></li>
-            <li><a href="services.html#competitor-analysis">Competitor Analysis</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="#">Google Ads Guide</a></li>
-            <li><a href="#">Free Campaign Templates</a></li>
-            <li><a href="#">ROI Calculator</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Webinars</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
           </ul>
         </div>
       </div>
@@ -711,5 +672,6 @@
       <p>© 2025 Mpalomares Digital Solutions. All Rights Reserved.</p>
     </div>
   </footer>
+  <!-- Future improvements: Lazy loading scripts, minification, caching, additional security measures, and cross-browser testing can be applied here -->
 </body>
 </html>
