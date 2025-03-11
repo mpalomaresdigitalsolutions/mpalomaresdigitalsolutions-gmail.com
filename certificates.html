@@ -28,14 +28,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer">
-  <!-- EmailJS Library (if needed for other pages) -->
+  <!-- EmailJS Library -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="text/javascript">
     (function(){
       emailjs.init("7cldp91TueGi-giUu");
     })();
   </script>
-
+  
   <style>
     /* Global Styles */
     * {
@@ -53,17 +53,35 @@
       text-decoration: none;
       color: inherit;
     }
+    a:focus {
+      outline: 2px dashed #4cc9f0;
+      outline-offset: 2px;
+    }
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 20px;
     }
+    /* Skip to content */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #4cc9f0;
+      color: #fff;
+      padding: 8px;
+      z-index: 10000;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
     /* HEADER & NAVIGATION */
     header {
       background-color: #2b2d42;
-      color: white;
+      color: #fff;
       padding: 15px 5%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -75,14 +93,14 @@
     }
     .logo {
       font-size: 22px;
-      font-weight: bold;
+      font-weight: 700;
       background: linear-gradient(45deg, #4cc9f0, #4361ee);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       cursor: pointer;
     }
-    .nav-menu {
+    nav {
       display: flex;
       align-items: center;
     }
@@ -91,13 +109,17 @@
       gap: 20px;
       align-items: center;
     }
+    /* Enhanced menu links with icons */
     .nav-links a {
-      color: white;
+      color: #fff;
       padding: 10px 15px;
       font-weight: 500;
       border-radius: 8px;
       position: relative;
       transition: background 0.3s, color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .nav-links a:hover,
     .nav-links a.active {
@@ -124,8 +146,8 @@
       gap: 15px;
     }
     .social-icons a {
-      color: white;
-      font-size: 18px;
+      color: #fff;
+      font-size: 20px;
       transition: transform 0.3s, color 0.3s;
     }
     .social-icons a:hover {
@@ -134,14 +156,15 @@
     }
     .mobile-menu-btn {
       display: none;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
-      color: white;
+      color: #fff;
+      margin-left: 20px;
     }
     /* HERO SECTION */
     .hero {
       background: linear-gradient(135deg, #4361ee, #3a0ca3);
-      color: white;
+      color: #fff;
       padding: 80px 0;
       text-align: center;
       position: relative;
@@ -158,36 +181,66 @@
       background: url('/api/placeholder/1000/500') center/cover no-repeat;
       opacity: 0.1;
       z-index: 1;
-      /* Pattern overlay */
       background-image: 
-          linear-gradient(30deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3)),
-          linear-gradient(150deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3)),
-          linear-gradient(30deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3)),
-          linear-gradient(150deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3));
+        linear-gradient(30deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3)),
+        linear-gradient(150deg, rgba(67,97,238,0.3) 12%, transparent 12.5%, transparent 87%, rgba(67,97,238,0.3) 87.5%, rgba(67,97,238,0.3));
       background-size: 80px 140px;
-      background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+      background-position: 0 0, 40px 70px;
     }
     .hero-content {
       position: relative;
       z-index: 2;
     }
     .hero h1 {
-      font-size: 38px;
+      font-size: 42px;
       margin-bottom: 20px;
       line-height: 1.2;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
     .hero h1 a {
       color: inherit;
       text-decoration: none;
     }
     .subtitle {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 40px;
       max-width: 700px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
       opacity: 0.9;
     }
-    /* CERTIFICATES GALLERY */
+    /* CTA Buttons */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .cta-btn-primary {
+      background: #4cc9f0;
+      color: #fff;
+    }
+    .cta-btn-primary:hover {
+      background: #3cb0e0;
+      transform: translateY(-2px);
+    }
+    .cta-btn-secondary {
+      background: #fff;
+      color: #4cc9f0;
+      border: 2px solid #4cc9f0;
+    }
+    .cta-btn-secondary:hover {
+      background: #4cc9f0;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    /* Certificates Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -216,19 +269,10 @@
     .gallery-item:hover img {
       transform: scale(1.05);
     }
-    /* CTA SECTION */
-    .cta-section {
-      padding: 60px 0;
-      text-align: center;
-      background: #f1f5f9;
-    }
-    .cta-section .btn {
-      margin-top: 20px;
-    }
     /* FOOTER */
     footer {
       background-color: #2b2d42;
-      color: white;
+      color: #fff;
       padding: 40px 5% 30px;
       text-align: center;
     }
@@ -236,7 +280,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -259,7 +303,7 @@
       justify-content: center;
     }
     .footer-links h3 {
-      color: white;
+      color: #fff;
       margin-bottom: 1.5rem;
       font-size: 1.2rem;
       position: relative;
@@ -288,11 +332,24 @@
     .footer-links a:hover {
       color: #4cc9f0;
     }
+    /* Footer Social Icons */
+    .footer-social {
+      margin-top: 20px;
+    }
+    .footer-social a {
+      color: #bbb;
+      margin: 0 10px;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+    .footer-social a:hover {
+      color: #4cc9f0;
+    }
     .footer-bottom {
       text-align: center;
       padding-top: 20px;
       margin-top: 20px;
-      border-top: 1px solid #333;
+      border-top: 1px solid #444;
       color: #999;
     }
     /* Back to Top Button */
@@ -301,7 +358,7 @@
       bottom: 30px;
       right: 30px;
       background-color: #4361ee;
-      color: white;
+      color: #fff;
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -351,30 +408,32 @@
   </style>
 </head>
 <body>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  
   <!-- HEADER & NAVIGATION -->
   <header>
     <div class="container header-content">
       <a href="index.html" class="logo">MP Digital</a>
-      <div class="nav-menu">
+      <nav>
         <div class="nav-links" id="navLinks">
-          <a href="index.html">Home</a>
-          <a href="services.html">Services</a>
-          <a href="case-studies.html">Case Studies</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="certificates.html" class="active">Certificates</a>
+          <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+          <a href="case-studies.html"><i class="fas fa-briefcase"></i> Case Studies</a>
+          <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+          <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+          <a href="certificates.html" class="active"><i class="fas fa-certificate"></i> Certificates</a>
         </div>
         <div class="social-icons">
           <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
           <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
           <a href="https://www.instagram.com/palomares523/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://x.com/marlonpalo64854" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
           <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         </div>
         <div class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="fas fa-bars"></i>
         </div>
-      </div>
+      </nav>
     </div>
   </header>
   
@@ -389,7 +448,7 @@
   </div>
   
   <!-- HERO SECTION -->
-  <section class="hero">
+  <section class="hero" id="main-content">
     <div class="container hero-content">
       <h1>
         <a href="https://cal.com/marlon-palomares-c4cyjo/secret" target="_blank">
@@ -397,7 +456,7 @@
         </a>
       </h1>
       <p class="subtitle">Explore my certifications that showcase my expertise in digital marketing and PPC optimization.</p>
-      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="btn" target="_blank">
+      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-btn cta-btn-primary" target="_blank">
         <i class="fas fa-rocket"></i> Get Your Free PPC Audit
       </a>
     </div>
@@ -408,19 +467,19 @@
     <h2 class="section-title">My Certifications</h2>
     <div class="gallery">
       <div class="gallery-item">
-        <img src="assets/images/1.png" alt="Certificate 1" loading="lazy">
+        <img src="assets/images/1.png" alt="Certificate 1 - [Description]" loading="lazy">
       </div>
       <div class="gallery-item">
-        <img src="assets/images/2.png" alt="Certificate 2" loading="lazy">
+        <img src="assets/images/2.png" alt="Certificate 2 - [Description]" loading="lazy">
       </div>
       <div class="gallery-item">
-        <img src="assets/images/3.png" alt="Certificate 3" loading="lazy">
+        <img src="assets/images/3.png" alt="Certificate 3 - [Description]" loading="lazy">
       </div>
       <div class="gallery-item">
-        <img src="assets/images/4.png" alt="Certificate 4" loading="lazy">
+        <img src="assets/images/4.png" alt="Certificate 4 - [Description]" loading="lazy">
       </div>
       <div class="gallery-item">
-        <img src="assets/images/5.png" alt="Certificate 5" loading="lazy">
+        <img src="assets/images/5.png" alt="Certificate 5 - [Description]" loading="lazy">
       </div>
     </div>
   </section>
@@ -446,7 +505,6 @@
     <div class="container footer-content">
       <div class="footer-about">
         <a href="index.html">
-          <!-- Updated logo path -->
           <img src="assets/images/Mylogo.svg" alt="MP Digital Logo" loading="lazy">
         </a>
         <p>We help businesses optimize their digital presence with cutting-edge marketing strategies that drive results and maximize ROI.</p>
@@ -480,6 +538,13 @@
           </ul>
         </div>
       </div>
+      <!-- Footer Social Icons -->
+      <div class="footer-social">
+        <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/palomares523/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>© 2025 MP Digital. All Rights Reserved.</p>
@@ -487,10 +552,11 @@
   </footer>
   
   <!-- Back to Top Button -->
-  <div id="back-to-top">
+  <div id="back-to-top" aria-label="Back to top" role="button">
     <i class="fas fa-arrow-up"></i>
   </div>
   
+  <!-- Scripts for Navigation and UI Enhancements -->
   <script>
     // Mobile menu toggle functionality
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -528,6 +594,9 @@
         }
       });
     });
+    
+    // Future enhancements: Caching strategies, CDN usage, further performance optimizations,
+    // security hardening (HTTPS enforcement, XSS/CSRF checks), and SEO improvements.
   </script>
 </body>
 </html>
