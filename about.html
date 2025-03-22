@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Marlon Palomares - Google Ads & AI Marketing Specialist providing AI-driven marketing strategies and Google Ads optimization">
-  <meta name="keywords" content="Google Ads, AI Marketing, Digital Marketing, Marketing Specialist">
+  <meta name="description" content="Marlon Palomares - Google Ads & AI Marketing Specialist offering innovative digital solutions">
+  <meta name="keywords" content="Google Ads, AI Marketing, Digital Marketing, Marketing Specialist, PPC, SEO">
   <meta name="author" content="Marlon Palomares">
-  <title>Marlon Palomares | Google Ads & AI Marketing Specialist</title>
+  <title>About Marlon Palomares | Google Ads & AI Marketing Specialist</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,13 +23,13 @@
       --shadow: 0 4px 12px rgba(0,0,0,0.1);
       --transition: all 0.3s ease;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--light-color);
@@ -43,7 +43,7 @@
       padding: 0 20px;
     }
 
-    /* Header styles */
+    /* Header Styles */
     header {
       background: var(--white-color);
       padding: 15px 20px;
@@ -58,14 +58,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
 
     .logo {
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
       background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: var(--transition);
     }
@@ -74,25 +77,14 @@
       transform: scale(1.05);
     }
 
-    /* Navigation styles */
-    nav {
-      display: flex;
-      align-items: center;
-    }
-
-    nav ul {
+    /* Navigation Styles */
+    nav.main-nav ul {
       list-style: none;
       display: flex;
       gap: 10px;
-      margin: 0;
-      padding: 0;
     }
 
-    nav ul li {
-      position: relative;
-    }
-
-    nav ul li a {
+    nav.main-nav ul li a {
       text-decoration: none;
       font-size: 1rem;
       color: var(--text-color);
@@ -103,18 +95,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      border: 1px solid var(--primary-color);
     }
 
-    nav ul li a:hover {
+    nav.main-nav ul li a:hover,
+    nav.main-nav ul li a.active {
       color: var(--primary-color);
       background-color: rgba(37, 117, 252, 0.1);
       transform: translateY(-2px);
     }
 
-    nav ul li a i {
-      font-size: 1rem;
-    }
-
+    /* CTA Button */
     .cta-button {
       background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
       color: var(--white-color);
@@ -127,7 +118,6 @@
       align-items: center;
       gap: 8px;
       box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
-      text-align: center;
     }
 
     .cta-button:hover {
@@ -136,17 +126,65 @@
       transform: translateY(-3px);
     }
 
-    /* Section styles */
+    /* Hamburger Menu */
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu-icon {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      nav.main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white-color);
+        box-shadow: var(--shadow);
+        z-index: 1001;
+      }
+
+      .menu-toggle:checked + .menu-icon + nav.main-nav {
+        display: block;
+      }
+
+      nav.main-nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      nav.main-nav ul li {
+        width: 100%;
+      }
+
+      nav.main-nav ul li a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Section Styles */
     section {
       padding: 80px 0;
       text-align: center;
     }
 
     section h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
+      line-height: 1.2;
       margin-bottom: 30px;
       position: relative;
       display: inline-block;
+      font-weight: 600;
     }
 
     section h2:after {
@@ -162,50 +200,21 @@
     }
 
     section p {
+      text-align: center;
       max-width: 800px;
       margin: 0 auto 30px;
       font-size: 1.1rem;
       line-height: 1.7;
     }
 
-    /* Service cards */
-    .service-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
+    /* Highlighted Headline */
+    .highlight {
+      color: var(--primary-color);
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .service-card {
-      background: var(--white-color);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 30px;
-      width: 300px;
-      transition: var(--transition);
-      text-align: center;
-    }
-
-    .service-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .service-card i {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .service-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-    }
-
-    /* About section */
+    /* About Section */
     #about {
       background-color: var(--white-color);
       position: relative;
@@ -241,50 +250,30 @@
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    .profile-image i {
-      font-size: 6rem;
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-color);
       color: var(--white-color);
+      padding: 60px 0 30px;
+      text-align: center;
     }
 
-    /* Services section */
-    #services {
-      background-color: var(--light-color);
+    footer p {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Contact section */
-    #contact {
-      background-color: var(--white-color);
-      position: relative;
-    }
-
-    #contact:before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 300px;
-      height: 300px;
-      background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), rgba(37, 117, 252, 0.05));
-      border-radius: 50%;
-      z-index: 0;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    /* Social icons */
     .social-icons {
       display: flex;
       justify-content: center;
@@ -331,49 +320,6 @@
       transform: scale(1);
     }
 
-    .social-icons a i {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark-color);
-      color: var(--white-color);
-      padding: 60px 0 30px;
-      text-align: center;
-    }
-
-    footer h3 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-    }
-
-    footer p {
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    footer a {
-      color: var(--primary-color);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    footer a:hover {
-      color: var(--white-color);
-      text-decoration: underline;
-    }
-
-    /* Legal links */
-    .legal-links {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
     /* Animations */
     .animate-fade-in {
       animation: fadeIn 1s ease-in-out;
@@ -389,106 +335,58 @@
     }
 
     @keyframes slideUp {
-      from { 
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Media Queries */
+    /* Responsive Design */
     @media (max-width: 768px) {
       header .container {
         flex-direction: column;
         gap: 15px;
       }
 
-      nav ul {
-        justify-content: center;
-        margin: 15px 0;
-      }
-
-      .cta-button {
-        margin: 0 auto;
-      }
-
-      section {
-        padding: 60px 0;
-      }
-
       section h2 {
         font-size: 2rem;
       }
 
-      .service-cards {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .logo {
-        font-size: 1.5rem;
-      }
-
-      nav ul li a {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-      }
-
       .cta-button {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-      }
-
-      section h2 {
-        font-size: 1.8rem;
-      }
-
-      section p {
-        font-size: 1rem;
-      }
-
-      .social-icons a {
-        width: 50px;
-        height: 50px;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
       }
     }
   </style>
-  <!-- Schema.org markup for Google -->
+  <!-- Schema Markup for SEO -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Marlon Palomares - Google Ads & AI Marketing Specialist",
-      "description": "AI-driven marketing strategies and Google Ads optimization",
+      "@type": "Person",
+      "name": "Marlon Palomares",
+      "jobTitle": "Google Ads & AI Marketing Specialist",
       "url": "https://marlonpalomares.com",
       "sameAs": [
         "https://www.facebook.com/marlon.palomares.2024/",
         "https://www.linkedin.com/in/mpdigital/",
         "https://www.instagram.com/palomares523/",
-        "https://github.com/mpalomaresdigitalsolutions"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer service",
-        "availableLanguage": "English"
-      }
+        "https://github.com/mpalomaresdigitalsolutions",
+        "https://twitter.com/MarlonPalomares"
+      ]
     }
   </script>
 </head>
 <body>
   <header>
     <div class="container">
-      <a href="index.html" class="logo">Marlon Palomares</a>
-      <nav>
+      <a href="./index.html" class="logo">Marlon Palomares</a>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <nav class="main-nav">
         <ul>
-          <li><a href="#about"><i class="fas fa-user-circle"></i> About</a></li>
-          <li><a href="#services"><i class="fas fa-briefcase"></i> Services</a></li>
-          <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="./index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="./about.html" class="active"><i class="fas fa-user-circle"></i> About</a></li>
+          <li><a href="./services.html"><i class="fas fa-briefcase"></i> Services</a></li>
+          <li><a href="./contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
       </nav>
       <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-rocket"></i> Get Free Strategy</a>
@@ -497,50 +395,13 @@
 
   <section id="about" class="animate-fade-in">
     <div class="container">
-      <h2>About Me</h2>
+      <h2 class="highlight"><a href="https://cal.com/marlon-palomares-c4cyjo/secret" style="text-decoration: none; color: inherit;">Scale Your Business with AI</a></h2>
       <div class="profile-info animate-slide-up">
         <div class="profile-image">
-          <i class="fas fa-user"></i>
+          <img src="assets/images/About.png" alt="Marlon Palomares Profile Picture" loading="lazy">
         </div>
         <p>I'm a Google Ads & AI Marketing Specialist trained by Ian Baillo. With expertise in digital marketing strategies and AI-driven solutions, I help businesses optimize their online presence and maximize ROI through effective advertising campaigns.</p>
         <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-calendar-alt"></i> Schedule a Consultation</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="services" class="animate-fade-in">
-    <div class="container">
-      <h2>Services</h2>
-      <p>Providing AI-driven marketing strategies and Google Ads optimization to help your business grow.</p>
-      
-      <div class="service-cards animate-slide-up">
-        <div class="service-card">
-          <i class="fas fa-search-dollar"></i>
-          <h3>Google Ads Management</h3>
-          <p>Strategic campaign setup, optimization, and management to maximize your ROI.</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-robot"></i>
-          <h3>AI Marketing Solutions</h3>
-          <p>Leverage cutting-edge AI tools to enhance your marketing strategy and targeting.</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-chart-line"></i>
-          <h3>Performance Analytics</h3>
-          <p>Comprehensive reporting and insights to track your campaign success.</p>
-        </div>
-      </div>
-      
-      <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button" style="margin-top: 40px;"><i class="fas fa-lightbulb"></i> Discover How I Can Help</a>
-    </div>
-  </section>
-
-  <section id="contact" class="animate-fade-in">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <div class="contact-info animate-slide-up">
-        <p>Ready to take your marketing to the next level? Let's connect and discuss how I can help you achieve your business goals.</p>
-        <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-phone-alt"></i> Book a Call</a>
       </div>
     </div>
   </section>
@@ -555,67 +416,11 @@
         <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
         <a href="https://twitter.com/MarlonPalomares" target="_blank" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
       </div>
-      <p>&copy; 2024 Marlon Palomares. All rights reserved.</p>
+      <p>© 2024 Marlon Palomares. All rights reserved.</p>
       <div class="legal-links">
-        <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a>
+        <a href="./privacy-policy.html">Privacy Policy</a> | <a href="./terms-conditions.html">Terms & Conditions</a>
       </div>
     </div>
   </footer>
-
-  <!-- Script for lazy loading images -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Lazy loading implementation
-      const lazyImages = document.querySelectorAll("img[data-src]");
-      
-      if ("IntersectionObserver" in window) {
-        let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              let lazyImage = entry.target;
-              lazyImage.src = lazyImage.dataset.src;
-              lazyImage.removeAttribute("data-src");
-              lazyImageObserver.unobserve(lazyImage);
-            }
-          });
-        });
-
-        lazyImages.forEach(function(lazyImage) {
-          lazyImageObserver.observe(lazyImage);
-        });
-      } else {
-        // Fallback for browsers that don't support IntersectionObserver
-        let lazyImagesFallback = function() {
-          let scrollTop = window.pageYOffset;
-          lazyImages.forEach(function(lazyImage) {
-            if (lazyImage.offsetTop < (window.innerHeight + scrollTop)) {
-              lazyImage.src = lazyImage.dataset.src;
-              lazyImage.removeAttribute("data-src");
-            }
-          });
-          if (lazyImages.length == 0) { 
-            document.removeEventListener("scroll", lazyImagesFallback);
-            window.removeEventListener("resize", lazyImagesFallback);
-            window.removeEventListener("orientationChange", lazyImagesFallback);
-          }
-        };
-        
-        document.addEventListener("scroll", lazyImagesFallback);
-        window.addEventListener("resize", lazyImagesFallback);
-        window.addEventListener("orientationChange", lazyImagesFallback);
-      }
-      
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
-    });
-  </script>
 </body>
 </html>

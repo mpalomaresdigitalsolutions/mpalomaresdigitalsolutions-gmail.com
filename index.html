@@ -429,6 +429,25 @@
       transform: translateY(-2px);
     }
     
+    /* WhatsApp Chat Button */
+    .whatsapp-chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-size: 24px;
+      transition: var(--hover-transition);
+    }
+    .whatsapp-chat:hover {
+      background-color: #128C7E;
+      transform: translateY(-2px);
+    }
+    
     /* Responsive Styles */
     @media (max-width: 768px) {
       .hero-content h1 {
@@ -504,6 +523,7 @@
         <div class="cta-container">
           <a href="services.html" class="cta-button primary"><i class="fas fa-lightbulb"></i> Discover Strategies</a>
           <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" target="_blank"><i class="fas fa-calendar-check"></i> Book Free Consultation</a>
+          <a href="#" id="download-brochure" class="cta-button accent"><i class="fas fa-download"></i> Download Free Brochure</a>
         </div>
       </div>
     </section>
@@ -562,14 +582,32 @@
     </div>
     <div class="footer-links">
       <a href="privacy-policy.html">Privacy Policy</a> |
-      <a href="terms.html">Terms &amp; Conditions</a> |
+      <a href="terms.html">Terms & Conditions</a> |
       <a href="sitemap.html">Sitemap</a>
     </div>
     <p>© 2024 Mpalomares Digital Solutions | Transforming Digital Advertising</p>
   </footer>
-  
 
-  
+  <!-- WhatsApp Chat Button with pre-filled message
+       To set up auto-reply on WhatsApp Business:
+       1. Open WhatsApp Business app
+       2. Go to Settings > Business Tools > Away Message
+       3. Turn on "Send away message"
+       4. Customize the message, e.g., "Thank you for your interest! We'll get back to you shortly."
+       5. Set the schedule and recipients as needed
+       Note: This is a basic auto-reply. For more advanced features, consider using WhatsApp Business API.
+  -->
+  <a href="https://wa.me/+639913062370?text=Hi%20Mpalomares%20Digital%20Solutions,%20I%20need%20help%20with%20my%20Google%20Ads!" target="_blank" class="whatsapp-chat" title="Chat with us on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Messenger Chat (Uncomment and replace YOUR_PAGE_ID and YOUR_APP_ID if preferred) -->
+  <!-- 
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=YOUR_APP_ID&autoLogAppEvents=1" nonce="YOUR_NONCE"></script>
+  <div class="fb-customerchat" page_id="YOUR_PAGE_ID" theme_color="#0066cc"></div>
+  -->
+
   <script>
     // Mobile Menu Toggle
     document.addEventListener('DOMContentLoaded', function () {
@@ -658,6 +696,17 @@
         formMessage.innerText = 'Failed to send message. Please try again later.';
       });
     }
+
+    // Download Brochure and Show Thank You Message
+    document.getElementById('download-brochure').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Trigger download by opening the MediaFire link in a new tab
+      window.open('https://www.mediafire.com/file/pztiwioefhzvn2k/Goole+Ads+Brochure+for+Plumbing.pdf/file', '_blank');
+      // Show thank you message after a short delay to ensure download starts
+      setTimeout(function() {
+        alert('Thank you for downloading the brochure!');
+      }, 1000);
+    });
   </script>
 </body>
 </html>
