@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Campaign Sample</title>
+    <meta name="description" content="Explore Marlon Palomares' portfolio of search campaign samples.">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS for scroll animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --gradient-start: #3498db;
+            --gradient-end: #2c3e50;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .nav-links li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            color: var(--light-text);
+            font-size: 1.5rem;
+        }
+
+        .close-menu {
+            display: none;
+        }
+
+        /* Overlay and Gradient for Mobile Menu */
+        .nav-links::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        /* Animations */
+        .nav-links li {
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+        .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--card-bg);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.5s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--primary-color);
+            }
+
+            .nav-links li {
+                margin-bottom: 1rem;
+            }
+
+            .navbar {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 2px;
+        }
+
+        .portfolio-sample {
+            margin-bottom: 3rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .portfolio-sample:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-sample::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: auto; /* Allow height to adjust based on content */
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Device Mockup Frame */
+        .device-frame {
+            position: relative;
+            width: 80%; /* Responsive width */
+            max-width: 300px; /* Max width for larger screens */
+            aspect-ratio: 3 / 5; /* Maintain aspect ratio */
+            background: #000;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 10px solid #000;
+        }
+
+        .device-frame::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 8px;
+            background: #333;
+            border-radius: 10px;
+        }
+
+        .device-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensure full image is visible */
+            border-radius: 20px;
+            transition: var(--transition);
+            filter: brightness(0.95);
+        }
+
+        .portfolio-sample:hover .device-frame img {
+            transform: scale(1.03);
+            filter: brightness(1);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), transparent);
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .overlay i {
+            background-color: var(--primary-color);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .portfolio-sample:hover .overlay {
+            padding: 1.5rem;
+            opacity: 1;
+        }
+
+        .portfolio-sample h2 {
+            padding: 1.5rem 1.5rem 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .portfolio-sample h2 a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .portfolio-sample h2 a:hover {
+            color: var(--accent-color);
+        }
+
+        .portfolio-sample p {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin: 0.5rem 1.5rem 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--light-text);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.8s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent-color);
+            color: var(--light-text);
+            padding: 0.5rem 2rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .device-frame {
+                width: 90%; /* Slightly larger on smaller screens */
+                max-width: none; /* Remove max-width for full responsiveness */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .device-frame {
+                width: 60%; /* Slightly smaller on larger screens */
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        .animate-headline {
+            animation: headline-slide 0.8s ease-in-out;
+        }
+
+        @keyframes headline-slide {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <!-- Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Search Campaign Portfolio",
+      "description": "A portfolio showcasing search campaign samples by Marlon Palomares.",
+      "author": {
+        "@type": "Person",
+        "name": "Marlon Palomares"
+      },
+      "url": "https://yourdomain.com/search-add.html"
+    }
+    </script>
+</head>
+<body>
+    <!-- Header with Integrated Navigation Bar -->
+    <header>
+        <div class="header-content">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-ad"></i> MPalomares
+                </a>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <div class="close-menu">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="portfolio.html" class="active"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+                    <li><a href="case-studies.html"><i class="fas fa-chart-line"></i> Case Studies</a></li>
+                    <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1 class="animate__animated animate__fadeIn">Search Campaign Portfolio</h1>
+        <section class="portfolio-sample" data-aos="fade-up">
+            <div class="featured-badge">FEATURED</div>
+            <div class="image-container">
+                <div class="device-frame">
+                    <img src="assets/images/Search Campaign Sample 1.png" alt="Search Campaign Sample 1" loading="lazy">
+                </div>
+                <div class="overlay">
+                    <i class="fas fa-search"></i>
+                    <span>Premium Search Campaign</span>
+                </div>
+            </div>
+            <h2 class="animate-headline"><a href="https://cal.com/marlon-palomares-c4cyjo/secret"><i class="fas fa-chart-line"></i> Targeted Search Success</a></h2>
+            <p>Boost your visibility with optimized search strategies that deliver exceptional ROI.</p>
+            <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-arrow-right"></i> Discover Strategy</a>
+        </section>
+        <section class="portfolio-sample" data-aos="fade-up" data-aos-delay="100">
+            <div class="image-container">
+                <div class="device-frame">
+                    <img src="assets/images/Search Campaign Sample 2.png" alt="Search Campaign Sample 2" loading="lazy">
+                </div>
+                <div class="overlay">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span>Click-Optimized Campaign</span>
+                </div>
+            </div>
+            <h2 class="animate-headline"><a href="https://cal.com/marlon-palomares-c4cyjo/secret"><i class="fas fa-hand-pointer"></i> Drive More Clicks</a></h2>
+            <p>Engage your audience with compelling search ads designed for maximum click-through rates.</p>
+            <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-arrow-right"></i> Explore Results</a>
+        </section>
+        <section class="portfolio-sample" data-aos="fade-up" data-aos-delay="200">
+            <div class="image-container">
+                <div class="device-frame">
+                    <img src="assets/images/Search Campaign Sample 3.png" alt="Search Campaign Sample 3" loading="lazy">
+                </div>
+                <div class="overlay">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Conversion-Focused Campaign</span>
+                </div>
+            </div>
+            <h2 class="animate-headline"><a href="https://cal.com/marlon-palomares-c4cyjo/secret"><i class="fas fa-exchange-alt"></i> Conversion Boost</a></h2>
+            <p>Maximize ROI with data-driven search campaigns that transform clicks into customers.</p>
+            <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-arrow-right"></i> View Case Study</a>
+        </section>
+        <section class="portfolio-sample" data-aos="fade-up" data-aos-delay="300">
+            <div class="image-container">
+                <div class="device-frame">
+                    <img src="assets/images/Search Campaign Sample 4.png" alt="Search Campaign Sample 4" loading="lazy">
+                </div>
+                <div class="overlay">
+                    <i class="fas fa-users"></i>
+                    <span>Audience-Targeted Campaign</span>
+                </div>
+            </div>
+            <h2 class="animate-headline"><a href="https://cal.com/marlon-palomares-c4cyjo/secret"><i class="fas fa-bullseye"></i> Reach Your Audience</a></h2>
+            <p>Precision targeting for effective search results that connect with your ideal customers.</p>
+            <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button"><i class="fas fa-arrow-right"></i> See Targeting</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/palomares523/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/yourprofile" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-conditions.html">Terms & Conditions</a>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            const closeMenu = document.querySelector('.close-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.add('active');
+            });
+
+            closeMenu.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+
+            // Animate headlines on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-headline').forEach(headline => {
+                observer.observe(headline);
+            });
+        });
+    </script>
+</body>
+</html>

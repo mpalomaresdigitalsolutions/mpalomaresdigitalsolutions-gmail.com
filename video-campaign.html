@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Supercharge your Google Ads ROI with our video campaigns. Book a free consultation today!">
+    <meta name="keywords" content="Google Ads, video campaign, ROI, consultation, MPalomares">
+    <title>Video Campaign - MPalomares</title>
+    <!-- Schema Markup for Video -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "SCOH1 Campaign",
+        "description": "Discover our latest video project.",
+        "uploadDate": "2025-03-25",
+        "contentUrl": "https://youtu.be/omWuwqKzhq4"
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --color-calypso: #cccfd2;
+            --color-chilean-fire: linear-gradient(90deg, #2980b9, #2c3e50); /* Updated to gradient */
+            --color-mojo: #f39c12;
+            --color-red: #c0453c;
+            --bg-gradient: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--color-calypso);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center; /* Centered the navbar content */
+            align-items: center;
+            padding: 1.5rem 5%; /* Increased padding for a more impressive look */
+            background: var(--color-chilean-fire); /* Applied gradient */
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(41, 128, 185, 0.5); /* Added glow effect */
+            border-radius: 10px; /* Added border radius for modern look */
+            animation: slideDown 0.5s ease, glow 3s ease-in-out infinite; /* Added glow animation */
+            position: relative;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-size: 1.8rem; /* Increased logo size for prominence */
+            font-weight: bold;
+            margin-right: 2rem; /* Added spacing between logo and links */
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem; /* Increased gap for better spacing */
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1.2rem; /* Increased font size for prominence */
+            font-weight: 500; /* Added weight for a bolder look */
+        }
+
+        .nav-links a:hover {
+            color: var(--color-mojo);
+        }
+
+        .nav-links .active {
+            font-weight: bold;
+            color: var(--color-calypso);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: absolute;
+            right: 5%;
+            font-size: 1.5rem;
+        }
+
+        .close-menu {
+            display: none;
+            position: absolute;
+            right: 5%;
+            font-size: 1.5rem;
+        }
+
+        .hero-section {
+            position: relative;
+            padding: 4rem 5%;
+            text-align: center;
+            background: var(--bg-gradient);
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            color: #3498db;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .hero-title a:hover {
+            color: var(--color-mojo);
+        }
+
+        .video-section {
+            padding: 4rem 5%;
+            background: white;
+            border-radius: 15px;
+            margin: 2rem 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container {
+            position: relative;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 3px solid var(--color-chilean-fire);
+        }
+
+        .video-container:hover {
+            transform: scale(1.02);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        .video-container .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(48,99,140,0.8), transparent);
+            overflow: hidden;
+            width: 100%;
+            height: 0;
+            transition: 0.5s ease;
+            color: white;
+            padding: 20px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-container:hover .overlay {
+            height: 100%;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            gap: 10px;
+        }
+
+        .cta-button.blue {
+            background: var(--color-chilean-fire);
+            color: white;
+        }
+
+        .cta-button.orange {
+            background: var(--color-mojo);
+            color: white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(41, 128, 185, 0.5);
+            }
+            50% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(41, 128, 185, 0.8);
+            }
+            100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(41, 128, 185, 0.5);
+            }
+        }
+
+        footer {
+            background: var(--color-red);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-media a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-media a:hover {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: center; /* Keep centered on mobile */
+                position: relative;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--color-chilean-fire);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.5s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .close-menu {
+                display: block;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .video-section {
+                padding: 2rem 5%;
+                margin: 1rem 5%;
+            }
+
+            .video-container {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-ad"></i> MPalomares
+            </a>
+            <div class="mobile-menu-btn" aria-label="Open Menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <div class="close-menu" aria-label="Close Menu">
+                    <i class="fas fa-times"></i>
+                </div>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="portfolio.html" class="active"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+                <li><a href="case-studies.html"><i class="fas fa-chart-line"></i> Case Studies</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <a href="https://cal.com/marlon-palomares-c4cyjo/secret" target="_blank">Supercharge Your Google Ads ROI</a>
+                </h1>
+                <p>Stop wasting ad spend. Start dominating your market with data-driven strategies that deliver measurable results.</p>
+                <div class="cta-buttons">
+                    <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button blue" target="_blank">
+                        <i class="fas fa-lightbulb"></i> Discover Strategies
+                    </a>
+                    <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button orange" target="_blank">
+                        <i class="fas fa-calendar-check"></i> Book Free Consultation
+                    </a>
+                    <a href="https://www.mediafire.com/file/pztiwioefhzvn2k/Goole_Ads_Brochure_for_Plumbing.pdf/file" class="cta-button orange" target="_blank">
+                        <i class="fas fa-download"></i> Download Free Brochure
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-section">
+            <h2 class="section-title">Our Video Campaigns</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/omWuwqKzhq4?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="overlay">
+                    <h3><i class="fas fa-video"></i> SCOH1 Campaign</h3>
+                    <p>Discover our latest video project.</p>
+                </div>
+            </div>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/8qtY1kWC7EI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="overlay">
+                    <h3><i class="fas fa-film"></i> SCOH0 Campaign</h3>
+                    <p>Experience creativity in motion.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-media">
+            <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/palomares523/" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://twitter.com/your-twitter" target="_blank" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-conditions.html">Terms & Conditions</a>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="case-studies.html">Case Studies</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>
