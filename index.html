@@ -1,889 +1,711 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Mpalomares Digital Solutions - Expert Google Ads Management with a Free Service to Build Your Portfolio.">
-  <meta name="keywords" content="Google Ads, Portfolio, Free Management, Digital Solutions">
-  <title>Portfolio - Mpalomares Digital Solutions</title>
-
-  <!-- Preconnect and Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mpalomares Digital Solutions | Transforming Digital Advertising</title>
+  <meta name="description" content="Transforming Digital Advertising with data-driven strategies. Boost your Google Ads ROI with Mpalomares Digital Solutions.">
+  <meta name="keywords" content="Digital Advertising, Google Ads, ROI, Marketing, Digital Solutions">
+  
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/Mylogo.svg" type="image/svg+xml" />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-XXXXXXXXXXXXXX" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- CSS Styles -->
-  <style>
-    /* CSS Variables */
-    :root {
-      --primary-color: #0066cc;
-      --primary-dark: #004c99;
-      --primary-light: #66a3ff;
-      --secondary-color: #333;
-      --accent-color: #ff6b00;
-      --white: #ffffff;
-      --overlay-bg: rgba(0, 51, 102, 0.3);
-    }
-    /* Global Styles */
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      color: var(--secondary-color);
-      background-color: var(--white);
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    /* Navigation Bar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-      padding: 0.8rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-    .navbar.scrolled {
-      padding: 0.5rem 5%;
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .logo i {
-      color: var(--accent-color);
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      align-items: center;
-    }
-    .nav-links li a {
-      padding: 0.5rem 0;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-    .nav-links li a.active,
-    .nav-links li a:hover {
-      color: var(--primary-color);
-    }
-    .nav-links li a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transition: width 0.3s ease;
-    }
-    .nav-links li a:hover::after,
-    .nav-links li a.active::after {
-      width: 100%;
-    }
-    .mobile-menu-btn {
-      display: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--primary-color);
-    }
-    /* Hero Section */
-    .portfolio-hero {
-      position: relative;
-      min-height: 90vh;
-      background: linear-gradient(135deg, rgba(0,102,204,0.9) 0%, rgba(0,204,255,0.9) 100%), url('your-hero-image.jpg');
-      background-size: cover;
-      background-position: center;
-      color: var(--white);
-      padding: 8rem 5% 4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-    .portfolio-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: repeating-radial-gradient(circle at 50% 50%, transparent, var(--overlay-bg) 20px);
-      animation: wave 15s linear infinite;
-      opacity: 0.5;
-    }
-    /* Geometric Shapes */
-    .hero-shape {
-      position: absolute;
-      background: var(--white);
-      opacity: 0.15;
-      border-radius: 50%;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    }
-    .hero-shape:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      top: -100px;
-      left: -100px;
-      animation: float 15s ease-in-out infinite;
-    }
-    .hero-shape:nth-child(2) {
-      width: 200px;
-      height: 200px;
-      bottom: -50px;
-      right: 10%;
-      animation: float 20s ease-in-out infinite reverse;
-    }
-    .hero-shape:nth-child(3) {
-      width: 150px;
-      height: 150px;
-      top: 30%;
-      right: -50px;
-      animation: float 18s ease-in-out infinite 2s;
-    }
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(20px, 20px) rotate(10deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    @keyframes wave {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
-      50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
-      100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
-    }
-    /* Bouncing Animations for Badges */
-    @keyframes bounce-top {
-      0%, 100% { top: -100px; }
-      50% { top: -110px; }
-    }
-    @keyframes bounce-right {
-      0%, 100% { right: -100px; }
-      50% { right: -110px; }
-    }
-    @keyframes bounce-bottom {
-      0%, 100% { bottom: -100px; }
-      50% { bottom: -110px; }
-    }
-    /* Hero Content */
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .hero-tagline {
-      display: inline-block;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 0.5rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      transform: translateY(-20px);
-      animation: fadeIn 1.5s ease-in-out forwards;
-    }
-    .hero-content h1 {
-      font-size: 4.2rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-      background: linear-gradient(135deg, #ffffff 0%, #e6f2ff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.2;
-    }
-    .hero-content h1 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .hero-content p {
-      font-size: 1.6rem;
-      margin-bottom: 3rem;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
-    }
-    /* Profile Container */
-    .profile-container {
-      position: relative;
-      width: clamp(180px, 30vw, 270px);
-      height: clamp(180px, 30vw, 270px);
-      margin: 0 auto 3rem;
-    }
-    .profile-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 8px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.5);
-      transition: all 0.4s ease;
-      animation: pulse 5s infinite;
-      position: relative;
-      z-index: 2;
-      background-color: #f0f8ff;
-    }
-    .profile-glow {
-      position: absolute;
-      top: -15px;
-      left: -15px;
-      width: calc(100% + 30px);
-      height: calc(100% + 30px);
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
-      opacity: 0.7;
-      filter: blur(20px);
-      z-index: 1;
-      animation: pulse 4s infinite alternate;
-    }
-    .profile-badges {
-      position: absolute;
-      z-index: 3;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-    .profile-badge {
-      position: absolute;
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      background: rgba(0, 51, 102, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.5);
-      border: 3px solid var(--primary-light);
-      color: var(--white);
-      font-size: 1.7rem;
-      transition: all 0.4s ease;
-      cursor: grab;
-      overflow: hidden;
-    }
-    .profile-badge.dragging {
-      cursor: grabbing;
-    }
-    .profile-badge::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-      top: -50%;
-      left: -50%;
-      transition: all 0.6s ease;
-    }
-    .profile-badge:hover {
-      transform: scale(1.15) rotate(5deg);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.7);
-    }
-    .profile-badge:hover::before {
-      top: -20%;
-      left: -20%;
-    }
-    .profile-badge i {
-      position: relative;
-      z-index: 2;
-      transition: transform 0.3s ease;
-    }
-    .profile-badge:hover i {
-      transform: scale(1.2);
-    }
-    .badge-tooltip {
-      position: absolute;
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%) scale(0);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-      white-space: nowrap;
-      font-weight: 500;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-    .profile-badge:hover .badge-tooltip {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
-      bottom: -45px;
-    }
-    /* Initial Positions and Animations for Badges */
-    .profile-badge:nth-child(1) {
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: bounce-top 2s ease-in-out infinite;
-    }
-    .profile-badge:nth-child(2) {
-      top: 50%;
-      right: -100px;
-      transform: translateY(-50%);
-      animation: bounce-right 2s ease-in-out infinite;
-    }
-    .profile-badge:nth-child(3) {
-      bottom: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: bounce-bottom 2s ease-in-out infinite;
-    }
-    /* CTA Buttons */
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    .hero-cta {
-      padding: 1.2rem 2.8rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-cta::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      transition: left 0.5s ease;
-      z-index: -1;
-    }
-    .hero-cta:hover::after {
-      left: 100%;
-    }
-    .hero-cta i {
-      transition: transform 0.3s ease;
-    }
-    .hero-cta:hover i {
-      transform: scale(1.2) rotate(10deg);
-    }
-    .hero-cta.primary {
-      background: var(--white);
-      color: var(--primary-color);
-    }
-    .hero-cta.primary:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-      background: var(--primary-color);
-      color: var(--white);
-    }
-    .hero-cta.secondary {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(15px);
-      color: var(--white);
-      border: 2px solid rgba(255, 255, 255, 0.6);
-    }
-    .hero-cta.secondary:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-    }
-    /* Stats Bar */
-    .stats-bar {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 2rem 1rem;
-      background: var(--white);
-      border-radius: 15px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-      margin: -80px auto 2rem;
-      position: relative;
-      z-index: 10;
-      max-width: 900px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .stats-bar:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      transition: background 0.3s ease, transform 0.3s ease;
-      border-radius: 10px;
-    }
-    .stat-item:hover {
-      background: rgba(0, 102, 204, 0.05);
-      transform: translateY(-5px);
-    }
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    .stat-value i {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      color: var(--white);
-      box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .stat-item:hover .stat-value i {
-      transform: rotate(15deg) scale(1.1);
-      box-shadow: 0 10px 25px rgba(0, 102, 204, 0.4);
-    }
-    .stat-label {
-      font-size: 1rem;
-      color: var(--secondary-color);
-      font-weight: 500;
-    }
-    /* Quick Links */
-    .quick-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 3rem auto;
-      max-width: 1000px;
-      flex-wrap: wrap;
-      padding: 0 1rem;
-    }
-    .quick-link {
-      flex: 1;
-      min-width: 200px;
-      max-width: 280px;
-      background: var(--white);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-      padding-bottom: 1rem;
-    }
-    .quick-link:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    }
-    .quick-link-icon {
-      height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      color: var(--white);
-      font-size: 3rem;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .quick-link:hover .quick-link-icon {
-      background: linear-gradient(135deg, var(--accent-color), #ff9248);
-    }
-    .quick-link-icon i {
-      transition: transform 0.3s ease;
-    }
-    .quick-link:hover .quick-link-icon i {
-      transform: scale(1.2) rotate(10deg);
-    }
-    .quick-link-content {
-      padding: 1.5rem;
-    }
-    .quick-link-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--primary-dark);
-    }
-    .quick-link-desc {
-      font-size: 0.9rem;
-      color: #666;
-    }
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--primary-color);
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 100;
-    }
-    .back-to-top.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .back-to-top:hover {
-      background: var(--primary-dark);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-    /* Footer */
-    footer {
-      background-color: var(--secondary-color);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-      border-top: 3px solid var(--primary-color);
-    }
-    footer a {
-      color: var(--white);
-      margin: 0 0.5rem;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: var(--primary-light);
-    }
-    .social-icons {
-      margin-top: 1rem;
-    }
-    .social-icons a {
-      font-size: 1.5rem;
-      margin: 0 0.5rem;
-      display: inline-block;
-    }
-    /* Mobile Menu and Responsive Adjustments */
-    @media (max-width: 768px) {
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background: var(--white);
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 5rem 2rem 2rem;
-        transition: right 0.5s ease;
-        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-      }
-      .nav-links.active {
-        right: 0;
-      }
-      .mobile-menu-btn {
-        display: block;
-        z-index: 1000;
-      }
-      .close-menu {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--primary-color);
-      }
-      .nav-links li {
-        margin-bottom: 1rem;
-      }
-      .hero-content h1 {
-        font-size: 2.8rem;
-      }
-      .profile-badge {
-        width: 60px;
-        height: 60px;
-        font-size: 1.4rem;
-      }
-    }
-    @media (max-width: 576px) {
-      .hero-content h1 {
-        font-size: 2.2rem;
-      }
-      .profile-badge {
-        width: 55px;
-        height: 55px;
-        font-size: 1.2rem;
-      }
-      .cta-buttons {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .hero-cta {
-        width: 100%;
-        justify-content: center;
-      }
-      .navbar {
-        padding: 0.8rem 3%;
-      }
-      .logo {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
-
-  <!-- Schema Markup -->
+  <!-- EmailJS Script -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init({ publicKey: "7cldp91TueGi-giUu" });
+    })();
+  </script>
+  
+  <!-- JSON-LD Schema for Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Mpalomares Digital Solutions",
-    "url": "https://your-website-url.com",
-    "logo": "https://your-website-url.com/assets/images/logo.png",
+    "url": "https://yourwebsite.com",
+    "logo": "https://yourwebsite.com/assets/images/Mylogo.svg",
     "sameAs": [
       "https://www.facebook.com/marlon.palomares.2024/",
       "https://www.linkedin.com/in/mpdigital/",
       "https://www.instagram.com/palomares523/",
+      "https://x.com/marlonpalo64854",
       "https://github.com/mpalomaresdigitalsolutions"
     ]
   }
   </script>
+
+  <style>
+    :root {
+      --primary-color: #0066cc;
+      --secondary-color: #333;
+      --light-gray: #f4f4f4;
+      --white: #fff;
+      --accent-color: #ff6b00;
+      --font-size-base: 1rem;
+      --border-color: rgba(0, 102, 204, 0.3);
+      --hover-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    /* Global Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      font-size: var(--font-size-base);
+      color: var(--secondary-color);
+      background-color: var(--light-gray);
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    
+    /* Header & Navigation */
+    header {
+      background: var(--white);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--hover-transition);
+    }
+    header:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5%;
+    }
+    .logo img {
+      height: 80px;
+      transition: var(--hover-transition);
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+    }
+    .logo img:hover {
+      transform: scale(1.08) translateY(-2px);
+      filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.4));
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--hover-transition);
+    }
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: var(--primary-color);
+      background-color: rgba(0,102,204,0.05);
+      transform: translateY(-2px);
+    }
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+    .nav-links a i {
+      transition: var(--hover-transition);
+    }
+    .nav-links a:hover i {
+      transform: scale(1.2) translateY(-3px);
+      color: var(--accent-color);
+    }
+    .nav-links a.active {
+      color: var(--primary-color);
+      background-color: rgba(0,102,204,0.1);
+    }
+    .nav-links a.active::before {
+      width: 100%;
+    }
+    .nav-links a.active i {
+      color: var(--accent-color);
+    }
+    .mobile-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: url('assets/images/ROI.png') center/cover no-repeat;
+      min-height: 80vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 100px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
+      z-index: 1;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      pointer-events: none;
+      animation: pulse 3s infinite alternate;
+      z-index: 2;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px rgba(0,102,204,0.3); }
+      100% { box-shadow: 0 0 25px rgba(0,102,204,0.6); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      background: rgba(255,255,255,0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 800px;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(5px);
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: var(--primary-color);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .hero-content h1 i {
+      margin-right: 0.5rem;
+    }
+    .hero-content p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      color: var(--secondary-color);
+    }
+    .highlight {
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    .cta-container {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-button {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: var(--hover-transition);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    .cta-button.primary {
+      background: var(--primary-color);
+      color: var(--white);
+    }
+    .cta-button.primary:hover {
+      background: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .cta-button.accent {
+      background: var(--accent-color);
+      color: var(--white);
+    }
+    .cta-button.accent:hover {
+      background: #e55e00;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    
+    /* ROI Calculator Section */
+    .roi-calculator {
+      padding: 2rem 5%;
+      margin: 2rem auto;
+      max-width: 1200px;
+      text-align: center;
+    }
+    .roi-calculator .calculator-content {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid var(--border-color);
+      display: inline-block;
+    }
+    .roi-calculator h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .roi-calculator p {
+      margin-bottom: 1.5rem;
+    }
+    .roi-calculator .input-group {
+      margin: 1rem 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .roi-calculator .input-group i {
+      position: absolute;
+      left: 15px;
+      color: var(--secondary-color);
+    }
+    .roi-calculator input[type="number"] {
+      padding: 0.8rem 1rem 0.8rem 2.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .roi-calculator button {
+      margin-top: 1rem;
+    }
+    .roi-calculator #roi-result {
+      margin-top: 20px;
+    }
+    .roi-calculator .error-message {
+      color: #dc3545;
+      margin-top: 10px;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      padding: 2rem 5%;
+      background: var(--white);
+      margin: 2rem auto;
+      max-width: 1200px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid var(--border-color);
+    }
+    .contact-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-align: center;
+    }
+    .contact-form-group {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .contact-form-group input,
+    .contact-form-group textarea {
+      padding: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact-form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .contact-form-group button {
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      transition: var(--hover-transition);
+    }
+    .contact-form-group button:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    .form-message {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--white);
+      padding: 1.5rem 5%;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    .footer-links {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .footer-links a {
+      margin: 0 0.5rem;
+      color: var(--secondary-color);
+      transition: var(--hover-transition);
+    }
+    .footer-links a:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+    .social-icons {
+      margin-bottom: 1rem;
+    }
+    .social-icons a {
+      margin: 0 0.5rem;
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+      transition: var(--hover-transition);
+    }
+    .social-icons a:hover {
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+    
+    /* WhatsApp Chat Button */
+    .whatsapp-chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-size: 24px;
+      transition: var(--hover-transition);
+    }
+    .whatsapp-chat:hover {
+      background-color: #128C7E;
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      .cta-container {
+        flex-direction: column;
+      }
+      .nav-links a {
+        padding: 0.5rem 0.8rem;
+      }
+      .logo img {
+        height: 60px;
+      }
+    }
+    @media (max-width: 550px) {
+      .nav-links {
+        position: fixed;
+        flex-direction: column;
+        top: 70px;
+        right: -100%;
+        background: var(--white);
+        width: 80%;
+        height: calc(100vh - 70px);
+        padding: 2rem;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+      }
+      .nav-links.active {
+        right: 0;
+      }
+      .mobile-toggle {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <a href="index.html" class="logo">
-      <i class="fas fa-ad"></i> MPalomares
-    </a>
-    <div class="mobile-menu-btn">
-      <i class="fas fa-bars"></i>
+  <!-- HEADER / NAVIGATION -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo" loading="lazy">
+        </a>
+      </div>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" class="active"><i class="fas fa-house-chimney"></i> <span>Home</span></a>
+        <a href="services.html"><i class="fas fa-rocket"></i> <span>Services</span></a>
+        <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+        <a href="blog.html"><i class="fas fa-pen-fancy"></i> <span>Blog</span></a>
+        <a href="contact.html"><i class="fas fa-headset"></i> <span>Contact</span></a>
+        <a href="certificates.html"><i class="fas fa-award"></i> <span>Certificates</span></a>
+        <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
+        <a href="case-studies.html"><i class="fas fa-briefcase"></i> <span>Case Studies</span></a>
+      </nav>
+      <div class="mobile-toggle" id="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
     </div>
-    <ul class="nav-links">
-      <div class="close-menu">
-        <i class="fas fa-times"></i>
-      </div>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="portfolio.html" class="active">Portfolio</a></li>
-      <li><a href="case-studies.html">Case Studies</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="portfolio-hero" role="banner">
-    <div class="hero-shape"></div>
-    <div class="hero-shape"></div>
-    <div class="hero-shape"></div>
-    <div class="hero-content">
-      <div class="hero-tagline">
-        <i class="fas fa-star"></i> Google Ads Specialist Building Portfolio
-      </div>
-      <div class="profile-container">
-        <div class="profile-glow"></div>
-        <img src="assets/images/Profile.png" alt="Profile picture of Marlon" class="profile-image" loading="lazy">
-        <div class="profile-badges">
-          <a href="https://skillshop.exceedlms.com/student/path/18128-google-ads-search-certification" class="profile-badge" title="Google Ads Certified">
-            <i class="fas fa-ad"></i>
-            <span class="badge-tooltip">Google Ads Certified</span>
-          </a>
-          <a href="https://analytics.google.com/" class="profile-badge" title="Analytics Expert">
-            <i class="fas fa-chart-bar"></i>
-            <span class="badge-tooltip">Analytics Expert</span>
-          </a>
-          <a href="certifications.html" class="profile-badge" title="View Certifications">
-            <i class="fas fa-certificate"></i>
-            <span class="badge-tooltip">View Certifications</span>
-          </a>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1><i class="fas fa-chart-line"></i> Supercharge Your <span class="highlight">Google Ads ROI</span></h1>
+        <p>Stop wasting ad spend. Start <span class="highlight">dominating your market</span> with data‑driven strategies that deliver measurable results.</p>
+        <div class="cta-container">
+          <a href="services.html" class="cta-button primary"><i class="fas fa-lightbulb"></i> Discover Strategies</a>
+          <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" target="_blank"><i class="fas fa-calendar-check"></i> Book Free Consultation</a>
+          <a href="#" id="download-brochure" class="cta-button accent"><i class="fas fa-download"></i> Download Free Brochure</a>
         </div>
       </div>
-      <h1><a href="https://cal.com/marlon-palomares-c4cyjo/secret">Grow With Google Ads & AI Marketing — Zero Cost, Maximum Results!</a></h1>
-      <p>Hey there! I'm Marlon - your friendly AI & Google Ads expert trained by marketing guru Ian Baillo. I'm using cutting-edge AI tools to supercharge businesses just like yours! While I build my portfolio, you get my expertise 100% free. Let's crush your goals together!</p>
-      <div class="highlight-box" style="border: 3px dashed var(--accent-color); border-radius: 15px; padding: 1.8rem; background: rgba(255,107,0,0.08); position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 2rem;">
-        <span style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--accent-color); color: var(--white); padding: 0.3rem 1.2rem; border-radius: 30px; font-size: 0.9rem; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">LIMITED TIME OFFER</span>
-        Offering FREE Google Ads management for select businesses to demonstrate my expertise and build case studies.
-      </div>
-      <div class="cta-buttons">
-        <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="hero-cta primary">
-          <i class="fas fa-briefcase"></i> See My Approach
-        </a>
-        <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="hero-cta secondary">
-          <i class="fas fa-calendar-check"></i> Apply For Free Management
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Stats Bar -->
-  <div class="stats-bar" role="region" aria-label="Statistics">
-    <div class="stat-item">
-      <div class="stat-value">
-        <i class="fas fa-search"></i> 100%
+    <!-- ROI CALCULATOR -->
+    <section class="roi-calculator">
+      <div class="calculator-content">
+        <h2><i class="fas fa-calculator"></i> ROI Calculator</h2>
+        <p>See how our strategies can transform your ad spend into profit</p>
+        <div class="input-group">
+          <i class="fas fa-coins"></i>
+          <input type="number" id="investment" placeholder="Your monthly ad spend ($)" min="1">
+        </div>
+        <div class="input-group">
+          <i class="fas fa-chart-line"></i>
+          <input type="number" id="revenue" placeholder="Your expected revenue ($)" min="1">
+        </div>
+        <button class="cta-button accent" onclick="calculateROI()"><i class="fas fa-bolt"></i> Calculate Your ROI</button>
+        <div id="roi-result"></div>
+        <p class="error-message" id="error-message"></p>
       </div>
-      <div class="stat-label">Focus on Your Goals</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">
-        <i class="fas fa-dollar-sign"></i> $0
-      </div>
-      <div class="stat-label">Management Fee</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">
-        <i class="fas fa-chart-line"></i> 2X+
-      </div>
-      <div class="stat-label">Target ROAS</div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Quick Links Section -->
-  <div class="quick-links" role="navigation" aria-label="Quick Links">
-    <a href="search-add.html" class="quick-link">
-      <div class="quick-link-icon">
-        <i class="fas fa-search-dollar"></i>
-      </div>
-      <div class="quick-link-content">
-        <div class="quick-link-title">Search Ads</div>
-        <div class="quick-link-desc">Targeted campaigns that reach customers actively searching for your products.</div>
-      </div>
-    </a>
-    <a href="video-campaign.html" class="quick-link">
-      <div class="quick-link-icon">
-        <i class="fas fa-desktop"></i>
-      </div>
-      <div class="quick-link-content">
-        <div class="quick-link-title">Display Ads</div>
-        <div class="quick-link-desc">Visually engaging ads that build awareness across the web.</div>
-      </div>
-    </a>
-    <a href="services.html#analytics" class="quick-link">
-      <div class="quick-link-icon">
-        <i class="fas fa-chart-area"></i>
-      </div>
-      <div class="quick-link-content">
-        <div class="quick-link-title">Analytics</div>
-        <div class="quick-link-desc">Data-driven insights to optimize your marketing performance.</div>
-      </div>
-    </a>
-    <a href="case-studies.html" class="quick-link">
-      <div class="quick-link-icon">
-        <i class="fas fa-clipboard-check"></i>
-      </div>
-      <div class="quick-link-content">
-        <div class="quick-link-title">Case Studies</div>
-        <div class="quick-link-desc">Real results from businesses I've helped grow.</div>
-      </div>
-    </a>
-  </div>
+    <!-- CONTACT FORM -->
+    <section class="contact-section" id="contactForm">
+      <h2>Contact Us</h2>
+      <form id="contactFormElement" onsubmit="sendEmail(event)">
+        <div class="contact-form-group">
+          <label for="user_name">Name</label>
+          <input type="text" id="user_name" name="user_name" placeholder="Your Name" required>
+        </div>
+        <div class="contact-form-group">
+          <label for="user_email">Email</label>
+          <input type="email" id="user_email" name="user_email" placeholder="Your Email" required>
+        </div>
+        <div class="contact-form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+        </div>
+        <div class="contact-form-group">
+          <button type="submit">Send Message</button>
+        </div>
+        <div class="form-message" id="form-message"></div>
+      </form>
+    </section>
+  </main>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" id="back-to-top" aria-label="Back to Top">
-    <i class="fas fa-angle-up"></i>
-  </button>
-
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <p>© 2024 Mpalomares Digital Solutions</p>
-    <div class="footer-links">
-      <a href="privacy-policy.html">Privacy Policy</a> | 
-      <a href="terms-conditions.html">Terms & Conditions</a>
-    </div>
+  <!-- FOOTER -->
+  <footer>
     <div class="social-icons">
-      <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/palomares523/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" title="Connect on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/palomares523/" target="_blank" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://x.com/marlonpalo64854" target="_blank" title="Follow on X/Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" title="Follow on GitHub"><i class="fab fa-github"></i></a>
     </div>
+    <div class="footer-links">
+      <a href="privacy-policy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms & Conditions</a> |
+      <a href="sitemap.html">Sitemap</a>
+    </div>
+    <p>© 2024 Mpalomares Digital Solutions | Transforming Digital Advertising</p>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- WhatsApp Chat Button with pre-filled message
+       To set up auto-reply on WhatsApp Business:
+       1. Open WhatsApp Business app
+       2. Go to Settings > Business Tools > Away Message
+       3. Turn on "Send away message"
+       4. Customize the message, e.g., "Thank you for your interest! We'll get back to you shortly."
+       5. Set the schedule and recipients as needed
+       Note: This is a basic auto-reply. For more advanced features, consider using WhatsApp Business API.
+  -->
+  <a href="https://wa.me/+639913062370?text=Hi%20Mpalomares%20Digital%20Solutions,%20I%20need%20help%20with%20my%20Google%20Ads!" target="_blank" class="whatsapp-chat" title="Chat with us on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Messenger Chat (Uncomment and replace YOUR_PAGE_ID and YOUR_APP_ID if preferred) -->
+  <!-- 
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=YOUR_APP_ID&autoLogAppEvents=1" nonce="YOUR_NONCE"></script>
+  <div class="fb-customerchat" page_id="YOUR_PAGE_ID" theme_color="#0066cc"></div>
+  -->
+
   <script>
-    // Mobile menu toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const closeMenu = document.querySelector('.close-menu');
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.classList.add('active');
-    });
-    closeMenu.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-    });
-
-    // Back to Top Button Functionality
-    const backToTopButton = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTopButton.classList.add('visible');
-      } else {
-        backToTopButton.classList.remove('visible');
-      }
-    });
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Draggable Badges
-    const badges = document.querySelectorAll('.profile-badge');
-    let isDragging = false;
-    let currentBadge = null;
-    let offsetX, offsetY;
-
-    badges.forEach(badge => {
-      badge.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        currentBadge = badge;
-        offsetX = e.clientX - badge.getBoundingClientRect().left;
-        offsetY = e.clientY - badge.getBoundingClientRect().top;
-        badge.classList.add('dragging');
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const navLinks = document.getElementById('nav-links');
+      
+      mobileToggle.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+        mobileToggle.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
       });
+
+      // Highlight active link based on current page
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        if(link.getAttribute('href') === currentPage || (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // Adjust mobile toggle display on resize
+      function checkScreenSize() {
+        if(window.innerWidth <= 550) {
+          mobileToggle.style.display = 'block';
+        } else {
+          mobileToggle.style.display = 'none';
+          navLinks.classList.remove('active');
+        }
+      }
+      checkScreenSize();
+      window.addEventListener('resize', checkScreenSize);
     });
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging && currentBadge) {
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
-        currentBadge.style.left = `${x}px`;
-        currentBadge.style.top = `${y}px`;
-      }
-    });
+    // ROI Calculator Function
+    function calculateROI() {
+      const investment = parseFloat(document.getElementById('investment').value);
+      const revenue = parseFloat(document.getElementById('revenue').value);
+      const resultElement = document.getElementById('roi-result');
+      const errorElement = document.getElementById('error-message');
+      resultElement.innerHTML = '';
+      errorElement.style.display = 'none';
 
-    document.addEventListener('mouseup', () => {
-      if (currentBadge) {
-        currentBadge.classList.remove('dragging');
-        currentBadge = null;
-        isDragging = false;
+      if (isNaN(investment) || investment <= 0) {
+        showError('Please enter a valid investment amount');
+        return;
       }
+      if (isNaN(revenue) || revenue <= 0) {
+        showError('Please enter a valid revenue amount');
+        return;
+      }
+      const roi = ((revenue - investment) / investment) * 100;
+      const profit = revenue - investment;
+      resultElement.innerHTML = `
+        <div style="margin-top: 20px; padding: 1.5rem; border-radius: 8px; background-color: ${roi >= 0 ? 'rgba(40, 167, 69, 0.1)' : 'rgba(220, 53, 69, 0.1)'}; border: 1px solid ${roi >= 0 ? 'rgba(40, 167, 69, 0.3)' : 'rgba(220, 53, 69, 0.3)'};">
+          <h3><i class="fas fa-chart-pie"></i> Your ROI Analysis</h3>
+          <p><i class="fas fa-coins"></i> Ad Investment: $${investment.toFixed(2)}</p>
+          <p><i class="fas fa-money-bill-wave"></i> Revenue: $${revenue.toFixed(2)}</p>
+          <p><i class="fas fa-sack-dollar"></i> Profit: $${profit.toFixed(2)}</p>
+          <p><i class="fas fa-percentage"></i> ROI: <strong>${roi.toFixed(2)}%</strong></p>
+          <p style="margin-top: 15px; font-size: 0.9rem;">
+            ${roi >= 0 ? `<i class="fas fa-thumbs-up"></i> Positive return! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button primary" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;"><i class="fas fa-rocket"></i> Boost It Further</a>` 
+            : `<i class="fas fa-thumbs-down"></i> We can fix this! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;"><i class="fas fa-life-ring"></i> Get Help Now</a>`}
+          </p>
+        </div>
+      `;
+      resultElement.style.animation = 'fadeIn 0.5s ease-in-out';
+    }
+
+    function showError(message) {
+      const errorElement = document.getElementById('error-message');
+      errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      errorElement.style.display = 'block';
+    }
+
+    // Contact Form Submission using EmailJS
+    function sendEmail(event) {
+      event.preventDefault();
+      const formMessage = document.getElementById('form-message');
+      emailjs.sendForm('service_menami7', 'template_l1tl3wg', '#contactFormElement')
+      .then(() => {
+        formMessage.style.color = 'green';
+        formMessage.innerText = 'Message sent successfully!';
+      }, (error) => {
+        formMessage.style.color = 'red';
+        formMessage.innerText = 'Failed to send message. Please try again later.';
+      });
+    }
+
+    // Download Brochure and Show Thank You Message
+    document.getElementById('download-brochure').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Trigger download by opening the MediaFire link in a new tab
+      window.open('https://www.mediafire.com/file/pztiwioefhzvn2k/Goole+Ads+Brochure+for+Plumbing.pdf/file', '_blank');
+      // Show thank you message after a short delay to ensure download starts
+      setTimeout(function() {
+        alert('Thank you for downloading the brochure!');
+      }, 1000);
     });
   </script>
 </body>
