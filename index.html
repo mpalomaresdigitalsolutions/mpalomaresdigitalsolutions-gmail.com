@@ -50,6 +50,7 @@
       --font-size-base: 1rem;
       --border-color: rgba(0, 102, 204, 0.3);
       --hover-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --logo-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
     
     /* Global Reset & Base Styles */
@@ -96,14 +97,64 @@
       justify-content: space-between;
       padding: 1rem 5%;
     }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      perspective: 1000px;
+    }
     .logo img {
-      height: 80px;
+      height: 100px;
+      width: auto;
       transition: var(--hover-transition);
       filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+      transform-style: preserve-3d;
+      animation: floatLogo 6s ease-in-out infinite;
     }
-    .logo img:hover {
-      transform: scale(1.08) translateY(-2px);
-      filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.4));
+    @keyframes floatLogo {
+      0%, 100% { 
+        transform: translateY(0) rotateY(0deg);
+        filter: drop-shadow(0 5px 15px rgba(0,102,204,0.4));
+      }
+      50% { 
+        transform: translateY(-10px) rotateY(10deg);
+        filter: drop-shadow(0 15px 30px rgba(0,102,204,0.6));
+      }
+    }
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .logo-text span {
+      color: var(--accent-color);
+    }
+    .logo-text::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+    }
+    .logo:hover .logo-text::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .logo:hover img {
+      animation: pulseLogo 1s ease infinite alternate;
+    }
+    @keyframes pulseLogo {
+      to {
+        transform: scale(1.05) rotateY(5deg);
+        filter: drop-shadow(0 0 20px rgba(0,102,204,0.7));
+      }
     }
     .nav-links {
       display: flex;
@@ -114,13 +165,14 @@
     .nav-links a {
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.6rem 1rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 8px;
       position: relative;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       transition: var(--hover-transition);
+      transform-style: preserve-3d;
     }
     .nav-links a::before {
       content: '';
@@ -136,7 +188,8 @@
     .nav-links a:hover {
       color: var(--primary-color);
       background-color: rgba(0,102,204,0.05);
-      transform: translateY(-2px);
+      transform: translateY(-3px) translateZ(10px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     .nav-links a:hover::before {
       width: 100%;
@@ -145,12 +198,13 @@
       transition: var(--hover-transition);
     }
     .nav-links a:hover i {
-      transform: scale(1.2) translateY(-3px);
+      transform: scale(1.3) translateY(-3px) translateZ(5px);
       color: var(--accent-color);
     }
     .nav-links a.active {
       color: var(--primary-color);
       background-color: rgba(0,102,204,0.1);
+      transform: translateZ(5px);
     }
     .nav-links a.active::before {
       width: 100%;
@@ -160,8 +214,13 @@
     }
     .mobile-toggle {
       display: none;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       cursor: pointer;
+      color: var(--primary-color);
+      transition: var(--hover-transition);
+    }
+    .mobile-toggle:hover {
+      transform: rotate(90deg) scale(1.1);
     }
     
     /* Hero Section */
@@ -174,7 +233,7 @@
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      margin-top: 100px;
+      margin-top: 120px;
       box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
     }
     .hero::after {
@@ -198,60 +257,96 @@
       z-index: 2;
     }
     @keyframes pulse {
-      0% { box-shadow: 0 0 10px rgba(0,102,204,0.3); }
-      100% { box-shadow: 0 0 25px rgba(0,102,204,0.6); }
+      0% { 
+        box-shadow: 0 0 10px rgba(0,102,204,0.3);
+        transform: translateZ(0);
+      }
+      100% { 
+        box-shadow: 0 0 25px rgba(0,102,204,0.6);
+        transform: translateZ(10px);
+      }
     }
     .hero-content {
       position: relative;
       z-index: 3;
-      background: rgba(255,255,255,0.9);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 800px;
+      background: rgba(255,255,255,0.92);
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 850px;
       border: 1px solid var(--border-color);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .hero-content:hover {
+      transform: perspective(1000px) rotateX(1deg) rotateY(1deg);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
     }
     .hero-content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
+      font-size: 3.8rem;
+      margin-bottom: 1.5rem;
       line-height: 1.2;
       color: var(--primary-color);
       text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      transform: translateZ(20px);
     }
     .hero-content h1 i {
-      margin-right: 0.5rem;
+      margin-right: 0.8rem;
+      transform: translateZ(10px);
     }
     .hero-content p {
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
       color: var(--secondary-color);
+      transform: translateZ(10px);
     }
     .highlight {
       color: var(--accent-color);
       font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    .hero-content:hover .highlight::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
     .cta-container {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       justify-content: center;
       flex-wrap: wrap;
+      transform: translateZ(15px);
     }
     .cta-button {
-      padding: 1rem 2.5rem;
+      padding: 1.2rem 3rem;
       border-radius: 50px;
       font-weight: 600;
       text-transform: uppercase;
       transition: var(--hover-transition);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      font-size: 1rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      font-size: 1.1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.8rem;
       border: none;
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
     }
     .cta-button::before {
       content: "";
@@ -260,8 +355,8 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.6s;
     }
     .cta-button:hover::before {
       left: 100%;
@@ -272,8 +367,8 @@
     }
     .cta-button.primary:hover {
       background: #0056b3;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transform: translateY(-5px) translateZ(10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
     }
     .cta-button.accent {
       background: var(--accent-color);
@@ -281,102 +376,137 @@
     }
     .cta-button.accent:hover {
       background: #e55e00;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transform: translateY(-5px) translateZ(10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
     }
     
     /* ROI Calculator Section */
     .roi-calculator {
-      padding: 2rem 5%;
-      margin: 2rem auto;
+      padding: 3rem 5%;
+      margin: 3rem auto;
       max-width: 1200px;
       text-align: center;
     }
     .roi-calculator .calculator-content {
       background: var(--white);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       border: 1px solid var(--border-color);
       display: inline-block;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+    .roi-calculator .calculator-content:hover {
+      transform: translateY(-5px) rotateX(1deg) rotateY(1deg);
     }
     .roi-calculator h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
       color: var(--primary-color);
+      transform: translateZ(10px);
     }
     .roi-calculator p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      transform: translateZ(5px);
     }
     .roi-calculator .input-group {
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      transform: translateZ(5px);
     }
     .roi-calculator .input-group i {
       position: absolute;
-      left: 15px;
+      left: 20px;
       color: var(--secondary-color);
+      transform: translateZ(5px);
     }
     .roi-calculator input[type="number"] {
-      padding: 0.8rem 1rem 0.8rem 2.5rem;
+      padding: 1rem 1.2rem 1rem 3rem;
       border: 1px solid var(--border-color);
-      border-radius: 5px;
+      border-radius: 8px;
       width: 100%;
-      max-width: 300px;
+      max-width: 350px;
+      font-size: 1.1rem;
+      transition: var(--hover-transition);
+      transform: translateZ(5px);
+    }
+    .roi-calculator input[type="number"]:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0,102,204,0.2);
+      transform: translateZ(10px);
     }
     .roi-calculator button {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
+      transform: translateZ(10px);
     }
     .roi-calculator #roi-result {
-      margin-top: 20px;
+      margin-top: 30px;
+      transform: translateZ(10px);
     }
     .roi-calculator .error-message {
       color: #dc3545;
-      margin-top: 10px;
+      margin-top: 15px;
+      transform: translateZ(5px);
     }
     
     /* Contact Section */
     .contact-section {
-      padding: 2rem 5%;
+      padding: 3rem 5%;
       background: var(--white);
-      margin: 2rem auto;
+      margin: 3rem auto;
       max-width: 1200px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       border: 1px solid var(--border-color);
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+    .contact-section:hover {
+      transform: translateY(-5px) rotateX(1deg) rotateY(1deg);
     }
     .contact-section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
       color: var(--primary-color);
       text-align: center;
+      transform: translateZ(10px);
     }
     .contact-form-group {
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       display: flex;
       flex-direction: column;
+      transform: translateZ(5px);
     }
     .contact-form-group label {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       font-weight: 500;
+      font-size: 1.1rem;
     }
     .contact-form-group input,
     .contact-form-group textarea {
-      padding: 0.8rem;
+      padding: 1rem;
       border: 1px solid var(--border-color);
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: var(--hover-transition);
+    }
+    .contact-form-group input:focus,
+    .contact-form-group textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0,102,204,0.2);
+      transform: translateZ(5px);
     }
     .contact-form-group textarea {
       resize: vertical;
-      min-height: 100px;
+      min-height: 120px;
     }
     .contact-form-group button {
-      margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
+      margin-top: 1.5rem;
+      padding: 1rem 2rem;
       border-radius: 50px;
       font-weight: 600;
       text-transform: uppercase;
@@ -385,96 +515,170 @@
       border: none;
       cursor: pointer;
       transition: var(--hover-transition);
+      transform: translateZ(10px);
     }
     .contact-form-group button:hover {
       background: #0056b3;
-      transform: translateY(-2px);
+      transform: translateY(-3px) translateZ(15px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
     .form-message {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       text-align: center;
+      transform: translateZ(5px);
     }
     
     /* Footer */
     footer {
       background: var(--white);
-      padding: 1.5rem 5%;
+      padding: 2rem 5%;
       text-align: center;
       border-top: 1px solid var(--border-color);
+      transform-style: preserve-3d;
     }
     .footer-links {
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      transform: translateZ(5px);
     }
     .footer-links a {
-      margin: 0 0.5rem;
+      margin: 0 0.8rem;
       color: var(--secondary-color);
       transition: var(--hover-transition);
+      position: relative;
+      display: inline-block;
     }
     .footer-links a:hover {
       color: var(--primary-color);
-      text-decoration: underline;
+      text-decoration: none;
+      transform: translateY(-3px) translateZ(5px);
+    }
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    .footer-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
     .social-icons {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      transform: translateZ(5px);
     }
     .social-icons a {
-      margin: 0 0.5rem;
+      margin: 0 0.8rem;
       color: var(--secondary-color);
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       transition: var(--hover-transition);
+      display: inline-block;
     }
     .social-icons a:hover {
       color: var(--primary-color);
-      transform: translateY(-2px);
+      transform: translateY(-5px) translateZ(10px) scale(1.2);
+    }
+    footer p {
+      margin-top: 1.5rem;
+      transform: translateZ(5px);
     }
     
     /* WhatsApp Chat Button */
     .whatsapp-chat {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 30px;
+      right: 30px;
       background-color: #25D366;
       color: white;
-      padding: 15px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
       z-index: 1000;
-      font-size: 24px;
+      font-size: 28px;
       transition: var(--hover-transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      animation: pulseWhatsApp 2s infinite;
+    }
+    @keyframes pulseWhatsApp {
+      0%, 100% { transform: translateZ(0) scale(1); }
+      50% { transform: translateZ(10px) scale(1.1); }
     }
     .whatsapp-chat:hover {
       background-color: #128C7E;
-      transform: translateY(-2px);
+      transform: translateY(-5px) translateZ(10px) scale(1.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      animation: none;
+    }
+    
+    /* 3D Card Effects */
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .card-3d:hover {
+      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateZ(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
     
     /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero-content h1 {
+        font-size: 3.2rem;
+      }
+      .hero-content p {
+        font-size: 1.3rem;
+      }
+      .logo img {
+        height: 85px;
+      }
+      .logo-text {
+        font-size: 1.6rem;
+      }
+    }
     @media (max-width: 768px) {
       .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
       }
       .hero-content p {
         font-size: 1.2rem;
       }
       .cta-container {
         flex-direction: column;
+        gap: 1.5rem;
       }
       .nav-links a {
-        padding: 0.5rem 0.8rem;
+        padding: 0.6rem 1rem;
       }
       .logo img {
-        height: 60px;
+        height: 75px;
+      }
+      .logo-text {
+        font-size: 1.4rem;
+      }
+      .roi-calculator h2,
+      .contact-section h2 {
+        font-size: 2.2rem;
       }
     }
-    @media (max-width: 550px) {
+    @media (max-width: 576px) {
       .nav-links {
         position: fixed;
         flex-direction: column;
-        top: 70px;
+        top: 120px;
         right: -100%;
         background: var(--white);
         width: 80%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 120px);
         padding: 2rem;
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         transition: right 0.3s ease;
@@ -485,6 +689,32 @@
       .mobile-toggle {
         display: block;
       }
+      .logo-text {
+        display: none;
+      }
+      .hero {
+        margin-top: 120px;
+      }
+      .hero-content {
+        padding: 2rem;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+      .whatsapp-chat {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 20px;
+        right: 20px;
+      }
     }
   </style>
 </head>
@@ -494,7 +724,8 @@
     <div class="navbar">
       <div class="logo">
         <a href="index.html">
-          <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo" loading="lazy">
+          <img src="assets/images/Mylogo.svg" alt="Mpalomares Digital Solutions Logo" loading="lazy" class="card-3d">
+          <span class="logo-text">MP <span>Digital</span></span>
         </a>
       </div>
       <nav class="nav-links" id="nav-links">
@@ -517,7 +748,7 @@
   <main>
     <!-- HERO SECTION -->
     <section class="hero">
-      <div class="hero-content">
+      <div class="hero-content card-3d">
         <h1><i class="fas fa-chart-line"></i> Supercharge Your <span class="highlight">Google Ads ROI</span></h1>
         <p>Stop wasting ad spend. Start <span class="highlight">dominating your market</span> with data‑driven strategies that deliver measurable results.</p>
         <div class="cta-container">
@@ -530,7 +761,7 @@
 
     <!-- ROI CALCULATOR -->
     <section class="roi-calculator">
-      <div class="calculator-content">
+      <div class="calculator-content card-3d">
         <h2><i class="fas fa-calculator"></i> ROI Calculator</h2>
         <p>See how our strategies can transform your ad spend into profit</p>
         <div class="input-group">
@@ -548,7 +779,7 @@
     </section>
 
     <!-- CONTACT FORM -->
-    <section class="contact-section" id="contactForm">
+    <section class="contact-section card-3d" id="contactForm">
       <h2>Contact Us</h2>
       <form id="contactFormElement" onsubmit="sendEmail(event)">
         <div class="contact-form-group">
@@ -588,25 +819,10 @@
     <p>© 2024 Mpalomares Digital Solutions | Transforming Digital Advertising</p>
   </footer>
 
-  <!-- WhatsApp Chat Button with pre-filled message
-       To set up auto-reply on WhatsApp Business:
-       1. Open WhatsApp Business app
-       2. Go to Settings > Business Tools > Away Message
-       3. Turn on "Send away message"
-       4. Customize the message, e.g., "Thank you for your interest! We'll get back to you shortly."
-       5. Set the schedule and recipients as needed
-       Note: This is a basic auto-reply. For more advanced features, consider using WhatsApp Business API.
-  -->
+  <!-- WhatsApp Chat Button -->
   <a href="https://wa.me/+639913062370?text=Hi%20Mpalomares%20Digital%20Solutions,%20I%20need%20help%20with%20my%20Google%20Ads!" target="_blank" class="whatsapp-chat" title="Chat with us on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-
-  <!-- Messenger Chat (Uncomment and replace YOUR_PAGE_ID and YOUR_APP_ID if preferred) -->
-  <!-- 
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=YOUR_APP_ID&autoLogAppEvents=1" nonce="YOUR_NONCE"></script>
-  <div class="fb-customerchat" page_id="YOUR_PAGE_ID" theme_color="#0066cc"></div>
-  -->
 
   <script>
     // Mobile Menu Toggle
@@ -631,7 +847,7 @@
 
       // Adjust mobile toggle display on resize
       function checkScreenSize() {
-        if(window.innerWidth <= 550) {
+        if(window.innerWidth <= 576) {
           mobileToggle.style.display = 'block';
         } else {
           mobileToggle.style.display = 'none';
