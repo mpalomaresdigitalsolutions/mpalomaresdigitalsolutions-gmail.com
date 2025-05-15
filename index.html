@@ -214,6 +214,36 @@
     .nav-links a.active i {
       color: var(--accent-color);
     }
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--white);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      min-width: 200px;
+      z-index: 1000;
+      padding: 0.5rem 0;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: var(--secondary-color);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-menu a:hover {
+      background: var(--primary-color);
+      color: var(--white);
+    }
     .mobile-toggle {
       display: none;
       font-size: 1.8rem;
@@ -679,7 +709,7 @@
       .nav-links {
         position: fixed;
         flex-direction: column;
-        top: 80px; /* Adjusted for smaller header height */
+        top: 80px;
         right: -100%;
         background: var(--white);
         width: 80%;
@@ -692,6 +722,15 @@
       .nav-links.active {
         right: 0;
       }
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background: none;
+        padding: 0.5rem 1rem;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
       .mobile-toggle {
         display: block;
       }
@@ -699,7 +738,7 @@
         display: none;
       }
       .hero {
-        margin-top: 80px; /* Adjusted for smaller header height */
+        margin-top: 80px;
         min-height: 70vh;
       }
       .hero-content {
@@ -768,10 +807,19 @@
       <nav class="nav-links" id="nav-links">
         <a href="index.html" class="active"><i class="fas fa-house-chimney"></i> <span>Home</span></a>
         <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
-        <a href="services.html"><i class="fas fa-rocket"></i> <span>Services</span></a>
-        <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+        <div class="dropdown">
+          <a href="services.html"><i class="fas fa-rocket"></i> <span>Services</span></a>
+          <div class="dropdown-menu">
+            <a href="case-studies.html"><i class="fas fa-clipboard-check"></i> Case Studies</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+          <div class="dropdown-menu">
+            <a href="sample-build-campaigns.html"><i class="fas fa-search"></i> Search Campaign</a>
+          </div>
+        </div>
         <a href="blog.html"><i class="fas fa-pen-fancy"></i> <span>Blog</span></a>
-        <a href="case-studies.html"><i class="fas fa-briefcase"></i> <span>Case Studies</span></a>
         <a href="certificates.html"><i class="fas fa-award"></i> <span>Certificates</span></a>
         <a href="contact.html"><i class="fas fa-headset"></i> <span>Contact</span></a>
       </nav>
@@ -798,7 +846,7 @@
 
     <!-- ROI CALCULATOR -->
     <section class="roi-calculator">
-      <div class "calculator-content card-3d">
+      <div class="calculator-content card-3d">
         <h2><i class="fas fa-calculator"></i> ROI Calculator</h2>
         <p>See how our strategies can transform your ad spend into profit</p>
         <div class="input-group">
