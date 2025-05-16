@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Campaigns</title>
-    <meta name="keywords" content="digital marketing, campaign building, web development, SEO optimization, social media campaigns, content strategy, lead generation, conversion optimization, marketing automation, ROI tracking">
+    <title>MP Digital Solutions - Build Campaigns</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Color Palette */
         :root {
-            --astral: #d4d6d9;
-            --chilean-fire: #336d9d;
-            --jaffa: #fb6b04;
-            --jaffa-light: #f28a3f;
+            --astral: #336d9d;
+            --chilean-fire: #fb6b04;
+            --jaffa: #f28a30;
+            --light-gray: #d4d6d9;
         }
 
         * {
@@ -22,31 +22,31 @@
         }
 
         body {
-            background-color: #f8f8f8;
+            background-color: #fff;
             color: #333;
             line-height: 1.6;
-            padding-top: 70px; /* Space for fixed header */
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--chilean-fire), var(--jaffa));
-            color: white;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .header-container {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
         .logo {
@@ -55,409 +55,522 @@
         }
 
         .logo img {
-            height: 40px; /* Standard size for logo */
-            width: auto;
+            height: 40px;
+            margin-right: 10px;
         }
 
-        /* Navigation */
-        nav ul {
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .mp {
+            color: var(--astral);
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .logo-text .digital {
+            color: var(--chilean-fire);
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .nav-links {
             display: flex;
             list-style: none;
         }
 
-        nav ul li {
+        .nav-links li {
             margin-left: 20px;
-            position: relative;
         }
 
-        nav ul li a {
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a.active {
+            color: var(--chilean-fire);
+            border-bottom: 2px solid var(--chilean-fire);
+            padding-bottom: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--chilean-fire);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--astral);
             color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-
-        nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .home-icon {
-            font-size: 1.2rem;
-        }
-
-        /* Dropdown */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            border-radius: 5px;
-            top: 100%;
-            left: 0;
-        }
-
-        .dropdown-content a {
-            color: var(--chilean-fire) !important;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .hero-section {
-            background: var(--astral);
-            padding: 60px 20px;
+            padding: 60px 0;
             text-align: center;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .hero-section h1 {
-            font-size: 2.5rem;
+        .hero h1 {
+            font-size: 36px;
             margin-bottom: 20px;
-            color: var(--chilean-fire);
         }
 
-        .hero-section p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .cta-button {
+        .btn {
             display: inline-block;
-            background-color: var(--jaffa);
+            padding: 10px 20px;
+            background-color: var(--chilean-fire);
             color: white;
-            padding: 12px 30px;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 4px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            margin: 5px;
         }
 
-        .cta-button:hover {
-            background-color: var(--jaffa-light);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .btn:hover {
+            background-color: var(--jaffa);
         }
 
-        /* Features Section */
-        .features-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        /* Campaign Building Section */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
             margin-bottom: 40px;
         }
 
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--astral);
+            margin-bottom: 10px;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
+        .build-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .feature-card h3 {
-            color: var(--chilean-fire);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+        .step {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-card img {
+        .step img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--astral);
+        }
+
+        .step p {
+            color: #666;
+            margin-bottom: 15px;
         }
 
         /* Results Section */
-        .results-section {
-            background: linear-gradient(45deg, var(--chilean-fire), var(--jaffa-light));
+        .results {
+            background-color: var(--astral);
             color: white;
-            padding: 60px 30px;
-            border-radius: 10px;
+            padding: 60px 0;
             text-align: center;
+        }
+
+        .results h2 {
+            font-size: 32px;
             margin-bottom: 40px;
         }
 
-        .results-section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
+        .results-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
         }
 
-        .results-section img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
+        .result-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .result-item h3 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: var(--chilean-fire);
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: #f5f5f5;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 28px;
+            color: var(--astral);
+            margin-bottom: 20px;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 60px 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: var(--astral);
+            outline: none;
+        }
+
+        .btn-submit {
+            background-color: var(--chilean-fire);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--jaffa);
         }
 
         /* Footer */
         footer {
-            background-color: #333;
+            background-color: #222;
             color: white;
-            padding: 40px 20px;
+            padding: 40px 0 20px;
         }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
             gap: 30px;
         }
 
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
         .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            position: relative;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: white;
         }
 
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 50px;
-            height: 2px;
-            background-color: var(--jaffa);
-        }
-
-        .footer-column ul {
+        .footer-links {
             list-style: none;
         }
 
-        .footer-column ul li {
-            margin-bottom: 10px;
+        .footer-links li {
+            margin-bottom: 8px;
         }
 
-        .footer-column ul li a {
-            color: #ddd;
+        .footer-links a {
+            color: #aaa;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .footer-column ul li a:hover {
-            color: var(--jaffa);
+        .footer-links a:hover {
+            color: white;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .social-links a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            text-align: center;
+            line-height: 30px;
+            transition: background-color 0.3s;
         }
 
         .social-links a:hover {
-            color: var(--jaffa);
+            background-color: var(--chilean-fire);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #444;
-            margin-top: 30px;
-            font-size: 0.9rem;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            body {
-                padding-top: 100px;
-            }
-            
-            .header-container {
+            .navbar {
                 flex-direction: column;
-                padding: 10px;
             }
-            
-            .logo {
-                margin-bottom: 10px;
-            }
-            
-            nav ul {
+
+            .nav-links {
+                margin-top: 15px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
-            nav ul li {
-                margin: 5px;
-            }
-            
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-            
-            .feature-card {
-                padding: 20px;
-            }
-        }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+            .nav-links li {
+                margin: 5px 10px;
+            }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+            .step {
+                min-width: 100%;
+            }
 
-        .pulse {
-            animation: pulse 2s infinite;
+            .footer-content {
+                flex-direction: column;
+            }
         }
     </style>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="E:\mpdigital\assets\images\Mylogo.svg" alt="Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li class="dropdown">
-                        <a href="#" class="home-icon"><i class="fas fa-home"></i> Home</a>
-                        <div class="dropdown-content">
-                            <a href="about.html">About Us</a>
-                        </div>
-                    </li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="sample-build-campaigns.html">Campaigns</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="/api/placeholder/120/40" alt="MP Digital Solutions Logo">
+                    <div class="logo-text">
+                        <span class="mp">MP</span>
+                        <span class="digital">Digital</span>
+                    </div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <h1>Build Powerful Search Campaigns</h1>
-            <p>Transform your business with data-driven campaign strategies that deliver measurable results. Our expert team creates tailored marketing solutions to drive growth and maximize ROI.</p>
-            <a href="#" class="cta-button pulse">Get Started Today</a>
-        </section>
-    
-        <section class="features-section">
-            <div class="feature-card">
-                <img src="assets/images/build.png" alt="Campaign Building Process">
-                <h3>Strategic Campaign Development</h3>
-                <p>Our comprehensive approach combines market research, audience analysis, and competitive insights to create highly effective marketing campaigns tailored to your unique business goals.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Supercharge Your Google Ads ROI</h1>
+            <p>Stop wasting ad spend. Start <strong>dominating your market</strong> with data-driven strategies that deliver measurable results.</p>
+            <div>
+                <a href="#strategy" class="btn">Discover Strategies</a>
+                <a href="#contact" class="btn">Book Free Consultation</a>
+                <a href="#" class="btn">Download Free Brochure</a>
             </div>
-            <div class="feature-card">
-                <img src="assets/images/build1.png" alt="Campaign Implementation">
-                <h3>Multi-Channel Implementation</h3>
-                <p>Execute seamless campaigns across digital and traditional channels, ensuring consistent messaging and maximum reach to connect with your target audience wherever they are.</p>
-            </div>
-            <div class="feature-card">
-                <img src="assets/images/build2.png" alt="Campaign Optimization">
-                <h3>Continuous Optimization</h3>
-                <p>Our team constantly monitors performance metrics, making data-driven adjustments to improve campaign effectiveness and maximize your return on investment.</p>
-            </div>
-        </section>
-    
-        <section class="results-section">
-            <h2>Proven Results That Drive Growth</h2>
-            <p>Our campaigns consistently deliver measurable outcomes that help businesses reach their goals. See how our strategic approach transforms marketing performance:</p>
-            <img src="assets/images/results.png" alt="Campaign Results">
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>About Us</h3>
-                <p>Creating powerful digital experiences and marketing campaigns that drive business growth.</p>
+    <!-- Campaign Building Section -->
+    <section id="strategy" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>How We Build Winning Campaigns</h2>
+                <p>Our proven methodology to create high-performing Google Ads campaigns</p>
             </div>
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.linkedin.com/in/mpdigital/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/palomares523/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank"><i class="fab fa-github"></i></a>
+
+            <div class="build-steps">
+                <div class="step">
+                    <img src="/api/placeholder/350/180" alt="Research and Analysis">
+                    <h3>1. Research & Analysis</h3>
+                    <p>We start with comprehensive market research, competitor analysis, and keyword research to identify the most profitable opportunities.</p>
+                </div>
+
+                <div class="step">
+                    <img src="/api/placeholder/350/180" alt="Campaign Structure">
+                    <h3>2. Strategic Campaign Structure</h3>
+                    <p>We build tightly themed ad groups with relevant keywords, compelling ad copy, and targeted landing pages for maximum performance.</p>
+                </div>
+
+                <div class="step">
+                    <img src="/api/placeholder/350/180" alt="Optimization">
+                    <h3>3. Continuous Optimization</h3>
+                    <p>Our team constantly monitors performance, adjusts bids, refines targeting, and splits tests ads to maximize your ROI over time.</p>
                 </div>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025. All rights reserved.</p>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results">
+        <div class="container">
+            <h2>Real Results For Our Clients</h2>
+
+            <div class="results-grid">
+                <div class="result-item">
+                    <h3>247%</h3>
+                    <p>Average increase in conversion rate</p>
+                </div>
+
+                <div class="result-item">
+                    <h3>38%</h3>
+                    <p>Average decrease in cost per acquisition</p>
+                </div>
+
+                <div class="result-item">
+                    <h3>185%</h3>
+                    <p>Average increase in ROAS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Google Ads Performance?</h2>
+            <p>Schedule a free 30-minute consultation with our Google Ads experts</p>
+            <a href="#contact" class="btn">Book Your Free Strategy Call Now</a>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get Started Today</h2>
+                <p>Fill out the form below to schedule your free consultation</p>
+            </div>
+
+            <div class="form-container">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">What are your main Google Ads challenges?</label>
+                        <textarea id="message" name="message" rows="4" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn-submit">Schedule My Free Consultation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MP Digital</h3>
+                    <p>MP Digital Solutions specializes in creating data-driven Google Ads campaigns that deliver measurable results and exceptional ROI.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/mpdigital/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/palomares523/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Google Ads Management</a></li>
+                        <li><a href="#">PPC Strategy Development</a></li>
+                        <li><a href="#">Conversion Rate Optimization</a></li>
+                        <li><a href="#">Landing Page Design</a></li>
+                        <li><a href="#">Search Engine Optimization</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">123 Digital Avenue, Suite 456</a></li>
+                        <li><a href="tel:+123456789">(123) 456-7890</a></li>
+                        <li><a href="mailto:info@mpdigital.com">info@mpdigital.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 MP Digital Solutions. All Rights Reserved.
+            </div>
         </div>
     </footer>
-
-    <script>
-        // Minimal JavaScript for interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if(targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
