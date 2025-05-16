@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mpalomares Digital Solutions | Transforming Digital Advertising</title>
   <meta name="description" content="Transforming Digital Advertising with data-driven strategies. Boost your Google Ads ROI with Mpalomares Digital Solutions.">
-  <meta name="keywords" content="Digital Advertising, Google Ads, ROI, Marketing, Digital Solutions, AI Marketing, Google Ads Management, PPC Advertising, Online Marketing, Digital Strategy">
-  
+  <meta name="keywords" content="Digital Advertising, Google Ads, ROI, Marketing, Digital Solutions, AI Marketing, Google Ads Management, PPC Advertising, Online Marketing, Digital Strategy, Performance Marketing, Ad Optimization">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome for icons -->
@@ -21,7 +21,7 @@
       emailjs.init({ publicKey: "7cldp91TueGi-giUu" });
     })();
   </script>
-  
+
   <!-- JSON-LD Schema for Organization -->
   <script type="application/ld+json">
   {
@@ -38,7 +38,7 @@
       "https://github.com/mpalomaresdigitalsolutions"
     ],
     "description": "Mpalomares Digital Solutions offers expert Google Ads management, AI-driven marketing strategies, and data-driven PPC advertising to boost ROI and transform your online marketing.",
-    "keywords": "Google Ads, AI Marketing, PPC Advertising, Digital Marketing, ROI Optimization, Online Advertising, Digital Strategy"
+    "keywords": "Google Ads, AI Marketing, PPC Advertising, Digital Marketing, ROI Optimization, Online Advertising, Digital Strategy, Performance Marketing, Ad Optimization"
   }
   </script>
 
@@ -54,7 +54,7 @@
       --hover-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       --logo-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
-    
+
     /* Global Reset & Base Styles */
     * {
       margin: 0;
@@ -77,7 +77,7 @@
       max-width: 100%;
       display: block;
     }
-    
+
     /* Header & Navigation */
     header {
       background: var(--white);
@@ -114,11 +114,11 @@
       animation: floatLogo 6s ease-in-out infinite;
     }
     @keyframes floatLogo {
-      0%, 100% { 
+      0%, 100% {
         transform: translateY(0) rotateY(0deg);
         filter: drop-shadow(0 5px 15px rgba(0,102,204,0.4));
       }
-      50% { 
+      50% {
         transform: translateY(-10px) rotateY(10deg);
         filter: drop-shadow(0 15px 30px rgba(0,102,204,0.6));
       }
@@ -254,7 +254,7 @@
     .mobile-toggle:hover {
       transform: rotate(90deg) scale(1.1);
     }
-    
+
     /* Hero Section */
     .hero {
       background: url('assets/images/ROI.png') center/cover no-repeat;
@@ -289,11 +289,11 @@
       z-index: 2;
     }
     @keyframes pulse {
-      0% { 
+      0% {
         box-shadow: 0 0 10px rgba(0,102,204,0.3);
         transform: translateZ(0);
       }
-      100% { 
+      100% {
         box-shadow: 0 0 25px rgba(0,102,204,0.6);
         transform: translateZ(10px);
       }
@@ -411,7 +411,7 @@
       transform: translateY(-5px) translateZ(10px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.25);
     }
-    
+
     /* ROI Calculator Section */
     .roi-calculator {
       padding: 3rem 5%;
@@ -484,7 +484,7 @@
       margin-top: 15px;
       transform: translateZ(5px);
     }
-    
+
     /* Contact Section */
     .contact-section {
       padding: 3rem 5%;
@@ -559,7 +559,7 @@
       text-align: center;
       transform: translateZ(5px);
     }
-    
+
     /* Footer */
     footer {
       background: var(--white);
@@ -620,7 +620,7 @@
       margin-top: 1.5rem;
       transform: translateZ(5px);
     }
-    
+
     /* WhatsApp Chat Button */
     .whatsapp-chat {
       position: fixed;
@@ -651,7 +651,7 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       animation: none;
     }
-    
+
     /* 3D Card Effects */
     .card-3d {
       transform-style: preserve-3d;
@@ -661,9 +661,15 @@
       transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateZ(10px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
-    
+
     /* Enhanced Responsive Styles for Mobile Compatibility */
     @media (max-width: 992px) {
+      header {
+        padding: 0.8rem 3%;
+      }
+      .navbar {
+        padding: 0.8rem 3%;
+      }
       .hero-content h1 {
         font-size: 3.2rem;
       }
@@ -676,8 +682,17 @@
       .logo-text {
         font-size: 1.6rem;
       }
+      .hero {
+        margin-top: 100px;
+      }
     }
     @media (max-width: 768px) {
+      header {
+        padding: 0.6rem 3%;
+      }
+      .navbar {
+        padding: 0.6rem 3%;
+      }
       .hero-content h1 {
         font-size: 2.8rem;
       }
@@ -704,8 +719,18 @@
       .roi-calculator input[type="number"] {
         max-width: 300px;
       }
+      .hero {
+        margin-top: 90px;
+      }
     }
     @media (max-width: 576px) {
+      header {
+        padding: 0.5rem 3%;
+        height: 80px;
+      }
+      .navbar {
+        padding: 0.5rem 3%;
+      }
       .nav-links {
         position: fixed;
         flex-direction: column;
@@ -761,9 +786,6 @@
         bottom: 20px;
         right: 20px;
       }
-      .navbar {
-        padding: 0.8rem 3%;
-      }
       .roi-calculator {
         padding: 2rem 3%;
       }
@@ -806,14 +828,25 @@
       </div>
       <nav class="nav-links" id="nav-links">
         <a href="index.html" class="active"><i class="fas fa-house-chimney"></i> <span>Home</span></a>
-        <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
+        <div class="dropdown">
+          <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
+          <div class="dropdown-menu">
+            <a href="blog.html"><i class="fas fa-info-circle"></i> Blogs</a>
+          </div>
+        </div>
         <div class="dropdown">
           <a href="services.html"><i class="fas fa-rocket"></i> <span>Services</span></a>
           <div class="dropdown-menu">
             <a href="case-studies.html"><i class="fas fa-clipboard-check"></i> Case Studies</a>
           </div>
         </div>
-        <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+        <div class="dropdown">
+          <a href="portfolio.html"><i class="fas fa-laptop-code"></i> <span>Portfolio</span></a>
+          <div class="dropdown-menu">
+            <a href="sample_build_campaigns.html"><i class="fas fa-ad"></i> Search Campaigns Sample</a>
+            <a href="video-campaign.html"><i class="fas fa-video"></i> Pmax Campaign Sample</a>
+          </div>
+        </div>
         <a href="blog.html"><i class="fas fa-pen-fancy"></i> <span>Blog</span></a>
         <a href="certificates.html"><i class="fas fa-award"></i> <span>Certificates</span></a>
         <a href="contact.html"><i class="fas fa-headset"></i> <span>Contact</span></a>
@@ -843,7 +876,7 @@
     <section class="roi-calculator">
       <div class="calculator-content card-3d">
         <h2><i class="fas fa-calculator"></i> ROI Calculator</h2>
-        <p>See how our strategies can transform your ad spend into profit</p>
+        <p>Learn how our <a href="services.html" style="color: var(--primary-color); text-decoration: underline;">Google Ads Management</a> can turn your <a href="services.html" style="color: var(--primary-color); text-decoration: underline;">PPC Advertising</a> into profit. Maximize your <a href="portfolio.html" style="color: var(--primary-color); text-decoration: underline;">Performance Marketing</a> today.</p>
         <div class="input-group">
           <i class="fas fa-coins"></i>
           <input type="number" id="investment" placeholder="Your monthly ad spend ($)" min="1">
@@ -861,6 +894,7 @@
     <!-- CONTACT FORM -->
     <section class="contact-section card-3d" id="contactForm">
       <h2>Contact Us</h2>
+      <p>Ready to boost your <a href="services.html" style="color: var(--primary-color); text-decoration: underline;">Digital Advertising</a>? Reach out for expert <a href="about.html" style="color: var(--primary-color); text-decoration: underline;">AI Marketing</a> solutions or explore our <a href="portfolio.html" style="color: var(--primary-color); text-decoration: underline;">Ad Optimization</a> services.</p>
       <form id="contactFormElement" onsubmit="sendEmail(event)">
         <div class="contact-form-group">
           <label for="user_name">Name</label>
@@ -884,19 +918,22 @@
 
   <!-- FOOTER -->
   <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
     <div class="social-icons">
       <a href="https://www.facebook.com/marlon.palomares.2024/" target="_blank" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="https://www.linkedin.com/in/mpdigital/" target="_blank" title="Connect on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       <a href="https://www.instagram.com/palomares523/" target="_blank" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://x.com/marlonpalo64854" target="_blank" title="Follow on X/Twitter"><i class="fab fa-x-twitter"></i></a>
-      <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" title="Follow on GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://x.com/marlonpalo64854" target="_blank" title="Follow on X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://github.com/mpalomaresdigitalsolutions" target="_blank" title="View on GitHub"><i class="fab fa-github"></i></a>
     </div>
-    <div class="footer-links">
-      <a href="privacy-policy.html">Privacy Policy</a> |
-      <a href="terms.html">Terms & Conditions</a> |
-      <a href="sitemap.html">Sitemap</a>
-    </div>
-    <p>© 2024 Mpalomares Digital Solutions | Transforming Digital Advertising</p>
+    <p>© 2025 Mpalomares Digital Solutions | Transforming <a href="index.html" style="color: var(--primary-color); text-decoration: underline;">Online Marketing</a> with <a href="services.html" style="color: var(--primary-color); text-decoration: underline;">Performance Marketing</a> and <a href="portfolio.html" style="color: var(--primary-color); text-decoration: underline;">Ad Optimization</a></p>
   </footer>
 
   <!-- WhatsApp Chat Button -->
@@ -909,7 +946,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       const mobileToggle = document.getElementById('mobile-toggle');
       const navLinks = document.getElementById('nav-links');
-      
+
       mobileToggle.addEventListener('click', function () {
         navLinks.classList.toggle('active');
         mobileToggle.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
@@ -918,7 +955,7 @@
       // Highlight active link based on current page
       const currentPage = window.location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.nav-links a').forEach(link => {
-        if(link.getAttribute('href') === currentPage || (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+        if (link.getAttribute('href') === currentPage || (currentPage === '' && link.getAttribute('href') === 'index.html')) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
@@ -927,7 +964,7 @@
 
       // Adjust mobile toggle display on resize
       function checkScreenSize() {
-        if(window.innerWidth <= 576) {
+        if (window.innerWidth <= 576) {
           mobileToggle.style.display = 'block';
         } else {
           mobileToggle.style.display = 'none';
@@ -966,8 +1003,8 @@
           <p><i class="fas fa-sack-dollar"></i> Profit: $${profit.toFixed(2)}</p>
           <p><i class="fas fa-percentage"></i> ROI: <strong>${roi.toFixed(2)}%</strong></p>
           <p style="margin-top: 15px; font-size: 0.9rem;">
-            ${roi >= 0 ? `<i class="fas fa-thumbs-up"></i> Positive return! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button primary" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;"><i class="fas fa-rocket"></i> Boost It Further</a>` 
-            : `<i class="fas fa-thumbs-down"></i> We can fix this! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block;"><i class="fas fa-life-ring"></i> Get Help Now</a>`}
+            ${roi >= 0 ? `<i class="fas fa-thumbs-up"></i> Positive return! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button primary" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block; transform: translateY(-5px) translateZ(10px);"><i class="fas fa-rocket"></i> Boost It Further</a>`
+            : `<i class="fas fa-thumbs-down"></i> We can fix this! <a href="https://cal.com/marlon-palomares-c4cyjo/secret" class="cta-button accent" style="font-size: 0.8rem; padding: 0.5rem 1rem; margin-top: 10px; display: inline-block; transform: translateY(-5px) translateZ(10px);"><i class="fas fa-life-ring"></i> Get Help Now</a>`}
           </p>
         </div>
       `;
