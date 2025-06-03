@@ -1,786 +1,1210 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Ads Bid Calculator</title>
+    <title>Keyword Planner Bidding Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6c5ce7;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+            --high-competition: #ff4757;
+            --medium-competition: #ffa502;
+            --low-competition: #2ed573;
+        }
+        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
         }
-
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .header {
-            background: linear-gradient(135deg, #4285f4, #34a853);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-
-        .main-content {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .input-section {
-            background: #f8f9fa;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
             border-radius: 15px;
-            padding: 30px;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
-            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
-
-        .input-section:hover {
-            border-color: #4285f4;
-            transform: translateY(-2px);
+        
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
-
-        .section-title {
-            font-size: 1.3em;
-            color: #333;
-            margin-bottom: 20px;
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
+        
+        .formula-display {
+            background: var(--light-color);
+            padding: 1rem;
             border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
+            margin-bottom: 2rem;
+            font-family: monospace;
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
         }
-
-        .form-group input:focus, .form-group select:focus {
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
             outline: none;
-            border-color: #4285f4;
-            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
         }
-
+        
+        .icon-input {
+            position: relative;
+        }
+        
+        .icon-input i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+        
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .currency-selector select {
+            flex: 1;
+        }
+        
+        .currency-selector .icon-input {
+            flex: 2;
+        }
+        
+        button {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.4);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--light-color);
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+        
         .tooltip {
             position: relative;
             display: inline-block;
             margin-left: 5px;
-            cursor: help;
+            cursor: pointer;
         }
-
-        .tooltip .tooltiptext {
+        
+        .tooltip i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+        
+        .tooltip-text {
             visibility: hidden;
             width: 200px;
-            background-color: #333;
+            background-color: var(--dark-color);
             color: #fff;
             text-align: center;
             border-radius: 6px;
-            padding: 8px;
+            padding: 0.5rem;
             position: absolute;
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            margin-left: -100px;
+            transform: translateX(-50%);
             opacity: 0;
             transition: opacity 0.3s;
-            font-size: 0.8em;
+            font-size: 0.8rem;
+            font-weight: normal;
         }
-
-        .tooltip:hover .tooltiptext {
+        
+        .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
-
-        .button-group {
+        
+        .competition-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        .high-competition {
+            background-color: var(--high-competition);
+            color: white;
+        }
+        
+        .medium-competition {
+            background-color: var(--medium-competition);
+            color: white;
+        }
+        
+        .low-competition {
+            background-color: var(--low-competition);
+            color: white;
+        }
+        
+        .calculation-explanation {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            text-align: left;
+        }
+        
+        .calculation-explanation h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculation-step {
+            margin-bottom: 0.5rem;
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            align-items: flex-start;
         }
-
-        .calculate-btn {
-            background: linear-gradient(45deg, #4285f4, #34a853);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
+        
+        .calculation-step i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+            margin-top: 0.2rem;
+        }
+        
+        .formula-highlight {
+            background-color: #fffacd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
             cursor: pointer;
-            font-size: 1.2em;
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--dark-color);
+            border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
-            flex: 1;
         }
-
-        .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
         }
-
-        .reset-btn {
-            background: linear-gradient(45deg, #ea4335, #fbbc04);
-            color: white;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            flex: 0 0 auto;
+        
+        .tab-content {
+            display: none;
         }
-
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        
+        .tab-content.active {
+            display: block;
         }
-
-        .results {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+        
+        .bulk-results {
+            margin-top: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
         }
-
-        .results.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .result-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .result-value {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .result-label {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        .conversion-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .conversion-row {
+        
+        .keyword-result {
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-
-        .keyword-section {
-            grid-column: 1 / -1;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            border: 2px solid #e9ecef;
-            margin-top: 30px;
-        }
-
-        .keyword-input {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr auto;
-            gap: 15px;
-            margin-bottom: 15px;
             align-items: center;
         }
-
-        .remove-btn {
-            background: #ea4335;
-            color: white;
-            border: none;
-            padding: 12px 15px;
+        
+        .keyword-result:last-child {
+            border-bottom: none;
+        }
+        
+        .keyword-name {
+            font-weight: 600;
+            flex: 2;
+        }
+        
+        .keyword-bid {
+            flex: 1;
+            text-align: right;
+            font-weight: 600;
+            color: var(--success-color);
+        }
+        
+        .summary-stats {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--light-color);
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
+            text-align: left;
         }
-
-        .remove-btn:hover {
-            background: #d33b2c;
-            transform: scale(1.05);
-        }
-
-        .add-btn {
-            background: #34a853;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 10px 5px;
-        }
-
-        .add-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .formula-section {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        .keyword-button-group {
+        
+        .stat-item {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
         }
-
-        .keyword-reset-btn {
-            background: linear-gradient(45deg, #ea4335, #fbbc04);
+        
+        .stat-label {
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .csv-format {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .copy-btn {
+            background: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
+            font-size: 0.8rem;
             cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
         }
-
-        .keyword-reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .keyword-input {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .result-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .keyword-button-group {
-                flex-direction: column;
-            }
-        }
-
-        /* Reset animation */
-        .reset-animation {
-            animation: resetPulse 0.6s ease-in-out;
-        }
-
-        @keyframes resetPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+        
+        .copy-btn:hover {
+            background: var(--primary-color);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🎯 Google Ads Bid Calculator</h1>
-            <p>Calculate Ad Rank, Actual CPC, and Average Bid using Google Ads auction mechanics</p>
+        <div class="gradient-overlay"></div>
+        <h1><i class="fas fa-calculator"></i> Keyword Planner Bidding Calculator</h1>
+        
+        <div class="formula-display">
+            <p>Adjusted Bid = ((Bid_Low + Bid_High) / 2) × (Search Volume Factor) × (Competition Factor)</p>
         </div>
-
-        <div class="main-content">
-            <div class="input-section">
-                <div class="section-title">
-                    💰 Currency & Basic Settings
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="single">Single Keyword</div>
+            <div class="tab" data-tab="bulk">Bulk Keywords</div>
+        </div>
+        
+        <div class="tab-content active" id="single-tab">
+            <div class="currency-selector">
+                <select id="currency">
+                    <option value="USD" data-symbol="$">USD - US Dollar ($)</option>
+                    <option value="EUR" data-symbol="€">EUR - Euro (€)</option>
+                    <option value="GBP" data-symbol="£">GBP - British Pound (£)</option>
+                    <option value="PHP" data-symbol="₱">PHP - Philippine Peso (₱)</option>
+                    <option value="custom">Custom Currency</option>
+                </select>
+                
+                <div class="icon-input" id="customCurrencyContainer" style="display: none;">
+                    <input type="text" id="customCurrencySymbol" placeholder="Enter currency symbol">
+                    <i class="fas fa-edit"></i>
+                </div>
+            </div>
+            
+            <div class="input-group icon-input">
+                <label for="bidLow">
+                    Bid Low 
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">The lowest bid amount suggested for this keyword</span>
+                    </span>
+                </label>
+                <input type="number" id="bidLow" placeholder="Enter lowest bid amount" step="0.01">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            
+            <div class="input-group icon-input">
+                <label for="bidHigh">
+                    Bid High 
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">The highest bid amount suggested for this keyword</span>
+                    </span>
+                </label>
+                <input type="number" id="bidHigh" placeholder="Enter highest bid amount" step="0.01">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            
+            <div class="input-group icon-input">
+                <label for="monthlySearches">
+                    Monthly Searches 
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Average monthly search volume for this keyword</span>
+                    </span>
+                </label>
+                <input type="number" id="monthlySearches" placeholder="Enter monthly search volume" min="0">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="input-group">
+                <label for="competitionLevel">
+                    Competition Level 
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Keyword competition level from Keyword Planner</span>
+                    </span>
+                </label>
+                <select id="competitionLevel">
+                    <option value="high">High <span class="competition-tag high-competition">High</span></option>
+                    <option value="medium">Medium <span class="competition-tag medium-competition">Medium</span></option>
+                    <option value="low">Low <span class="competition-tag low-competition">Low</span></option>
+                </select>
+            </div>
+            
+            <button id="calculateBtn">
+                <i class="fas fa-calculator"></i> Calculate Adjusted Bid
+            </button>
+            
+            <div class="result" id="result">
+                <h3>Your Adjusted Bid</h3>
+                <div class="result-value" id="resultValue"></div>
+                <p>per keyword</p>
+                
+                <div class="calculation-explanation" id="calculationExplanation">
+                    <h4><i class="fas fa-info-circle"></i> How this bid was calculated:</h4>
+                    <div id="explanationSteps"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="bulk-tab">
+            <div class="currency-selector">
+                <select id="bulkCurrency">
+                    <option value="USD" data-symbol="$">USD - US Dollar ($)</option>
+                    <option value="EUR" data-symbol="€">EUR - Euro (€)</option>
+                    <option value="GBP" data-symbol="£">GBP - British Pound (£)</option>
+                    <option value="PHP" data-symbol="₱">PHP - Philippine Peso (₱)</option>
+                    <option value="custom">Custom Currency</option>
+                </select>
+                
+                <div class="icon-input" id="bulkCustomCurrencyContainer" style="display: none;">
+                    <input type="text" id="bulkCustomCurrencySymbol" placeholder="Enter currency symbol">
+                    <i class="fas fa-edit"></i>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="inputMethod">
+                    Input Method
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Choose how to enter keyword data: manually add keywords or upload a CSV file</span>
+                    </span>
+                </label>
+                <select id="inputMethod">
+                    <option value="manual">Manual Entry</option>
+                    <option value="upload">Upload CSV File</option>
+                </select>
+            </div>
+            
+            <div class="input-group" id="manualEntryContainer">
+                <label for="manualKeyword">
+                    Add Keyword
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Enter keyword, bid low, bid high, monthly searches, and competition level</span>
+                    </span>
+                </label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="text" id="manualKeyword" placeholder="Keyword" style="flex: 2;">
+                    <input type="number" id="manualBidLow" placeholder="Bid Low" step="0.01" style="flex: 1;">
+                    <input type="number" id="manualBidHigh" placeholder="Bid High" step="0.01" style="flex: 1;">
+                    <input type="number" id="manualSearches" placeholder="Monthly Searches" min="0" style="flex: 1;">
+                    <select id="manualCompetition" style="flex: 1;">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <button id="addKeywordBtn" style="width: auto; padding: 0.8rem 1rem;">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+                <div id="manualKeywordsList" style="margin-top: 1rem; max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 0.5rem;">
+                    <p id="noKeywordsText">No keywords added yet</p>
+                </div>
+            </div>
+            
+            <div class="input-group" id="uploadEntryContainer" style="display: none;">
+                <label for="keywordFile">
+                    Upload Keyword CSV
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Upload a CSV file with columns: keyword,bid_low,bid_high,monthly_searches,competition_level</span>
+                    </span>
+                </label>
+                <input type="file" id="keywordFile" accept=".csv">
+            </div>
+            
+            <div class="input-group">
+                <label for="bulkKeywords">
+                    Enter Keywords Data (CSV format)
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Enter keyword data in CSV format: keyword,bid_low,bid_high,monthly_searches,competition_level</span>
+                    </span>
+                </label>
+                <textarea id="bulkKeywords" rows="8" placeholder="keyword,bid_low,bid_high,monthly_searches,competition_level
+example keyword,0.5,1.5,1000,high
+another keyword,0.3,1.0,500,medium"></textarea>
+            </div>
+            
+            <div class="csv-format">
+                <strong>CSV Format:</strong> keyword,bid_low,bid_high,monthly_searches,competition_level<br>
+                <strong>Competition levels:</strong> high, medium, or low<br>
+                One keyword per line. Include header row if your data has headers.
+            </div>
+            
+            <button id="calculateBulkBtn">
+                <i class="fas fa-calculator"></i> Calculate Bulk Bids
+            </button>
+            
+            <div class="result" id="bulkResult">
+                <h3>Bulk Keyword Results</h3>
+                <div class="bulk-results" id="bulkResultsList"></div>
+                
+                <div class="summary-stats">
+                    <h4><i class="fas fa-chart-bar"></i> Summary Statistics</h4>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Keywords:</span>
+                        <span class="stat-value" id="totalKeywords">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Bid:</span>
+                        <span class="stat-value" id="averageBid">$0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Highest Bid:</span>
+                        <span class="stat-value" id="highestBid">$0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Lowest Bid:</span>
+                        <span class="stat-value" id="lowestBid">$0.00</span>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="currency">Currency</label>
-                    <select id="currency" onchange="updateCurrency()">
-                        <option value="PHP">Philippine Peso (₱)</option>
-                        <option value="USD">US Dollar ($)</option>
-                        <option value="EUR">Euro (€)</option>
-                        <option value="GBP">British Pound (£)</option>
-                        <option value="JPY">Japanese Yen (¥)</option>
-                        <option value="CAD">Canadian Dollar (C$)</option>
-                        <option value="AUD">Australian Dollar (A$)</option>
-                    </select>
+                <div class="calculation-explanation">
+                    <h4><i class="fas fa-info-circle"></i> Calculation Method:</h4>
+                    <p>Each keyword's bid is calculated using the same formula as single keywords: average of bid range adjusted by search volume and competition factors.</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="maxCpcBid">
-                        Your Maximum CPC Bid
-                        <span class="tooltip">ℹ️
-                            <span class="tooltiptext">The maximum amount you're willing to pay per click</span>
-                        </span>
-                    </label>
-                    <input type="number" id="maxCpcBid" step="0.01" min="0" placeholder="Enter your max CPC bid">
+                
+                <div class="copy-btn" id="copyResultsBtn">
+                    <i class="fas fa-copy"></i> Copy Results to Clipboard
                 </div>
-
-                <div class="form-group">
-                    <label for="qualityScore">
-                        Your Quality Score (1-10)
-                        <span class="tooltip">ℹ️
-                            <span class="tooltiptext">Google's rating of your ad quality and relevance (default: 7)</span>
-                        </span>
-                    </label>
-                    <input type="number" id="qualityScore" min="1" max="10" value="7" placeholder="Quality Score (1-10)">
-                </div>
-
-                <div class="form-group">
-                    <label for="nextLowerAdRank">
-                        Next Lower Ad's Ad Rank
-                        <span class="tooltip">ℹ️
-                            <span class="tooltiptext">Ad Rank of the competitor below you in auction</span>
-                        </span>
-                    </label>
-                    <input type="number" id="nextLowerAdRank" step="0.01" min="0" placeholder="Competitor's Ad Rank">
-                </div>
-
-                <div class="button-group">
-                    <button class="calculate-btn" onclick="calculateBids()">📊 Calculate Bids</button>
-                    <button class="reset-btn" onclick="resetBasicCalculator()">🔄 Reset</button>
-                </div>
-            </div>
-
-            <div id="results" class="results">
-                <h2>📈 Auction Results</h2>
-                <div class="result-grid">
-                    <div class="result-card">
-                        <div class="result-value" id="adRank">0</div>
-                        <div class="result-label">Your Ad Rank</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value" id="actualCpc">₱0.00</div>
-                        <div class="result-label">Actual CPC</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value" id="savings">₱0.00</div>
-                        <div class="result-label">You Save vs Max Bid</div>
-                    </div>
-                </div>
-
-                <div class="conversion-section">
-                    <h3>💱 Currency Conversion</h3>
-                    <div id="conversionResults"></div>
-                </div>
-
-                <div class="formula-section">
-                    <h3>🧮 Formulas Used</h3>
-                    <div id="formulaDisplay"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="keyword-section">
-            <div class="section-title">
-                🔤 Multiple Keywords Average Bid Calculator
-            </div>
-            
-            <div class="form-group">
-                <label for="totalClicks">Total Number of Clicks (for average calculation)</label>
-                <input type="number" id="totalClicks" min="1" value="100" placeholder="Total clicks across all keywords">
-            </div>
-
-            <div id="keywordInputs">
-                <div class="keyword-input">
-                    <input type="text" placeholder="Keyword" class="keyword-text">
-                    <input type="number" step="0.01" min="0" placeholder="Max CPC Bid" class="keyword-bid">
-                    <input type="number" min="1" max="10" value="7" placeholder="Quality Score" class="keyword-qs">
-                    <input type="number" step="0.01" min="0" placeholder="Competitor Ad Rank" class="keyword-comp">
-                    <button class="remove-btn" onclick="removeKeyword(this)">Remove</button>
-                </div>
-            </div>
-            
-            <div class="keyword-button-group">
-                <button class="add-btn" onclick="addKeyword()">+ Add Keyword</button>
-                <button class="calculate-btn" onclick="calculateAverageBids()">📊 Calculate Average Bids</button>
-                <button class="keyword-reset-btn" onclick="resetKeywordCalculator()">🔄 Reset Keywords</button>
-            </div>
-
-            <div id="keywordResults" class="results">
-                <h2>📊 Keyword Analysis Results</h2>
-                <div class="result-grid">
-                    <div class="result-card">
-                        <div class="result-value" id="avgActualCpc">₱0.00</div>
-                        <div class="result-label">Average Actual CPC</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value" id="totalKeywords">0</div>
-                        <div class="result-label">Total Keywords</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value" id="totalBudget">₱0.00</div>
-                        <div class="result-label">Estimated Total Budget</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value" id="avgQualityScore">0</div>
-                        <div class="result-label">Average Quality Score</div>
-                    </div>
-                </div>
-                <div id="keywordBreakdown"></div>
             </div>
         </div>
     </div>
-
+    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Calculation Complete!</h2>
+            <p>Your adjusted bid has been calculated successfully.</p>
+            <p>The recommended bid is: <strong id="modalResult"></strong></p>
+            <div class="calculation-explanation" style="margin-top: 1rem; text-align: left;">
+                <h4><i class="fas fa-calculator"></i> Calculation Method:</h4>
+                <p>We calculate the average of your bid range, then adjust it based on search volume and competition level to optimize your ad performance.</p>
+            </div>
+            <button id="closeModalBtn" style="margin-top: 1rem;">
+                <i class="fas fa-thumbs-up"></i> Got it!
+            </button>
+        </div>
+    </div>
+    
+    <div class="modal" id="bulkModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" id="closeBulkModal">×</span>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Bulk Calculation Complete!</h2>
+            <p>Your adjusted bids have been calculated successfully.</p>
+            <div class="calculation-explanation" style="margin-top: 1rem; text-align: left;">
+                <h4><i class="fas fa-chart-bar"></i> Summary Statistics</h4>
+                <div class="stat-item">
+                    <span class="stat-label">Total Keywords:</span>
+                    <span class="stat-value" id="modalTotalKeywords">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Average Bid:</span>
+                    <span class="stat-value" id="modalAverageBid">$0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Highest Bid:</span>
+                    <span class="stat-value" id="modalHighestBid">$0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Lowest Bid:</span>
+                    <span class="stat-value" id="modalLowestBid">$0.00</span>
+                </div>
+            </div>
+            <button id="closeBulkModalBtn" style="margin-top: 1rem;">
+                <i class="fas fa-thumbs-up"></i> Got it!
+            </button>
+        </div>
+    </div>
+    
     <script>
-        let currencySymbol = '₱';
-        let currencyCode = 'PHP';
-        let exchangeRates = {
-            'PHP': 1,
-            'USD': 0.018,
-            'EUR': 0.016,
-            'GBP': 0.014,
-            'JPY': 2.65,
-            'CAD': 0.024,
-            'AUD': 0.027
-        };
-
-        const currencySymbols = {
-            'PHP': '₱',
-            'USD': '$',
-            'EUR': '€',
-            'GBP': '£',
-            'JPY': '¥',
-            'CAD': 'C$',
-            'AUD': 'A$'
-        };
-
-        function updateCurrency() {
-            const select = document.getElementById('currency');
-            currencyCode = select.value;
-            currencySymbol = currencySymbols[currencyCode];
+        document.addEventListener('DOMContentLoaded', function() {
+            // Single keyword calculation elements
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultDiv = document.getElementById('result');
+            const resultValue = document.getElementById('resultValue');
+            const modal = document.getElementById('modal');
+            const closeModal = document.getElementById('closeModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalResult = document.getElementById('modalResult');
+            const currencySelect = document.getElementById('currency');
+            const customCurrencyContainer = document.getElementById('customCurrencyContainer');
+            const customCurrencySymbol = document.getElementById('customCurrencySymbol');
+            const explanationSteps = document.getElementById('explanationSteps');
             
-            // Update placeholders
-            document.getElementById('maxCpcBid').placeholder = `Enter your max CPC bid (${currencySymbol})`;
-            document.getElementById('nextLowerAdRank').placeholder = `Competitor's Ad Rank (${currencySymbol})`;
+            // Bulk keyword calculation elements
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const calculateBulkBtn = document.getElementById('calculateBulkBtn');
+            const bulkResultDiv = document.getElementById('bulkResult');
+            const bulkResultsList = document.getElementById('bulkResultsList');
+            const totalKeywordsEl = document.getElementById('totalKeywords');
+            const averageBidEl = document.getElementById('averageBid');
+            const highestBidEl = document.getElementById('highestBid');
+            const lowestBidEl = document.getElementById('lowestBid');
+            const bulkModal = document.getElementById('bulkModal');
+            const closeBulkModal = document.getElementById('closeBulkModal');
+            const closeBulkModalBtn = document.getElementById('closeBulkModalBtn');
+            const modalTotalKeywordsEl = document.getElementById('modalTotalKeywords');
+            const modalAverageBidEl = document.getElementById('modalAverageBid');
+            const modalHighestBidEl = document.getElementById('modalHighestBid');
+            const modalLowestBidEl = document.getElementById('modalLowestBid');
+            const bulkCurrencySelect = document.getElementById('bulkCurrency');
+            const bulkCustomCurrencyContainer = document.getElementById('bulkCustomCurrencyContainer');
+            const bulkCustomCurrencySymbol = document.getElementById('bulkCustomCurrencySymbol');
             
-            const bidInputs = document.querySelectorAll('.keyword-bid');
-            bidInputs.forEach(input => {
-                input.placeholder = `Max CPC Bid (${currencySymbol})`;
-            });
+            // New elements for manual entry and file upload
+            const inputMethod = document.getElementById('inputMethod');
+            const manualEntryContainer = document.getElementById('manualEntryContainer');
+            const uploadEntryContainer = document.getElementById('uploadEntryContainer');
+            const manualKeyword = document.getElementById('manualKeyword');
+            const manualBidLow = document.getElementById('manualBidLow');
+            const manualBidHigh = document.getElementById('manualBidHigh');
+            const manualSearches = document.getElementById('manualSearches');
+            const manualCompetition = document.getElementById('manualCompetition');
+            const addKeywordBtn = document.getElementById('addKeywordBtn');
+            const manualKeywordsList = document.getElementById('manualKeywordsList');
+            const noKeywordsText = document.getElementById('noKeywordsText');
+            const keywordFile = document.getElementById('keywordFile');
+            const bulkKeywords = document.getElementById('bulkKeywords');
             
-            const compInputs = document.querySelectorAll('.keyword-comp');
-            compInputs.forEach(input => {
-                input.placeholder = `Competitor Ad Rank (${currencySymbol})`;
-            });
-        }
-
-        function formatCurrency(amount, currency = currencyCode) {
-            const symbol = currencySymbols[currency];
-            if (currency === 'JPY') {
-                return symbol + Math.round(amount).toLocaleString();
-            }
-            return symbol + amount.toFixed(2);
-        }
-
-        function convertCurrency(amount, fromCurrency, toCurrency) {
-            if (fromCurrency === toCurrency) return amount;
+            // Store manually added keywords
+            let manualKeywords = [];
             
-            // Convert to PHP first, then to target currency
-            const phpAmount = fromCurrency === 'PHP' ? amount : amount / exchangeRates[fromCurrency];
-            return toCurrency === 'PHP' ? phpAmount : phpAmount * exchangeRates[toCurrency];
-        }
-
-        function calculateBids() {
-            const maxCpcBid = parseFloat(document.getElementById('maxCpcBid').value);
-            const qualityScore = parseInt(document.getElementById('qualityScore').value);
-            const nextLowerAdRank = parseFloat(document.getElementById('nextLowerAdRank').value);
-
-            if (!maxCpcBid || !qualityScore || !nextLowerAdRank) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            // Calculate Ad Rank: CPC Bid × Quality Score
-            const adRank = maxCpcBid * qualityScore;
-
-            // Calculate Actual CPC: (Next Lower Ad's Ad Rank / Your QS) + smallest currency unit
-            const smallestUnit = currencyCode === 'JPY' ? 1 : 0.01;
-            const actualCpc = (nextLowerAdRank / qualityScore) + smallestUnit;
-
-            // Calculate savings
-            const savings = maxCpcBid - actualCpc;
-
-            // Update results
-            document.getElementById('adRank').textContent = adRank.toFixed(2);
-            document.getElementById('actualCpc').textContent = formatCurrency(actualCpc);
-            document.getElementById('savings').textContent = formatCurrency(Math.max(0, savings));
-
-            // Currency conversions
-            const conversions = [];
-            Object.keys(currencySymbols).forEach(currency => {
-                if (currency !== currencyCode) {
-                    const convertedAmount = convertCurrency(actualCpc, currencyCode, currency);
-                    conversions.push(`
-                        <div class="conversion-row">
-                            <span>Actual CPC in ${currency}:</span>
-                            <strong>${formatCurrency(convertedAmount, currency)}</strong>
-                        </div>
-                    `);
-                }
-            });
-            document.getElementById('conversionResults').innerHTML = conversions.join('');
-
-            // Display formulas
-            document.getElementById('formulaDisplay').innerHTML = `
-                <div><strong>Ad Rank Formula:</strong> ${maxCpcBid} × ${qualityScore} = ${adRank.toFixed(2)}</div>
-                <div><strong>Actual CPC Formula:</strong> (${nextLowerAdRank} ÷ ${qualityScore}) + ${formatCurrency(smallestUnit)} = ${formatCurrency(actualCpc)}</div>
-                <div><strong>Savings:</strong> ${formatCurrency(maxCpcBid)} - ${formatCurrency(actualCpc)} = ${formatCurrency(Math.max(0, savings))}</div>
-            `;
-
-            // Show results
-            document.getElementById('results').classList.add('show');
-        }
-
-        function resetBasicCalculator() {
-            // Add reset animation
-            const inputSection = document.querySelector('.input-section');
-            inputSection.classList.add('reset-animation');
-
-            // Reset form fields
-            document.getElementById('currency').value = 'PHP';
-            document.getElementById('maxCpcBid').value = '';
-            document.getElementById('qualityScore').value = '7';
-            document.getElementById('nextLowerAdRank').value = '';
-
-            // Hide results
-            document.getElementById('results').classList.remove('show');
-
-            // Reset currency
-            updateCurrency();
-
-            // Clear results content
-            document.getElementById('adRank').textContent = '0';
-            document.getElementById('actualCpc').textContent = '₱0.00';
-            document.getElementById('savings').textContent = '₱0.00';
-            document.getElementById('conversionResults').innerHTML = '';
-            document.getElementById('formulaDisplay').innerHTML = '';
-
-            // Remove animation class after animation completes
-            setTimeout(() => {
-                inputSection.classList.remove('reset-animation');
-            }, 600);
-        }
-
-        function resetKeywordCalculator() {
-            // Add reset animation
-            const keywordSection = document.querySelector('.keyword-section');
-            keywordSection.classList.add('reset-animation');
-
-            // Reset total clicks
-            document.getElementById('totalClicks').value = '100';
-
-            // Clear all keyword inputs except the first one
-            const keywordInputs = document.getElementById('keywordInputs');
-            keywordInputs.innerHTML = `
-                <div class="keyword-input">
-                    <input type="text" placeholder="Keyword" class="keyword-text">
-                    <input type="number" step="0.01" min="0" placeholder="Max CPC Bid (${currencySymbol})" class="keyword-bid">
-                    <input type="number" min="1" max="10" value="7" placeholder="Quality Score" class="keyword-qs">
-                    <input type="number" step="0.01" min="0" placeholder="Competitor Ad Rank (${currencySymbol})" class="keyword-comp">
-                    <button class="remove-btn" onclick="removeKeyword(this)">Remove</button>
-                </div>
-            `;
-
-            // Hide keyword results
-            document.getElementById('keywordResults').classList.remove('show');
-
-            // Clear results content
-            document.getElementById('avgActualCpc').textContent = '₱0.00';
-            document.getElementById('totalKeywords').textContent = '0';
-            document.getElementById('totalBudget').textContent = '₱0.00';
-            document.getElementById('avgQualityScore').textContent = '0';
-            document.getElementById('keywordBreakdown').innerHTML = '';
-
-            // Remove animation class after animation completes
-            setTimeout(() => {
-                keywordSection.classList.remove('reset-animation');
-            }, 600);
-        }
-
-        function addKeyword() {
-            const container = document.getElementById('keywordInputs');
-            const newInput = document.createElement('div');
-            newInput.className = 'keyword-input';
-            newInput.innerHTML = `
-                <input type="text" placeholder="Keyword" class="keyword-text">
-                <input type="number" step="0.01" min="0" placeholder="Max CPC Bid (${currencySymbol})" class="keyword-bid">
-                <input type="number" min="1" max="10" value="7" placeholder="Quality Score" class="keyword-qs">
-                <input type="number" step="0.01" min="0" placeholder="Competitor Ad Rank (${currencySymbol})" class="keyword-comp">
-                <button class="remove-btn" onclick="removeKeyword(this)">Remove</button>
-            `;
-            container.appendChild(newInput);
-            
-            // Add animation
-            newInput.style.opacity = '0';
-            newInput.style.transform = 'translateY(-10px)';
-            setTimeout(() => {
-                newInput.style.transition = 'all 0.3s ease';
-                newInput.style.opacity = '1';
-                newInput.style.transform = 'translateY(0)';
-            }, 10);
-        }
-
-        function removeKeyword(button) {
-            const keywordInput = button.parentElement;
-            keywordInput.style.transition = 'all 0.3s ease';
-            keywordInput.style.transform = 'translateX(100%)';
-            keywordInput.style.opacity = '0';
-            setTimeout(() => {
-                keywordInput.remove();
-            }, 300);
-        }
-
-        function calculateAverageBids() {
-            const keywordInputs = document.querySelectorAll('.keyword-input');
-            const totalClicks = parseInt(document.getElementById('totalClicks').value) || 100;
-            let keywords = [];
-            let totalActualCpc = 0;
-            let totalQualityScore = 0;
-            let validKeywords = 0;
-
-            keywordInputs.forEach(input => {
-                const keywordText = input.querySelector('.keyword-text').value.trim();
-                const maxBid = parseFloat(input.querySelector('.keyword-bid').value);
-                const qualityScore = parseInt(input.querySelector('.keyword-qs').value);
-                const competitorAdRank = parseFloat(input.querySelector('.keyword-comp').value);
-
-                if (keywordText && !isNaN(maxBid) && !isNaN(qualityScore) && !isNaN(competitorAdRank) && maxBid > 0) {
-                    const adRank = maxBid * qualityScore;
-                    const smallestUnit = currencyCode === 'JPY' ? 1 : 0.01;
-                    const actualCpc = (competitorAdRank / qualityScore) + smallestUnit;
+            // Tab switching functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
                     
-                    keywords.push({
-                        keyword: keywordText,
-                        maxBid: maxBid,
-                        qualityScore: qualityScore,
-                        adRank: adRank,
-                        actualCpc: actualCpc,
-                        savings: Math.max(0, maxBid - actualCpc)
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update active tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab`) {
+                            content.classList.add('active');
+                        }
                     });
-                    
-                    totalActualCpc += actualCpc;
-                    totalQualityScore += qualityScore;
-                    validKeywords++;
+                });
+            });
+            
+            // Currency selector functionality
+            currencySelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customCurrencyContainer.style.display = 'block';
+                } else {
+                    customCurrencyContainer.style.display = 'none';
                 }
             });
-
-            if (validKeywords === 0) {
-                alert('Please enter at least one complete keyword with all required fields.');
-                return;
+            
+            bulkCurrencySelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    bulkCustomCurrencyContainer.style.display = 'block';
+                } else {
+                    bulkCustomCurrencyContainer.style.display = 'none';
+                }
+            });
+            
+            // Input method selector
+            inputMethod.addEventListener('change', function() {
+                if (this.value === 'manual') {
+                    manualEntryContainer.style.display = 'block';
+                    uploadEntryContainer.style.display = 'none';
+                    bulkKeywords.style.display = 'block';
+                } else {
+                    manualEntryContainer.style.display = 'none';
+                    uploadEntryContainer.style.display = 'block';
+                    bulkKeywords.style.display = 'block';
+                }
+            });
+            
+            // Add keyword manually
+            addKeywordBtn.addEventListener('click', function() {
+                const keyword = manualKeyword.value.trim();
+                const bidLow = parseFloat(manualBidLow.value);
+                const bidHigh = parseFloat(manualBidHigh.value);
+                const monthlySearches = parseInt(manualSearches.value);
+                const competitionLevel = manualCompetition.value;
+                
+                if (!keyword || isNaN(bidLow) || isNaN(bidHigh) || isNaN(monthlySearches) || 
+                    !['high', 'medium', 'low'].includes(competitionLevel)) {
+                    alert('Please fill in all fields with valid values for the keyword');
+                    return;
+                }
+                
+                manualKeywords.push({
+                    keyword,
+                    bidLow,
+                    bidHigh,
+                    monthlySearches,
+                    competitionLevel
+                });
+                
+                // Update the textarea with CSV format
+                const csvLines = manualKeywords.map(k => 
+                    `${k.keyword},${k.bidLow},${k.bidHigh},${k.monthlySearches},${k.competitionLevel}`
+                );
+                bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\n' + csvLines.join('\n');
+                
+                // Update the display list
+                noKeywordsText.style.display = 'none';
+                const keywordEl = document.createElement('div');
+                keywordEl.style = 'padding: 0.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;';
+                keywordEl.innerHTML = `
+                    <span>${keyword}</span>
+                    <button style="background: var(--high-competition); padding: 0.2rem 0.5rem; border-radius: 4px; color: white; border: none; cursor: pointer;" onclick="this.parentElement.remove(); manualKeywords = manualKeywords.filter(k => k.keyword !== '${keyword}'); updateTextarea();">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                manualKeywordsList.appendChild(keywordEl);
+                
+                // Clear inputs
+                manualKeyword.value = '';
+                manualBidLow.value = '';
+                manualBidHigh.value = '';
+                manualSearches.value = '';
+            });
+            
+            // Update textarea when keywords are removed
+            window.updateTextarea = function() {
+                if (manualKeywords.length === 0) {
+                    noKeywordsText.style.display = 'block';
+                    bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\nexample keyword,0.5,1.5,1000,high\nanother keyword,0.3,1.0,500,medium';
+                } else {
+                    const csvLines = manualKeywords.map(k => 
+                        `${k.keyword},${k.bidLow},${k.bidHigh},${k.monthlySearches},${k.competitionLevel}`
+                    );
+                    bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\n' + csvLines.join('\n');
+                }
+            };
+            
+            // Get current currency symbol
+            function getCurrencySymbol(isBulk = false) {
+                if (isBulk) {
+                    if (bulkCurrencySelect.value === 'custom') {
+                        return bulkCustomCurrencySymbol.value || '$';
+                    }
+                    const selectedOption = bulkCurrencySelect.options[bulkCurrencySelect.selectedIndex];
+                    return selectedOption.getAttribute('data-symbol') || '$';
+                } else {
+                    if (currencySelect.value === 'custom') {
+                        return customCurrencySymbol.value || '$';
+                    }
+                    const selectedOption = currencySelect.options[currencySelect.selectedIndex];
+                    return selectedOption.getAttribute('data-symbol') || '$';
+                }
             }
-
-            const avgActualCpc = totalActualCpc / validKeywords;
-            const avgQualityScore = totalQualityScore / validKeywords;
-            const estimatedTotalBudget = avgActualCpc * totalClicks;
-
-            // Update results
-            document.getElementById('avgActualCpc').textContent = formatCurrency(avgActualCpc);
-            document.getElementById('totalKeywords').textContent = validKeywords;
-            document.getElementById('totalBudget').textContent = formatCurrency(estimatedTotalBudget);
-            document.getElementById('avgQualityScore').textContent = avgQualityScore.toFixed(1);
-
-            // Show keyword breakdown
-            const breakdownHtml = `
-                <div class="conversion-section">
-                    <h3>📋 Keyword Breakdown</h3>
-                    ${keywords.map(k => `
-                        <div class="conversion-row">
-                            <div>
-                                <strong>${k.keyword}</strong><br>
-                                <small>Ad Rank: ${k.adRank.toFixed(2)} | QS: ${k.qualityScore}</small>
-                            </div>
-                            <div style="text-align: right;">
-                                <strong>${formatCurrency(k.actualCpc)}</strong><br>
-                                <small style="color: #4CAF50;">Save: ${formatCurrency(k.savings)}</small>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('keywordBreakdown').innerHTML = breakdownHtml;
-
-            // Show results
-            document.getElementById('keywordResults').classList.add('show');
-        }
-
-        // Initialize
-        updateCurrency();
+            
+            // Calculate search volume factor (aligned with Google Keyword Planner concepts)
+            function getSearchVolumeFactor(monthlySearches) {
+                if (monthlySearches >= 100000) return 1.5;  // Very high volume
+                if (monthlySearches >= 10000) return 1.2;   // High volume
+                if (monthlySearches >= 5000) return 1.1;    // Moderate-high volume
+                if (monthlySearches >= 1000) return 1.0;    // Moderate volume
+                if (monthlySearches >= 500) return 0.9;     // Low-moderate volume
+                if (monthlySearches >= 100) return 0.8;     // Low volume
+                return 0.7;                                // Very low volume
+            }
+            
+            // Calculate competition factor (aligned with Google Keyword Planner)
+            function getCompetitionFactor(competitionLevel) {
+                switch (competitionLevel.toLowerCase()) {
+                    case 'high': return 1.3;    // High competition increases bid
+                    case 'medium': return 1.0;  // Medium is baseline
+                    case 'low': return 0.7;     // Low competition reduces bid
+                    default: return 1.0;
+                }
+            }
+            
+            // Format currency
+            function formatCurrency(amount, symbol) {
+                return `${symbol}${amount.toFixed(2)}`;
+            }
+            
+            // Parse and validate CSV data (aligned with Google Keyword Planner format)
+            function parseCSVData(csvText) {
+                const lines = csvText.split('\n').map(line => line.trim()).filter(line => line);
+                const keywordsData = [];
+                let hasHeaders = false;
+                
+                // Check for Google Keyword Planner-style headers
+                const firstLine = lines[0].toLowerCase();
+                if (firstLine.includes('keyword') && firstLine.includes('bid_low') && 
+                    firstLine.includes('bid_high') && firstLine.includes('monthly_searches') && 
+                    firstLine.includes('competition_level')) {
+                    hasHeaders = true;
+                }
+                
+                // Process each line
+                for (let i = hasHeaders ? 1 : 0; i < lines.length; i++) {
+                    const parts = lines[i].split(',').map(part => part.trim());
+                    if (parts.length < 5) continue;
+                    
+                    try {
+                        const keyword = parts[0];
+                        const bidLow = parseFloat(parts[1]);
+                        const bidHigh = parseFloat(parts[2]);
+                        const monthlySearches = parseInt(parts[3]);
+                        const competitionLevel = parts[4].toLowerCase();
+                        
+                        // Validate inputs per Google Keyword Planner expectations
+                        if (!keyword || keyword === '') continue;
+                        if (isNaN(bidLow) || bidLow < 0) continue; // Bid low must be non-negative
+                        if (isNaN(bidHigh) || bidHigh < bidLow) continue; // Bid high must be >= bid low
+                        if (isNaN(monthlySearches) || monthlySearches < 0) continue; // Searches must be non-negative
+                        if (!['high', 'medium', 'low'].includes(competitionLevel)) continue; // Valid competition levels
+                        
+                        keywordsData.push({
+                            keyword,
+                            bidLow,
+                            bidHigh,
+                            monthlySearches,
+                            competitionLevel
+                        });
+                    } catch (e) {
+                        console.error('Error parsing line:', lines[i], e);
+                    }
+                }
+                
+                return keywordsData;
+            }
+            
+            // Single keyword calculation
+            calculateBtn.addEventListener('click', function() {
+                const bidLow = parseFloat(document.getElementById('bidLow').value);
+                const bidHigh = parseFloat(document.getElementById('bidHigh').value);
+                const monthlySearches = parseInt(document.getElementById('monthlySearches').value);
+                const competitionLevel = document.getElementById('competitionLevel').value;
+                const currencySymbol = getCurrencySymbol();
+                
+                if (isNaN(bidLow) || bidLow < 0 || isNaN(bidHigh) || bidHigh < bidLow || isNaN(monthlySearches) || monthlySearches < 0) {
+                    alert('Please fill in all fields with valid numbers: Bid Low >= 0, Bid High >= Bid Low, Monthly Searches >= 0');
+                    return;
+                }
+                
+                // Calculate average bid
+                const averageBid = (bidLow + bidHigh) / 2;
+                
+                // Get factors
+                const searchVolumeFactor = getSearchVolumeFactor(monthlySearches);
+                const competitionFactor = getCompetitionFactor(competitionLevel);
+                
+                // Calculate adjusted bid
+                const adjustedBid = averageBid * searchVolumeFactor * competitionFactor;
+                
+                // Display result
+                resultValue.textContent = formatCurrency(adjustedBid, currencySymbol);
+                resultDiv.style.display = 'block';
+                
+                // Show calculation explanation
+                explanationSteps.innerHTML = `
+                    <div class="calculation-step">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Average bid: (<span class="formula-highlight">${formatCurrency(bidLow, currencySymbol)} + ${formatCurrency(bidHigh, currencySymbol)}) / 2 = ${formatCurrency(averageBid, currencySymbol)}</span></span>
+                    </div>
+                    <div class="calculation-step">
+                        <i class="fas fa-search"></i>
+                        <span>Search volume factor (${monthlySearches} searches): <span class="formula-highlight">${searchVolumeFactor}</span></span>
+                    </div>
+                    <div class="calculation-step">
+                        <i class="fas fa-users"></i>
+                        <span>Competition factor (${competitionLevel}): <span class="formula-highlight">${competitionFactor}</span></span>
+                    </div>
+                    <div class="calculation-step">
+                        <i class="fas fa-equals"></i>
+                        <span>Adjusted bid: <span class="formula-highlight">${formatCurrency(averageBid, currencySymbol)} × ${searchVolumeFactor} × ${competitionFactor} = ${formatCurrency(adjustedBid, currencySymbol)}</span></span>
+                    </div>
+                `;
+                
+                // Show modal
+                modalResult.textContent = formatCurrency(adjustedBid, currencySymbol);
+                modal.style.display = 'flex';
+            });
+            
+            // File upload handler
+            keywordFile.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const csvText = e.target.result;
+                    const keywordsData = parseCSVData(csvText);
+                    
+                    if (keywordsData.length === 0) {
+                        alert('No valid keyword data found in the uploaded CSV. Ensure format: keyword,bid_low,bid_high,monthly_searches,competition_level');
+                        bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\nexample keyword,0.5,1.5,1000,high\nanother keyword,0.3,1.0,500,medium';
+                        return;
+                    }
+                    
+                    // Update textarea with uploaded data
+                    const csvLines = keywordsData.map(k => 
+                        `${k.keyword},${k.bidLow},${k.bidHigh},${k.monthlySearches},${k.competitionLevel}`
+                    );
+                    bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\n' + csvLines.join('\n');
+                };
+                reader.onerror = function() {
+                    alert('Error reading file. Please try again.');
+                };
+                reader.readAsText(file);
+            });
+            
+            // Add keyword manually
+            addKeywordBtn.addEventListener('click', function() {
+                const keyword = manualKeyword.value.trim();
+                const bidLow = parseFloat(manualBidLow.value);
+                const bidHigh = parseFloat(manualBidHigh.value);
+                const monthlySearches = parseInt(manualSearches.value);
+                const competitionLevel = manualCompetition.value;
+                
+                if (!keyword || isNaN(bidLow) || bidLow < 0 || isNaN(bidHigh) || bidHigh < bidLow || 
+                    isNaN(monthlySearches) || monthlySearches < 0 || !['high', 'medium', 'low'].includes(competitionLevel)) {
+                    alert('Please fill in all fields with valid values: Keyword non-empty, Bid Low >= 0, Bid High >= Bid Low, Monthly Searches >= 0, Competition: high/medium/low');
+                    return;
+                }
+                
+                manualKeywords.push({
+                    keyword,
+                    bidLow,
+                    bidHigh,
+                    monthlySearches,
+                    competitionLevel
+                });
+                
+                // Update the textarea with CSV format
+                const csvLines = manualKeywords.map(k => 
+                    `${k.keyword},${k.bidLow},${k.bidHigh},${k.monthlySearches},${k.competitionLevel}`
+                );
+                bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\n' + csvLines.join('\n');
+                
+                // Update the display list
+                noKeywordsText.style.display = 'none';
+                const keywordEl = document.createElement('div');
+                keywordEl.style = 'padding: 0.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;';
+                keywordEl.innerHTML = `
+                    <span>${keyword}</span>
+                    <button style="background: var(--high-competition); padding: 0.2rem 0.5rem; border-radius: 4px; color: white; border: none; cursor: pointer;" onclick="this.parentElement.remove(); manualKeywords = manualKeywords.filter(k => k.keyword !== '${keyword}'); updateTextarea();">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                manualKeywordsList.appendChild(keywordEl);
+                
+                // Clear inputs
+                manualKeyword.value = '';
+                manualBidLow.value = '';
+                manualBidHigh.value = '';
+                manualSearches.value = '';
+            });
+            
+            // Update textarea when keywords are removed
+            window.updateTextarea = function() {
+                if (manualKeywords.length === 0) {
+                    noKeywordsText.style.display = 'block';
+                    bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\nexample keyword,0.5,1.5,1000,high\nanother keyword,0.3,1.0,500,medium';
+                } else {
+                    const csvLines = manualKeywords.map(k => 
+                        `${k.keyword},${k.bidLow},${k.bidHigh},${k.monthlySearches},${k.competitionLevel}`
+                    );
+                    bulkKeywords.value = 'keyword,bid_low,bid_high,monthly_searches,competition_level\n' + csvLines.join('\n');
+                }
+            };
+            
+            // Bulk keyword calculation
+            calculateBulkBtn.addEventListener('click', function() {
+                const bulkKeywordsText = document.getElementById('bulkKeywords').value.trim();
+                const currencySymbol = getCurrencySymbol(true);
+                const inputMethodValue = inputMethod.value;
+                
+                if (!bulkKeywordsText) {
+                    alert('Please enter or upload keyword data in CSV format');
+                    return;
+                }
+                
+                // Parse CSV data from textarea (handles both manual and uploaded input)
+                const keywordsData = parseCSVData(bulkKeywordsText);
+                
+                if (keywordsData.length === 0) {
+                    alert('No valid keyword data found. Ensure format: keyword,bid_low,bid_high,monthly_searches,competition_level with valid values');
+                    return;
+                }
+                
+                // Calculate bids for each keyword
+                const results = keywordsData.map(data => {
+                    const averageBid = (data.bidLow + data.bidHigh) / 2;
+                    const searchVolumeFactor = getSearchVolumeFactor(data.monthlySearches);
+                    const competitionFactor = getCompetitionFactor(data.competitionLevel);
+                    const adjustedBid = averageBid * searchVolumeFactor * competitionFactor;
+                    
+                    return {
+                        ...data,
+                        adjustedBid
+                    };
+                });
+                
+                // Calculate summary statistics
+                const totalKeywords = results.length;
+                const totalBid = results.reduce((sum, result) => sum + result.adjustedBid, 0);
+                const averageBid = totalBid / totalKeywords;
+                const highestBid = Math.max(...results.map(r => r.adjustedBid));
+                const lowestBid = Math.min(...results.map(r => r.adjustedBid));
+                
+                // Display results
+                bulkResultsList.innerHTML = results.map(result => `
+                    <div class="keyword-result">
+                        <div class="keyword-name">${result.keyword}</div>
+                        <div class="keyword-bid">${formatCurrency(result.adjustedBid, currencySymbol)}</div>
+                    </div>
+                `).join('');
+                
+                // Update summary stats
+                totalKeywordsEl.textContent = totalKeywords;
+                averageBidEl.textContent = formatCurrency(averageBid, currencySymbol);
+                highestBidEl.textContent = formatCurrency(highestBid, currencySymbol);
+                lowestBidEl.textContent = formatCurrency(lowestBid, currencySymbol);
+                
+                // Update modal stats
+                modalTotalKeywordsEl.textContent = totalKeywords;
+                modalAverageBidEl.textContent = formatCurrency(averageBid, currencySymbol);
+                modalHighestBidEl.textContent = formatCurrency(highestBid, currencySymbol);
+                modalLowestBidEl.textContent = formatCurrency(lowestBid, currencySymbol);
+                
+                // Show results and modal
+                bulkResultDiv.style.display = 'block';
+                bulkModal.style.display = 'flex';
+            });
+            
+            // Copy results to clipboard
+            document.getElementById('copyResultsBtn').addEventListener('click', function() {
+                const results = Array.from(document.querySelectorAll('.keyword-result')).map(el => {
+                    const keyword = el.querySelector('.keyword-name').textContent;
+                    const bid = el.querySelector('.keyword-bid').textContent;
+                    return `${keyword},${bid}`;
+                }).join('\n');
+                
+                navigator.clipboard.writeText(results).then(() => {
+                    alert('Results copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy results:', err);
+                    alert('Failed to copy results. Please try again.');
+                });
+            });
+            
+            // Modal close handlers
+            closeModal.addEventListener('click', () => modal.style.display = 'none');
+            closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+            closeBulkModal.addEventListener('click', () => bulkModal.style.display = 'none');
+            closeBulkModalBtn.addEventListener('click', () => bulkModal.style.display = 'none');
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+                if (e.target === bulkModal) bulkModal.style.display = 'none';
+            });
+        });
     </script>
 </body>
 </html>
