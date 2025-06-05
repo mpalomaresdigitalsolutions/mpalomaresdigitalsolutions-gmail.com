@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Hi there 👋
 
 <!--
@@ -14,3 +15,7 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+=======
+# mpalomaresdigitalsolutions-gmail.com
+My Creative Portfolio
+>>>>>>> 42392550410a00a4c75c7adaf6e5852901a84aa4
